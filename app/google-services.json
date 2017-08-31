@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "802887467777",
+    "project_id": "firebase-isend"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802887467777:android:59091220cb1931c9",
+        "android_client_info": {
+          "package_name": "com.isend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isend",
+            "certificate_hash": "8a4a6e6a3aa10c22101b3e6bdfa852ac4e63b0bc"
+          }
+        },
+        {
+          "client_id": "802887467777-8la7ht0pffral5m5bap6ku17rnp4o3tn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5gWm-sg2ZW9FDCjHmtk_s62_KA1tIyYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-105733227-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
