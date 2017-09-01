@@ -24,7 +24,7 @@ public class FragmentFriends extends Fragment {
     }
 
     private void getContact() {
-       //BURADA TÜM LİSTEYİ ÇEKİP DATABESE E YAZDIRACAĞIZ
+        //BURADA TÜM LİSTEYİ ÇEKİP DATABESE E YAZDIRACAĞIZ
     }
 
     public void verifyContactPermissions() {
