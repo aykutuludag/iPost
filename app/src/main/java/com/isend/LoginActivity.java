@@ -1,21 +1,18 @@
 package com.isend;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -23,18 +20,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.squareup.picasso.Picasso;
-
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
     GoogleApiClient mGoogleApiClient;
-    LoginButton loginButton;
-    CallbackManager callbackManager;
+    SQLiteDatabase database_account;
+    Cursor cur;
+    String isSigned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +37,8 @@ public class LoginActivity extends AppCompatActivity implements
 
         // Set the dimensions of the sign-in button.
         SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(this);
-
 
         // Configure sign-in to request the user's ID, email address, and basic profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -58,27 +51,33 @@ public class LoginActivity extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        //Facebook
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        loginButton.setReadPermissions();
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
+        database_account = openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        database_account.execSQL("CREATE TABLE IF NOT EXISTS account_info(Name TEXT, Email VARCHAR, PhotoURL VARCHAR, isSigned BOOLEAN);");
+        cur = database_account.rawQuery("Select * from account_info", null);
+        if (cur.getCount() != 0) {
+            cur.moveToFirst();
+            do {
+                for (int i = 0; i < cur.getColumnCount(); i++) {
+                    isSigned = cur.getString(3);
+                }
+            } while (cur.moveToNext());
+        }
+        cur.close();
 
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });
-
+        // Check user is already signed
+        if (isSigned != null && Integer.parseInt(isSigned) == 1) {
+            signInButton.setVisibility(View.INVISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, 1250);
+        } else {
+            signInButton.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -89,26 +88,30 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("GoogleSignIn", "handleSignInResult:" + result.isSuccess());
+
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            assert acct != null;
             String name = acct.getDisplayName();
             String email = acct.getEmail();
             Uri photo = acct.getPhotoUrl();
-
-            TextView text = findViewById(R.id.textView);
-            text.setText(name);
-
-            TextView text2 = findViewById(R.id.textView2);
-            text2.setText(email);
-
-            ImageView imageview = findViewById(R.id.imageView);
-            Picasso.with(this).load(photo).error(R.drawable.unsal).placeholder(R.drawable.david_haye)
-                    .into(imageview);
-
-
+            ContentValues values = new ContentValues();
+            values.put("Name", name);
+            values.put("Email", email);
+            values.put("PhotoURL", photo.toString());
+            values.put("isSigned", result.isSuccess());
+            database_account.insert("account_info", null, values);
+            Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, 1250);
         } else {
-            // Signed out, show unauthenticated UI.
+            Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -118,16 +121,12 @@ public class LoginActivity extends AppCompatActivity implements
             case R.id.sign_in_button:
                 signIn();
                 break;
-            // ...
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //Facebook
-        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == 9001) {
