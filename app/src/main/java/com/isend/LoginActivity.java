@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity implements
     GoogleApiClient mGoogleApiClient;
     SQLiteDatabase database_account;
     Cursor cur;
-    String isSigned;
+    String name, email, isSigned;
+    Uri photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,6 @@ public class LoginActivity extends AppCompatActivity implements
         } else {
             signInButton.setVisibility(View.VISIBLE);
         }
-
     }
 
     private void signIn() {
@@ -87,32 +87,34 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d("GoogleSignIn", "handleSignInResult:" + result.isSuccess());
-
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
-            assert acct != null;
-            String name = acct.getDisplayName();
-            String email = acct.getEmail();
-            Uri photo = acct.getPhotoUrl();
-            ContentValues values = new ContentValues();
-            values.put("Name", name);
-            values.put("Email", email);
-            values.put("PhotoURL", photo.toString());
-            values.put("isSigned", result.isSuccess());
-            database_account.insert("account_info", null, values);
-            Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }, 1250);
+            if (acct != null) {
+                name = acct.getDisplayName();
+                email = acct.getEmail();
+                photo = acct.getPhotoUrl();
+                Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
+                ContentValues values = new ContentValues();
+                values.put("Name", name);
+                values.put("Email", email);
+                values.put("PhotoURL", photo.toString());
+                values.put("isSigned", result.isSuccess());
+                database_account.insert("account_info", null, values);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }, 1250);
+            } else {
+                Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
         }
+        Log.d("GoogleSignIn", "handleSignInResult:" + result.isSuccess());
     }
 
     @Override

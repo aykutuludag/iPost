@@ -1,13 +1,16 @@
 package com.isend;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,15 +21,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String name;
+    public static String email;
+    public static String photoURL;
     SQLiteDatabase database_account;
     Cursor cur;
-    String name, email, photoURL, isSigned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,6 @@ public class MainActivity extends AppCompatActivity
                     name = cur.getString(0);
                     email = cur.getString(1);
                     photoURL = cur.getString(2);
-                    isSigned = cur.getString(3);
                 }
             } while (cur.moveToNext());
         }

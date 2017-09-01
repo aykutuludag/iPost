@@ -3,14 +3,15 @@ package com.isend;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
+    FrameLayout frame;
+    FragmentTransaction transaction;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -18,18 +19,23 @@ public class ProfileActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content, new FragmentProfile());
+                    transaction.commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content, new FragmentAccounts());
+                    transaction.commit();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content, new FragmentFriends());
+                    transaction.commit();
                     return true;
             }
             return false;
         }
-
     };
 
     @Override
@@ -37,9 +43,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        frame = findViewById(R.id.content);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, new FragmentProfile());
+        transaction.commit();
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
 }

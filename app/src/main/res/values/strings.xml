@@ -4,8 +4,10 @@
     <string name="facebook_app_id">883953245105670</string>
     <string name="fb_login_protocol_scheme">fb883953245105670</string>
 
-    <string name="account_created">Account created&#8230;</string>
-    <string name="error_login">There is an connection error when connecting your Google account. Please try again later&#8230;</string>
+    <string name="account_created">Account is created. Please wait&#8230;</string>
+    <string name="account_connected">Now iSend is connected to the your account. Sync will start soon&#8230;</string>
+    <string name="error_login">We encountered a connection error. Please try again later&#8230;</string>
+    <string name="error_aborted">Connection aborted by user</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="events">Events</string>
@@ -22,11 +24,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Profile</string>
+    <string name="title_dashboard">Accounts</string>
+    <string name="title_notifications">Friends</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="base_account">Google can not be deleted because it is a base service for iSend.</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -98,6 +101,9 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_settinsssssgs">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_client_id">802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com</string>
 </resources>
