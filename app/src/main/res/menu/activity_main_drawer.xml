@@ -6,15 +6,15 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_eventtoday"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@drawable/ic_event_today"
                     android:title="@string/events_today" />
                 <item
                     android:id="@+id/nav_eventupcoming"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_event_upcoming"
                     android:title="@string/events_upcoming" />
                 <item
                     android:id="@+id/nav_eventpast"
-                    android:icon="@drawable/ic_menu_slideshow"
+                    android:icon="@drawable/ic_event_past"
                     android:title="@string/events_past" />
             </group>
         </menu>
@@ -24,11 +24,11 @@
         <menu>
             <item
                 android:id="@+id/nav_postplanning"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_postplanning"
                 android:title="@string/posts_planned" />
             <item
                 android:id="@+id/nav_postsent"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_postsent"
                 android:title="@string/posts_sent" />
         </menu>
     </item>

@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class FragmentProfile extends Fragment {
+public class ProfileDetail extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        View v = inflater.inflate(R.layout.profile_detail, container, false);
 
         String name = MainActivity.name;
         String email = MainActivity.email;

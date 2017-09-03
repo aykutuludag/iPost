@@ -21,7 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class LoginActivity extends AppCompatActivity implements
+public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
 
         // Set the dimensions of the sign-in button.
         SignInButton signInButton = findViewById(R.id.sign_in_button);
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        // Create local database to save user information
         database_account = openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         database_account.execSQL("CREATE TABLE IF NOT EXISTS account_info(Name TEXT, Email VARCHAR, PhotoURL VARCHAR, isSigned BOOLEAN);");
         cur = database_account.rawQuery("Select * from account_info", null);
@@ -71,11 +72,11 @@ public class LoginActivity extends AppCompatActivity implements
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignInActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
                 }
-            }, 1250);
+            }, 2000);
         } else {
             signInButton.setVisibility(View.VISIBLE);
         }
@@ -103,18 +104,17 @@ public class LoginActivity extends AppCompatActivity implements
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent i = new Intent(SignInActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
                     }
-                }, 1250);
+                }, 2000);
             } else {
-                Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_login_no_account), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, getString(R.string.error_login), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_login_fail), Toast.LENGTH_SHORT).show();
         }
-        Log.d("GoogleSignIn", "handleSignInResult:" + result.isSuccess());
     }
 
     @Override
@@ -129,8 +129,6 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == 9001) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
@@ -139,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "Connection error: " + connectionResult, Toast.LENGTH_SHORT).show();
     }
 }
 

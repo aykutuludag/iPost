@@ -11,14 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class FragmentFriends extends Fragment {
+public class ProfileFriends extends Fragment {
 
     private static final int REQUEST_READ_CONTACT = 0;
     private static String[] PERMISSIONS_CONTACT = {Manifest.permission.READ_CONTACTS};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_friends, container, false);
+        View v = inflater.inflate(R.layout.profile_friends, container, false);
         verifyContactPermissions();
         return v;
     }

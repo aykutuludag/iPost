@@ -1,48 +1,53 @@
 <resources>
-    <string name="app_name">iSend</string>
 
+    <!-- General -->
+    <string name="app_name">iSend</string>
     <string name="facebook_app_id">883953245105670</string>
     <string name="fb_login_protocol_scheme">fb883953245105670</string>
+    <string name="server_client_id">802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com</string>
 
-    <string name="account_created">Account is created. Please wait&#8230;</string>
-    <string name="account_connected">Now iSend is connected to the your account. Sync will start soon&#8230;</string>
-    <string name="error_login">We encountered a connection error. Please try again later&#8230;</string>
-    <string name="error_aborted">Connection aborted by user</string>
+    <!-- ErrorTypes -->
+    <string name="error_login_no_account">Error Code: 001 - We couldn\'t fetch your account information. Please check your Google account and internet connection then try again later&#8230;</string>
+    <string name="error_login_fail">Error Code: 002 - An error occured while logging in. Please check your internet connection and try again later&#8230;</string>
+    <string name="error_aborted">Error Code: 002 - Process aborted by user&#8230;</string>
+    <string name="error_no_calendar">We couldn\'t find any events on your calendar. Please check Google Calendar sync and try again&#8230;</string>
+
+    <!-- LoginActivity -->
+    <string name="account_created">Sign-in is successful. Your account is creating. We will start soon.&#8230;</string>
+
+    <!-- MainActivity -->
     <string name="title_activity_main">MainActivity</string>
 
+    <!-- NavigationDrawer -->
     <string name="events">Events</string>
     <string name="events_today">Today</string>
     <string name="events_upcoming">Upcoming</string>
     <string name="events_past">Past</string>
-
     <string name="posts">Posts</string>
     <string name="posts_planned">Planned</string>
     <string name="posts_sent">Sent</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- ActionBarMenu -->
     <string name="action_settings">Settings</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="action_help">Help</string>
+    <string name="action_privacy">Privacy</string>
+
+    <!-- ProfileActivity -->
+    <string name="title_activity_profile">Profile</string>
     <string name="title_home">Profile</string>
-    <string name="title_dashboard">Accounts</string>
+    <string name="title_dashboard">Connected accounts</string>
     <string name="title_notifications">Friends</string>
+    <string name="permission_calendar_granted">Permission has been granted. Google Calendar is now synchronising&#8230;</string>
+
+    <!-- Settings -->
     <string name="title_activity_settings">Settings</string>
-
-    <string name="base_account">Google can not be deleted because it is a base service for iSend.</string>
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
-
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
+    <string name="pref_description_social_recommendations">Recommendations for people to contact based on your message history</string>
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
-
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>
@@ -54,10 +59,7 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
-
-    <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
-
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
@@ -75,35 +77,22 @@
         <item>360</item>
         <item>-1</item>
     </string-array>
-
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
         <item>Entry 2</item>
         <item>Entry 3</item>
     </string-array>
-
     <string-array name="list_preference_entry_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
-
     <string-array name="multi_select_list_preference_default_value" />
-
     <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
-
     <string name="pref_title_new_message_notifications">New message notifications</string>
-
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
-
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_settinsssssgs">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="server_client_id">802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com</string>
 </resources>

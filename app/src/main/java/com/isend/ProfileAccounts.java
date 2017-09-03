@@ -22,7 +22,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
 
-public class FragmentAccounts extends Fragment {
+public class ProfileAccounts extends Fragment {
 
     CallbackManager callbackManager;
     private static final int REQUEST_CALENDAR_READ = 0;
@@ -31,15 +31,19 @@ public class FragmentAccounts extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_accounts, container, false);
+        View v = inflater.inflate(R.layout.profile_accounts, container, false);
 
-        // GOOGLE
+        // GOOGLE CALENDAR
         SignInButton google = v.findViewById(R.id.account_google);
         View.OnClickListener buttonListener = new View.OnClickListener() {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.account_google:
-                        googleCalendar();
+                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
+                        } else {
+                            googleCalendar();
+                        }
                         break;
                 }
             }
@@ -47,15 +51,15 @@ public class FragmentAccounts extends Fragment {
         google.setOnClickListener(buttonListener);
 
 
-        //  FACEBOOK
+        //  FACEBOOK CALENDAR
         callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = v.findViewById(R.id.login_button);
+        final LoginButton loginButton = v.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getActivity(), getString(R.string.account_connected), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Connection successful:" + loginResult, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -65,17 +69,17 @@ public class FragmentAccounts extends Fragment {
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(getActivity(), getString(R.string.error_login), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Connection error: " + e.toString(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        //  OUTLOOK CALENDAR
 
         return v;
     }
 
+    @SuppressWarnings("MissingPermission")
     void googleCalendar() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
-        }
         Cursor cur;
         ContentResolver cr = getActivity().getContentResolver();
 
@@ -83,9 +87,11 @@ public class FragmentAccounts extends Fragment {
                 {
                         "_id",
                         CalendarContract.Events.TITLE,
-                        CalendarContract.Events.EVENT_LOCATION,
+                        CalendarContract.Events.DESCRIPTION,
                         CalendarContract.Events.DTSTART,
                         CalendarContract.Events.DTEND,
+                        CalendarContract.Events.EVENT_LOCATION,
+                        CalendarContract.Events.ORGANIZER
                 };
 
         Uri uri = CalendarContract.Events.CONTENT_URI;
@@ -94,12 +100,18 @@ public class FragmentAccounts extends Fragment {
         if (cur != null) {
             while (cur.moveToNext()) {
                 String title = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
+                String desc = cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION));
                 String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
                 String end = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
                 String location = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
-                System.out.println("Etkinlik adı:" + title + "saat:" + start + "-" + end + "konum:" + location);
+                String owner = cur.getString(cur.getColumnIndex(CalendarContract.Events.ORGANIZER));
+
+                System.out.println("Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "owner:" + owner);
             }
             cur.close();
+            Toast.makeText(getActivity(), getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.error_no_calendar), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -108,7 +120,6 @@ public class FragmentAccounts extends Fragment {
         switch (requestCode) {
             case REQUEST_CALENDAR_READ: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(), "sdfsdfdfsdfdfd.", Toast.LENGTH_SHORT).show();
                     googleCalendar();
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.error_aborted), Toast.LENGTH_SHORT)
