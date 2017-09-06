@@ -1,6 +1,8 @@
 package com.isend;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,8 +30,8 @@ public class MainActivity extends AppCompatActivity
     public static String name;
     public static String email;
     public static String photoURL;
-    SQLiteDatabase database_account;
-    Cursor cur;
+    SharedPreferences prefs;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +40,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Connect database and fetch account information
-        database_account = openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("Select * from account_info", null);
-        if (cur.getCount() != 0) {
-            cur.moveToFirst();
-            do {
-                for (int i = 0; i < cur.getColumnCount(); i++) {
-                    name = cur.getString(0);
-                    email = cur.getString(1);
-                    photoURL = cur.getString(2);
-                }
-            } while (cur.moveToNext());
-        }
-        cur.close();
+        prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
+        name = prefs.getString("Name", "");
+        email = prefs.getString("Email", "");
+        photoURL = prefs.getString("ProfilePhoto", "");
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //NavigationView
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //HeaderView
@@ -92,6 +85,11 @@ public class MainActivity extends AppCompatActivity
         Picasso.with(this).load(photoURL).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
                 .into(profilePic);
 
+        if (savedInstanceState == null) {
+            Fragment fragment = new EventsToday();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
+            navigationView.setCheckedItem(R.id.nav_eventtoday);
+        }
     }
 
     @Override
@@ -106,39 +104,38 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(i);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_eventtoday) {
-            // Handle the camera action
+            Fragment fragment = new EventsToday();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
+            navigationView.setCheckedItem(R.id.nav_eventtoday);
         } else if (id == R.id.nav_eventupcoming) {
-
+            Fragment fragment = new EventsUpcoming();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();
+            navigationView.setCheckedItem(R.id.nav_eventupcoming);
         } else if (id == R.id.nav_eventpast) {
-
+            Fragment fragment = new EventsPast();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsPast").commit();
+            navigationView.setCheckedItem(R.id.nav_eventpast);
         } else {
 
         }

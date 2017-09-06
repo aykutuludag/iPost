@@ -1,10 +1,14 @@
 package com.isend.model;
 
-import android.graphics.Bitmap;
-
 public class EventItem {
+
     private String title;
-    private Bitmap thumbnail;
+    private String description;
+    private String startTime;
+    private String endTime;
+    private String location;
+    private String owner;
+    private String background;
 
     public String getTitle() {
         return title;
@@ -14,11 +18,51 @@ public class EventItem {
         this.title = title;
     }
 
-    public Bitmap getThumbnail() {
-        return thumbnail;
+    public String getDescription() {
+        return description;
     }
 
-    public void setThumbnail(Bitmap bitmap) {
-        this.thumbnail = bitmap;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String location) {
+        this.location = location;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }

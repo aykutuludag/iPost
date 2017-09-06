@@ -17,22 +17,6 @@ public class ProfileDetail extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_detail, container, false);
 
-        String name = MainActivity.name;
-        String email = MainActivity.email;
-        String photoURL = MainActivity.photoURL;
-
-        //Name
-        TextView navUsername = v.findViewById(R.id.textView3);
-        navUsername.setText(name);
-        //E-mail
-        TextView navEmail = v.findViewById(R.id.textView4);
-        navEmail.setText(email);
-        //ProfilePicture
-        ImageView profilePic = v.findViewById(R.id.imageView3);
-        Picasso.with(getActivity()).load(photoURL).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
-                .into(profilePic);
-
-
         return v;
     }
 }

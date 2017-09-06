@@ -2,6 +2,7 @@ package com.isend.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
@@ -22,23 +23,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<EventItem> feedItemList;
     private Context mContext;
 
-    // Get Uri
-    private String path = Environment.getExternalStorageDirectory().toString() + "/Günlük Burçlar/Favoriler";
-    private File f = new File(path);
-    private File file[] = f.listFiles();
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView image;
+        TextView text;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            text = itemView.findViewById(R.id.txt_title);
+            image = itemView.findViewById(R.id.img_background);
+        }
+    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             ViewHolder holder = (ViewHolder) view.getTag();
-            int position = holder.getAdapterPosition();
+           /* int position = holder.getAdapterPosition();
             Uri photoURI = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".provider", file[position]);
 
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(photoURI, "image/*");
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            mContext.startActivity(intent);
+            mContext.startActivity(intent);*/
         }
     };
 
@@ -49,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_favorites, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_events, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -57,11 +65,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         EventItem feedItem = feedItemList.get(i);
 
-        // Setting image
-        viewHolder.image.setImageBitmap(feedItem.getThumbnail());
-
         // Setting text view title
         viewHolder.text.setText(feedItem.getTitle());
+
+        // Setting image
+        viewHolder.image.setBackgroundColor(Integer.parseInt(feedItem.getBackground()));
 
         // Handle click event on both title and image click
         viewHolder.text.setOnClickListener(clickListener);
@@ -76,15 +84,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return (null != feedItemList ? feedItemList.size() : 0);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView image;
-        public TextView text;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.img_thumbnail);
-            text = itemView.findViewById(R.id.txt_text);
-        }
-    }
 }

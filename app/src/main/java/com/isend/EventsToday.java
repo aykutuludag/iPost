@@ -1,9 +1,8 @@
 package com.isend;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +16,10 @@ import com.google.android.gms.analytics.Tracker;
 import com.isend.adapter.RecyclerViewAdapter;
 import com.isend.model.EventItem;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class EventsToday extends Fragment {
 
@@ -28,6 +28,8 @@ public class EventsToday extends Fragment {
     RecyclerView.Adapter mAdapter;
     Tracker t;
     EventItem item;
+    SQLiteDatabase database_account;
+    Cursor cur;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,20 +44,40 @@ public class EventsToday extends Fragment {
 
         mRecyclerView = v.findViewById(R.id.recyclerView);
         List<EventItem> feedsList = new ArrayList<>();
-
-        String path = Environment.getExternalStorageDirectory().toString() + "/Günlük Burçlar/Favoriler";
-        File f = new File(path);
-        File file[] = f.listFiles();
-        if (file == null || file.length == 0) {
-            Toast.makeText(getActivity(), "Henüz favorilerinize hiç yorum eklememişsiniz.", Toast.LENGTH_SHORT).show();
+        database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(Name TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR);");
+        cur = database_account.rawQuery("Select * from events", null);
+        if (cur != null && cur.getCount() != 0) {
+            cur.moveToFirst();
+            do {
+                for (int i = 0; i < cur.getColumnCount(); i++) {
+                    System.out.println(cur.getString(i));
+                    if ((i % 7) == 0) {
+                        item = new EventItem();
+                        item.setTitle(cur.getString(i));
+                    } else if (((i % 7) == 1)) {
+                        item.setDescription(cur.getString(i));
+                    } else if (((i % 7) == 2)) {
+                        item.setStartTime(cur.getString(i));
+                    } else if (((i % 7) == 3)) {
+                        item.setEndTime(cur.getString(i));
+                    } else if (((i % 7) == 4)) {
+                        item.setLocation(cur.getString(i));
+                    } else if (((i % 7) == 5)) {
+                        item.setOwner(cur.getString(i));
+                    } else if (((i % 7) == 6)) {
+                        item.setBackground(cur.getString(i));
+                        feedsList.add(item);
+                    } else {
+                        //Do nothing
+                    }
+                }
+            } while (cur.moveToNext());
         } else {
-            for (File aFile : file) {
-                item = new EventItem();
-                item.setThumbnail(BitmapFactory.decodeFile(aFile.getAbsolutePath()));
-                item.setTitle(aFile.getName());
-                feedsList.add(item);
-            }
+            //First opening
+            Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
         }
+        cur.close();
 
         // Adapter
         mAdapter = new RecyclerViewAdapter(getActivity(), feedsList);
