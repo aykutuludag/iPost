@@ -32,6 +32,10 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileAccounts extends Fragment {
@@ -58,7 +62,6 @@ public class ProfileAccounts extends Fragment {
 
         // Create local database to save events
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(Name TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR);");
 
         // DEVICE CALENDAR
         device = v.findViewById(R.id.account_device);
@@ -92,12 +95,18 @@ public class ProfileAccounts extends Fragment {
                 switch (v.getId()) {
                     case R.id.account_device:
                         if (!isDeviceSync) {
-                            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR}, REQUEST_CALENDAR_READ);
+                            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
                             } else {
                                 deviceCalendar();
                             }
                         } else {
+                            Cursor cur = database_account.rawQuery("DELETE FROM events WHERE Source='device'", null);
+                            cur.close();
+                            Toast.makeText(getActivity(), getString(R.string.permission_calendar_revoked), Toast.LENGTH_SHORT).show();
+                            prefs.edit().putBoolean("Device", false).apply();
+                            getActivity().finish();
+                            startActivity(getActivity().getIntent());
                             //Cancel alarmmanager of device and remove all device events
                         }
                     case R.id.account_facebook:
@@ -138,6 +147,7 @@ public class ProfileAccounts extends Fragment {
 
         if (cur != null) {
             while (cur.moveToNext()) {
+                String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
                 String title = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
                 String desc = cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION));
                 String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
@@ -146,16 +156,18 @@ public class ProfileAccounts extends Fragment {
                 String owner = cur.getString(cur.getColumnIndex(CalendarContract.Events.ORGANIZER));
                 String color = cur.getString(cur.getColumnIndex(CalendarContract.Events.DISPLAY_COLOR));
 
-                System.out.println("Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "owner:" + owner + "color:" + color);
+                System.out.println("ID: " + id + "Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "owner:" + owner + "color:" + color);
 
                 ContentValues values = new ContentValues();
-                values.put("Name", title);
+                values.put("ID", id);
+                values.put("Title", title);
                 values.put("Description", desc);
-                values.put("Start", start);
-                values.put("End", end);
+                values.put("Start", getDate(start));
+                values.put("End", getDate(end));
                 values.put("Location", location);
                 values.put("Owner", owner);
                 values.put("Color", color);
+                values.put("Source", "Device");
                 database_account.insert("events", null, values);
             }
             cur.close();
@@ -235,5 +247,13 @@ public class ProfileAccounts extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         System.out.println(data);
+    }
+
+    private String getDate(String time) {
+        Date date = new Date(Long.parseLong(time));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
+                java.util.Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
+        return sdf.format(date);
     }
 }

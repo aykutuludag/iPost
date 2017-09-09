@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.isend.adapter.RecyclerViewAdapter;
+import com.isend.adapter.EventsAdapter;
 import com.isend.model.EventItem;
 
 import java.util.ArrayList;
@@ -45,28 +45,32 @@ public class EventsToday extends Fragment {
         mRecyclerView = v.findViewById(R.id.recyclerView);
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(Name TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR);");
-        cur = database_account.rawQuery("Select * from events", null);
+        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
+        cur = database_account.rawQuery("SELECT * FROM events ORDER BY Start DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
                     System.out.println(cur.getString(i));
-                    if ((i % 7) == 0) {
+                    if ((i % 9) == 0) {
                         item = new EventItem();
+                        item.setID(cur.getString(i));
+                    } else if (((i % 9) == 1)) {
                         item.setTitle(cur.getString(i));
-                    } else if (((i % 7) == 1)) {
+                    } else if (((i % 9) == 2)) {
                         item.setDescription(cur.getString(i));
-                    } else if (((i % 7) == 2)) {
+                    } else if (((i % 9) == 3)) {
                         item.setStartTime(cur.getString(i));
-                    } else if (((i % 7) == 3)) {
+                    } else if (((i % 9) == 4)) {
                         item.setEndTime(cur.getString(i));
-                    } else if (((i % 7) == 4)) {
+                    } else if (((i % 9) == 5)) {
                         item.setLocation(cur.getString(i));
-                    } else if (((i % 7) == 5)) {
+                    } else if (((i % 9) == 6)) {
                         item.setOwner(cur.getString(i));
-                    } else if (((i % 7) == 6)) {
+                    } else if (((i % 9) == 7)) {
                         item.setBackground(cur.getString(i));
+                    } else if (((i % 9) == 8)) {
+                        item.setSource(cur.getString(i));
                         feedsList.add(item);
                     } else {
                         //Do nothing
@@ -80,7 +84,7 @@ public class EventsToday extends Fragment {
         cur.close();
 
         // Adapter
-        mAdapter = new RecyclerViewAdapter(getActivity(), feedsList);
+        mAdapter = new EventsAdapter(getActivity(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns

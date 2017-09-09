@@ -32,12 +32,14 @@ public class MainActivity extends AppCompatActivity
     public static String photoURL;
     SharedPreferences prefs;
     NavigationView navigationView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new EventsToday();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
             navigationView.setCheckedItem(R.id.nav_eventtoday);
+            toolbar.setTitle(R.string.events_today);
         }
     }
 
@@ -128,14 +131,17 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new EventsToday();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
             navigationView.setCheckedItem(R.id.nav_eventtoday);
+            toolbar.setTitle(R.string.events_today);
         } else if (id == R.id.nav_eventupcoming) {
             Fragment fragment = new EventsUpcoming();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();
             navigationView.setCheckedItem(R.id.nav_eventupcoming);
+            toolbar.setTitle(R.string.events_upcoming);
         } else if (id == R.id.nav_eventpast) {
             Fragment fragment = new EventsPast();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsPast").commit();
             navigationView.setCheckedItem(R.id.nav_eventpast);
+            toolbar.setTitle(R.string.events_past);
         } else {
 
         }

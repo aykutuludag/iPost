@@ -2,6 +2,7 @@ package com.isend.model;
 
 public class EventItem {
 
+    private String ID;
     private String title;
     private String description;
     private String startTime;
@@ -9,6 +10,15 @@ public class EventItem {
     private String location;
     private String owner;
     private String background;
+    private String source;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String id) {
+        this.ID = id;
+    }
 
     public String getTitle() {
         return title;
@@ -54,8 +64,8 @@ public class EventItem {
         return owner;
     }
 
-    public void setOwner(String location) {
-        this.location = location;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getBackground() {
@@ -64,5 +74,13 @@ public class EventItem {
 
     public void setBackground(String background) {
         this.background = background;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

@@ -16,7 +16,7 @@
     <string name="account_created">Sign-in is successful. Your account is creating. We will start soon.&#8230;</string>
 
     <!-- MainActivity -->
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Events</string>
 
     <!-- NavigationDrawer -->
     <string name="events">Events</string>
@@ -39,7 +39,8 @@
     <string name="title_home">Profile</string>
     <string name="title_dashboard">Connected accounts</string>
     <string name="title_notifications">Friends</string>
-    <string name="permission_calendar_granted">Permission has been granted. Google Calendar is now synchronising&#8230;</string>
+    <string name="permission_calendar_granted">Permission has been granted. Device\'s calendar is now synchronising&#8230;</string>
+    <string name="permission_calendar_revoked">Synchronise cancelled. Your calendar events will be removed from iSend&#8230;</string>
     <string name="account_synchronized">Synchronized</string>
     <string name="account_not_synchronized">Not synchronized</string>
 
