@@ -32,11 +32,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="Remin's Birthday"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="#fff" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/txt_startime"
@@ -70,7 +71,6 @@
                 android:id="@+id/txt_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imageView4"
                 android:layout_alignEnd="@+id/txt_title"
                 android:layout_alignLeft="@+id/txt_startime"
                 android:layout_alignRight="@+id/txt_title"
@@ -78,7 +78,8 @@
                 android:layout_alignTop="@+id/imageView4"
                 android:text="Çayyolu/ Ankara"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#f5f5f5" />
+                android:textColor="#f5f5f5"
+                android:layout_alignParentBottom="true" />
 
             <ImageView
                 android:id="@+id/imageView3"

@@ -1,10 +1,6 @@
 package com.isend.adapter;
 
-import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +11,10 @@ import android.widget.TextView;
 import com.isend.R;
 import com.isend.model.EventItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
     private List<EventItem> feedItemList;
@@ -71,10 +70,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         viewHolder.title.setText(feedItem.getTitle());
 
         // Setting startTime
-        viewHolder.startTime.setText(feedItem.getStartTime());
+        viewHolder.startTime.setText(getDate(feedItem.getStartTime()));
 
         // Setting endTime
-        viewHolder.endTime.setText(feedItem.getEndTime());
+        viewHolder.endTime.setText(getDate(feedItem.getEndTime()));
 
         // Setting location
         viewHolder.location.setText(feedItem.getLocation());
@@ -90,6 +89,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return (null != feedItemList ? feedItemList.size() : 0);
+    }
+
+    private String getDate(String time) {
+        Date date = new Date(Long.parseLong(time));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
+                java.util.Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
+        return sdf.format(date);
     }
 
 }

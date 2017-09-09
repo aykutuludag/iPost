@@ -17,6 +17,7 @@ import com.isend.adapter.EventsAdapter;
 import com.isend.model.EventItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -30,11 +31,13 @@ public class EventsPast extends Fragment {
     EventItem item;
     SQLiteDatabase database_account;
     Cursor cur;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.events_general, container, false);
+
+        //Calendar
+        Calendar rightNow = Calendar.getInstance();
 
         // Analytics
         t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
@@ -46,7 +49,7 @@ public class EventsPast extends Fragment {
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
-        cur = database_account.rawQuery("SELECT * FROM events ORDER BY Start DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM events ORDER BY End DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

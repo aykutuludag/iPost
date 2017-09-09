@@ -162,8 +162,8 @@ public class ProfileAccounts extends Fragment {
                 values.put("ID", id);
                 values.put("Title", title);
                 values.put("Description", desc);
-                values.put("Start", getDate(start));
-                values.put("End", getDate(end));
+                values.put("Start", start);
+                values.put("End", end);
                 values.put("Location", location);
                 values.put("Owner", owner);
                 values.put("Color", color);
@@ -247,13 +247,5 @@ public class ProfileAccounts extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         System.out.println(data);
-    }
-
-    private String getDate(String time) {
-        Date date = new Date(Long.parseLong(time));
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
-                java.util.Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
-        return sdf.format(date);
     }
 }

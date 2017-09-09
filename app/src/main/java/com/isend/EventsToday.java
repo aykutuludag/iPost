@@ -16,8 +16,11 @@ import com.google.android.gms.analytics.Tracker;
 import com.isend.adapter.EventsAdapter;
 import com.isend.model.EventItem;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -46,7 +49,7 @@ public class EventsToday extends Fragment {
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
-        cur = database_account.rawQuery("SELECT * FROM events ORDER BY Start DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM events ORDER BY End DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
@@ -78,8 +81,8 @@ public class EventsToday extends Fragment {
                 }
             } while (cur.moveToNext());
         } else {
-            //First opening
-            Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
+            //First opening and no events for today has been found.
+            Toast.makeText(getActivity(), "There is no events for today. You can add event or sync your calendar with iSend.", Toast.LENGTH_LONG).show();
         }
         cur.close();
 

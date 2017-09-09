@@ -1,6 +1,5 @@
 package com.isend;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -83,7 +82,12 @@ public class SignInActivity extends AppCompatActivity implements
             if (acct != null) {
                 prefs.edit().putString("Name", acct.getDisplayName()).apply();
                 prefs.edit().putString("Email", acct.getEmail()).apply();
-                prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
+                if (acct.getPhotoUrl() != null) {
+                    prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
+                } else {
+                    //BURAYA İLERİDE EL AT
+                    prefs.edit().putString("ProfilePhoto", "https://i.stack.imgur.com/34AD2.jpg").apply();
+                }
                 prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
                 Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
                 signInButton.setVisibility(View.INVISIBLE);
