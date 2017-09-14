@@ -3,6 +3,7 @@ package com.isend;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -152,6 +153,8 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
                 Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_privacy:
@@ -161,15 +164,22 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_rate:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                //PUANLA
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.isend"));
+                startActivity(intent4);
                 break;
             case R.id.nav_subscriptions:
                 Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_feedback:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"iinvestmentinc@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "iSend Feedback");
+                startActivity(Intent.createChooser(intent, "Email via..."));
                 break;
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

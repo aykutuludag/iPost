@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -51,15 +54,11 @@ public class SignInActivity extends AppCompatActivity implements
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(this);
 
-        // Configure sign-in to request the user's ID, email address, and basic profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
         // Build a GoogleApiClient with access to the Google Sign-In API and the options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .addApi(Plus.API)
                 .build();
 
         // Check user is already signed
@@ -128,7 +127,45 @@ public class SignInActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 9001) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            googleHandleSignInResult(result);
+            if (result.isSuccess()) {
+                GoogleSignInAccount acct = result.getSignInAccount();
+                if (acct != null) {
+                    prefs.edit().putString("Name", acct.getDisplayName()).apply();
+                    prefs.edit().putString("Email", acct.getEmail()).apply();
+                    if (acct.getPhotoUrl() != null) {
+                        prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
+                    } else {
+                        //BURAYA İLERİDE EL AT
+                        prefs.edit().putString("ProfilePhoto", "https://i.stack.imgur.com/34AD2.jpg").apply();
+                    }
+                    // G+
+                    Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+                    if (person.getGender() == 0) {
+                        prefs.edit().putString("Gender", "male").apply();
+                    } else if (person.getGender() == 1) {
+                        prefs.edit().putString("Gender", "female").apply();
+                    } else {
+                        prefs.edit().putString("Gender", "transsexual").apply();
+                    }
+                    prefs.edit().putString("Age", person.getBirthday()).apply();
+                    prefs.edit().putString("Location", person.getCurrentLocation()).apply();
+                    prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
+                    Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
+                    signInButton.setVisibility(View.INVISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    }, 2000);
+                } else {
+                    Toast.makeText(this, getString(R.string.error_login_no_account), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, getString(R.string.error_login_fail), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
