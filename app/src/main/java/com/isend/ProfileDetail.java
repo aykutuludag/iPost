@@ -113,8 +113,7 @@ public class ProfileDetail extends Fragment {
 
     private void getContacts() {
         ContentResolver cr = getActivity().getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
         if ((cur != null ? cur.getCount() : 0) > 0) {
             while (cur != null && cur.moveToNext()) {
                 ContentValues values = new ContentValues();
@@ -144,6 +143,10 @@ public class ProfileDetail extends Fragment {
                     }
                 }
 
+                values.put("ProfilePhoto", "1");
+                values.put("hasWhatsapp", "1");
+                values.put("hasMessenger", "1");
+                values.put("hasMail", "1");
                 database_account.insert("contacts", null, values);
 
                 prefs.edit().putBoolean("isContactSync", true).apply();
@@ -228,7 +231,7 @@ public class ProfileDetail extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CALENDAR_READ: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getEvents();
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.error_aborted), Toast.LENGTH_SHORT)
@@ -239,12 +242,9 @@ public class ProfileDetail extends Fragment {
             }
             case REQUEST_CONTACT_READ: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //Toast
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContacts();
                 } else {
-                    //Toast
                     Toast.makeText(getActivity(), getString(R.string.error_aborted), Toast.LENGTH_SHORT).show();
                     prefs.edit().putBoolean("isContactSync", false).apply();
                 }

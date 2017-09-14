@@ -1,6 +1,7 @@
 package com.isend.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,31 +10,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.isend.R;
+import com.isend.model.ContactItem;
 import com.isend.model.EventItem;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
-    private List<EventItem> feedItemList;
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
+    private List<ContactItem> feedItemList;
     private Context mContext;
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title;
-        TextView startTime;
-        TextView endTime;
-        TextView location;
+        TextView name;
+        ImageView profilePhoto;
+        ImageView whatsapp;
+        ImageView messenger;
+        ImageView mail;
         ImageView background;
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.txt_name);
-            startTime = itemView.findViewById(R.id.txt_startime);
-            endTime = itemView.findViewById(R.id.txt_endtime);
-            location = itemView.findViewById(R.id.txt_loc);
+            name = itemView.findViewById(R.id.txt_name);
+            profilePhoto = itemView.findViewById(R.id.profilePhoto);
+            whatsapp = itemView.findViewById(R.id.whatsapp);
+            messenger = itemView.findViewById(R.id.messenger);
+            mail = itemView.findViewById(R.id.mail);
             background = itemView.findViewById(R.id.img_background);
         }
     }
@@ -51,35 +56,36 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         }
     };
 
-    public EventsAdapter(Context context, List<EventItem> feedItemList) {
+    public ContactAdapter(Context context, List<ContactItem> feedItemList) {
         this.feedItemList = feedItemList;
         this.mContext = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_events, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_contacts, viewGroup, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        EventItem feedItem = feedItemList.get(i);
+        ContactItem feedItem = feedItemList.get(i);
 
         // Setting title
-        viewHolder.title.setText(feedItem.getTitle());
+        viewHolder.name.setText(feedItem.getName());
 
-        // Setting startTime
-        viewHolder.startTime.setText(getDate(feedItem.getStartTime()));
+        // Setting profilephoto
+        Picasso.with(mContext).load(feedItem.getProfilePhoto()).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
+                .into(viewHolder.profilePhoto);
 
-        // Setting endTime
-        viewHolder.endTime.setText(getDate(feedItem.getEndTime()));
+        // Setting whatsapp
+        viewHolder.whatsapp.setVisibility(View.VISIBLE);
 
-        // Setting location
-        viewHolder.location.setText(feedItem.getLocation());
+        // Setting messenger
+        viewHolder.messenger.setVisibility(View.VISIBLE);
 
-        // Setting background
-        viewHolder.background.setBackgroundColor(Integer.parseInt(feedItem.getBackground()));
+        // Setting mail
+        viewHolder.mail.setVisibility(View.VISIBLE);
 
         // Handle click event on image click
         viewHolder.background.setOnClickListener(clickListener);
@@ -90,13 +96,4 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public int getItemCount() {
         return (null != feedItemList ? feedItemList.size() : 0);
     }
-
-    private String getDate(String time) {
-        Date date = new Date(Long.parseLong(time));
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
-                java.util.Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
-        return sdf.format(date);
-    }
-
 }
