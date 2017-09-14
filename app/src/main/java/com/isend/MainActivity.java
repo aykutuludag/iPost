@@ -3,8 +3,6 @@ package com.isend;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -125,27 +124,52 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.nav_eventtoday) {
-            Fragment fragment = new EventsToday();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
-            navigationView.setCheckedItem(R.id.nav_eventtoday);
-            toolbar.setTitle(R.string.events_today);
-        } else if (id == R.id.nav_eventupcoming) {
-            Fragment fragment = new EventsUpcoming();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();
-            navigationView.setCheckedItem(R.id.nav_eventupcoming);
-            toolbar.setTitle(R.string.events_upcoming);
-        } else if (id == R.id.nav_eventpast) {
-            Fragment fragment = new EventsPast();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsPast").commit();
-            navigationView.setCheckedItem(R.id.nav_eventpast);
-            toolbar.setTitle(R.string.events_past);
-        } else {
+        Fragment fragment;
 
+        switch (item.getItemId()) {
+            case R.id.nav_eventtoday:
+                fragment = new EventsToday();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
+                navigationView.setCheckedItem(R.id.nav_eventtoday);
+                toolbar.setTitle(R.string.events_today);
+                break;
+            case R.id.nav_eventupcoming:
+                fragment = new EventsUpcoming();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();
+                navigationView.setCheckedItem(R.id.nav_eventupcoming);
+                toolbar.setTitle(R.string.events_upcoming);
+                break;
+            case R.id.nav_eventpast:
+                fragment = new EventsPast();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsPast").commit();
+                navigationView.setCheckedItem(R.id.nav_eventpast);
+                toolbar.setTitle(R.string.events_past);
+                break;
+            case R.id.nav_postplanned:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_postsent:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_settings:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_privacy:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_about:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_rate:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_subscriptions:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_feedback:
+                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

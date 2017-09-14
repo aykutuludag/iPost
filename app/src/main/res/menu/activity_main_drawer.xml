@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/events">
+    <item
+        android:icon="@drawable/ic_event_past"
+        android:title="@string/events">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -23,13 +25,49 @@
     <item android:title="@string/posts">
         <menu>
             <item
-                android:id="@+id/nav_postplanning"
-                android:icon="@drawable/ic_postplanning"
+                android:id="@+id/nav_postplanned"
+                android:icon="@drawable/ic_post_planned"
                 android:title="@string/posts_planned" />
             <item
                 android:id="@+id/nav_postsent"
-                android:icon="@drawable/ic_postsent"
+                android:icon="@drawable/ic_post_sent"
                 android:title="@string/posts_sent" />
+        </menu>
+    </item>
+
+
+    <item android:title="@string/other">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/other_settings" />
+            <item
+                android:id="@+id/nav_privacy"
+                android:icon="@drawable/ic_privacy"
+                android:title="@string/other_privacy" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_about"
+                android:title="@string/other_about" />
+        </menu>
+    </item>
+
+
+    <item android:title="@string/extras">
+        <menu>
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/ic_rate"
+                android:title="@string/extras_rate" />
+            <item
+                android:id="@+id/nav_subscriptions"
+                android:icon="@drawable/ic_subscriptions"
+                android:title="@string/extras_subscriptions" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@drawable/ic_feedback"
+                android:title="@string/extras_feedback" />
         </menu>
     </item>
 
