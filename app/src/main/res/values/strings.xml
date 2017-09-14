@@ -2,6 +2,7 @@
 
     <!-- General -->
     <string name="app_name">iSend</string>
+    <string name="app_privacy">Privacy Policy</string>
     <string name="facebook_app_id">883953245105670</string>
     <string name="fb_login_protocol_scheme">fb883953245105670</string>
     <string name="server_client_id">802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com</string>
@@ -41,8 +42,11 @@
     <string name="title_notifications">Friends</string>
     <string name="permission_calendar_granted">Permission has been granted. Device\'s calendar is now synchronising&#8230;</string>
     <string name="permission_calendar_revoked">Synchronise cancelled. Your calendar events will be removed from iSend&#8230;</string>
+    <string name="contact_sync_now">Synchronize now!</string>
+    <string name="contact_sync_completed">Synchronise completed. Your contacts synchronised&#8230;</string>
     <string name="account_synchronized">Synchronized</string>
     <string name="account_not_synchronized">Not synchronized</string>
+    <string name="profile_friends">To use automatic matching events and contact list, you may want to synchronise your contact list with iSend</string>
 
     <!-- Settings -->
     <string name="title_activity_settings">Settings</string>

@@ -3,6 +3,7 @@ package com.isend;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
+    SQLiteDatabase database_account;
     GoogleApiClient mGoogleApiClient;
     SignInButton signInButton;
     SharedPreferences prefs;
@@ -32,6 +34,11 @@ public class SignInActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
+        // Create local database to save contacs
+        database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
+        database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, ProfilePhoto VARCHAR, hasWhatsapp VARCHAR, hasMessenger VARCHAR, hasMail VARCHAR);");
 
         prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "");
