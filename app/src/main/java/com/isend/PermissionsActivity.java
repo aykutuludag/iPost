@@ -1,9 +1,7 @@
 package com.isend;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -28,16 +26,13 @@ import com.google.android.gms.analytics.Tracker;
 
 public class PermissionsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Tracker t;
-
-    RelativeLayout layoutCalendar, layoutContacts, layoutSMS;
-    Button buttonCalendar, buttonContacts, buttonSMS;
-
-    SQLiteDatabase database_account;
-
     private static final int REQUEST_CALENDAR_READ = 0;
     private static final int REQUEST_CONTACTS_READ = 1;
     private static final int REQUEST_SMS_SEND = 2;
+    Tracker t;
+    RelativeLayout layoutCalendar, layoutContacts, layoutSMS;
+    Button buttonCalendar, buttonContacts, buttonSMS;
+    SQLiteDatabase database_account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +71,19 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 if (ActivityCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{android.Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
                 } else {
-                    layoutCalendar.setVisibility(View.GONE);
-                    layoutContacts.setVisibility(View.VISIBLE);
+                    getEvents();
                 }
                 break;
             case R.id.permission_contacts_button:
                 if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{android.Manifest.permission.READ_CONTACTS}, REQUEST_CONTACTS_READ);
                 } else {
-                    layoutContacts.setVisibility(View.GONE);
-                    layoutSMS.setVisibility(View.VISIBLE);
+                    getContacts();
                 }
                 break;
             case R.id.permission_sms_button:
-                if (ContextCompat.checkSelfPermission(PermissionsActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
+                if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{android.Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
                 } else {
                     Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {

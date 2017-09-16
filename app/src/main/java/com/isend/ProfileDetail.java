@@ -31,14 +31,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class ProfileDetail extends Fragment {
 
 
+    private static final int REQUEST_CALENDAR_READ = 0;
+    private static final int REQUEST_CONTACT_READ = 1;
     Tracker t;
     SQLiteDatabase database_account;
     SharedPreferences prefs;
     Boolean isContactSync, isCalendarSync;
     TextView calendarText, contactsText;
     ImageView calendarButton, contactsButton;
-    private static final int REQUEST_CALENDAR_READ = 0;
-    private static final int REQUEST_CONTACT_READ = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

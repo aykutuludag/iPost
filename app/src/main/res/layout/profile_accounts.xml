@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/account_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_heightPercent="33.3%"
-            app:layout_widthPercent="50%"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/account_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_heightPercent="33.3%"
+        app:layout_widthPercent="50%" />
 
 </RelativeLayout>

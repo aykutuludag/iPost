@@ -31,6 +31,7 @@ public class EventsPast extends Fragment {
     EventItem item;
     SQLiteDatabase database_account;
     Cursor cur;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

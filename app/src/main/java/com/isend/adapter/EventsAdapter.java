@@ -19,25 +19,6 @@ import java.util.TimeZone;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
     private List<EventItem> feedItemList;
     private Context mContext;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        TextView title;
-        TextView startTime;
-        TextView endTime;
-        TextView location;
-        ImageView background;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.txt_name);
-            startTime = itemView.findViewById(R.id.txt_startime);
-            endTime = itemView.findViewById(R.id.txt_endtime);
-            location = itemView.findViewById(R.id.txt_loc);
-            background = itemView.findViewById(R.id.img_background);
-        }
-    }
-
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -97,6 +78,24 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 java.util.Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
         return sdf.format(date);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView title;
+        TextView startTime;
+        TextView endTime;
+        TextView location;
+        ImageView background;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.txt_name);
+            startTime = itemView.findViewById(R.id.txt_startime);
+            endTime = itemView.findViewById(R.id.txt_endtime);
+            location = itemView.findViewById(R.id.txt_loc);
+            background = itemView.findViewById(R.id.img_background);
+        }
     }
 
 }

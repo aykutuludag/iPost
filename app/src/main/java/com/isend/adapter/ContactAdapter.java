@@ -1,7 +1,6 @@
 package com.isend.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,38 +10,13 @@ import android.widget.TextView;
 
 import com.isend.R;
 import com.isend.model.ContactItem;
-import com.isend.model.EventItem;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
     private List<ContactItem> feedItemList;
     private Context mContext;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        TextView name;
-        ImageView profilePhoto;
-        ImageView whatsapp;
-        ImageView messenger;
-        ImageView mail;
-        ImageView background;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            name = itemView.findViewById(R.id.txt_name);
-            profilePhoto = itemView.findViewById(R.id.profilePhoto);
-            whatsapp = itemView.findViewById(R.id.whatsapp);
-            messenger = itemView.findViewById(R.id.messenger);
-            mail = itemView.findViewById(R.id.mail);
-            background = itemView.findViewById(R.id.img_background);
-        }
-    }
-
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -95,5 +69,25 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public int getItemCount() {
         return (null != feedItemList ? feedItemList.size() : 0);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView name;
+        ImageView profilePhoto;
+        ImageView whatsapp;
+        ImageView messenger;
+        ImageView mail;
+        ImageView background;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.txt_name);
+            profilePhoto = itemView.findViewById(R.id.profilePhoto);
+            whatsapp = itemView.findViewById(R.id.whatsapp);
+            messenger = itemView.findViewById(R.id.messenger);
+            mail = itemView.findViewById(R.id.mail);
+            background = itemView.findViewById(R.id.img_background);
+        }
     }
 }
