@@ -43,7 +43,7 @@ public class ProfileAccounts extends Fragment {
     LoginButton loginButton;
     CallbackManager callbackManager;
     SharedPreferences prefs;
-    boolean isFacebookSync, isOutlookSync;
+    boolean isFacebookSync, isGoogleSync, isOutlookSync, isAppleSync;
     SQLiteDatabase database_account;
 
     @Override
@@ -54,13 +54,18 @@ public class ProfileAccounts extends Fragment {
 
         prefs = getActivity().getSharedPreferences("Profile", MODE_PRIVATE);
         isFacebookSync = prefs.getBoolean("Facebook", false);
+        isGoogleSync = prefs.getBoolean("Google", false);
         isOutlookSync = prefs.getBoolean("Outlook", false);
+        isAppleSync = prefs.getBoolean("Apple", false);
 
         // Create local database to save events
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
 
         //  FACEBOOK CALENDAR
         loginButton = v.findViewById(R.id.account_facebook);
+
+        //  Google Calendar
+        googleCalendar();
 
         //  OUTLOOK CALENDAR
         outlookCalendar();
@@ -82,6 +87,7 @@ public class ProfileAccounts extends Fragment {
 
         return v;
     }
+
     void facebookCalendar() {
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email");
@@ -121,7 +127,15 @@ public class ProfileAccounts extends Fragment {
         });
     }
 
+    void googleCalendar(){
+
+    }
+
     void outlookCalendar() {
+
+    }
+
+    void iCalendar(){
 
     }
 

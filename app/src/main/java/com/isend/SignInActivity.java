@@ -1,17 +1,26 @@
 package com.isend;
 
+import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,21 +36,22 @@ public class SignInActivity extends AppCompatActivity implements
         View.OnClickListener {
 
     SQLiteDatabase database_account;
+
     GoogleApiClient mGoogleApiClient;
     SignInButton signInButton;
+
     SharedPreferences prefs;
     String name, email, photo;
     boolean isSigned;
+
+    LoginButton loginButton;
+    CallbackManager callbackManager;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-
-        // Create local database to save contacs
-        database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
-        database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, ProfilePhoto VARCHAR, hasWhatsapp VARCHAR, hasMessenger VARCHAR, hasMail VARCHAR);");
 
         prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "");
@@ -49,7 +59,16 @@ public class SignInActivity extends AppCompatActivity implements
         photo = prefs.getString("ProfilePhoto", "");
         isSigned = prefs.getBoolean("isSigned", false);
 
-        // Set the dimensions of the sign-in button.
+        pb = findViewById(R.id.progressBar);
+
+         /* Facebook Sign-In */
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = findViewById(R.id.login_button);
+        loginButton.setReadPermissions("public_profile");
+        loginButton.setReadPermissions("user_events");
+        loginButton.setReadPermissions("email");
+
+        /* Google Sign-In */
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(this);
@@ -61,18 +80,34 @@ public class SignInActivity extends AppCompatActivity implements
                 .addApi(Plus.API)
                 .build();
 
-        // Check user is already signed
         if (isSigned) {
+            //She signed succesfully
+            loginButton.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
+            pb.setVisibility(View.VISIBLE);
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(SignInActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    // Check user is already signed
+                    if (ContextCompat.checkSelfPermission(SignInActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        Intent i = new Intent(SignInActivity.this, PermissionsActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
                 }
-            }, 2000);
+            }, 1250);
         } else {
+            // Create local database to save contacs
+            database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, Email VARCHAR, hasWhatsapp VARCHAR, hasMessenger VARCHAR);");
+
+            loginButton.setVisibility(View.VISIBLE);
             signInButton.setVisibility(View.VISIBLE);
         }
     }
@@ -82,35 +117,31 @@ public class SignInActivity extends AppCompatActivity implements
         startActivityForResult(signInIntent, 9001);
     }
 
-    private void googleHandleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            GoogleSignInAccount acct = result.getSignInAccount();
-            if (acct != null) {
-                prefs.edit().putString("Name", acct.getDisplayName()).apply();
-                prefs.edit().putString("Email", acct.getEmail()).apply();
-                if (acct.getPhotoUrl() != null) {
-                    prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
-                } else {
-                    //BURAYA İLERİDE EL AT
-                    prefs.edit().putString("ProfilePhoto", "https://i.stack.imgur.com/34AD2.jpg").apply();
-                }
-                prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
-                Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
-                signInButton.setVisibility(View.INVISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(SignInActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
-                }, 2000);
-            } else {
-                Toast.makeText(this, getString(R.string.error_login_no_account), Toast.LENGTH_SHORT).show();
+    private void facebookLogin() {
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println(loginResult);
+                prefs.edit().putString("Name", "").apply();
+                prefs.edit().putString("Email", "").apply();
+                prefs.edit().putString("ProfilePhoto", "").apply();
+                prefs.edit().putString("Gender", "transsexual").apply();
+                prefs.edit().putString("Age", "").apply();
+                prefs.edit().putString("Location", "").apply();
+                prefs.edit().putBoolean("isSigned", true).apply();
             }
-        } else {
-            Toast.makeText(this, getString(R.string.error_login_fail), Toast.LENGTH_SHORT).show();
-        }
+
+            @Override
+            public void onCancel() {
+                prefs.edit().putBoolean("isSigned", false).apply();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                System.out.println(exception);
+                prefs.edit().putBoolean("isSigned", false).apply();
+            }
+        });
     }
 
     @Override
@@ -119,17 +150,26 @@ public class SignInActivity extends AppCompatActivity implements
             case R.id.sign_in_button:
                 googleSignIn();
                 break;
+            case R.id.login_button:
+                facebookLogin();
+                break;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        //Facebook
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        //Google
         if (requestCode == 9001) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
                 if (acct != null) {
+                    System.out.println(acct.getGrantedScopes());
                     prefs.edit().putString("Name", acct.getDisplayName()).apply();
                     prefs.edit().putString("Email", acct.getEmail()).apply();
                     if (acct.getPhotoUrl() != null) {
@@ -151,15 +191,17 @@ public class SignInActivity extends AppCompatActivity implements
                     prefs.edit().putString("Location", person.getCurrentLocation()).apply();
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
+                    loginButton.setVisibility(View.INVISIBLE);
                     signInButton.setVisibility(View.INVISIBLE);
+                    pb.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                            Intent i = new Intent(SignInActivity.this, PermissionsActivity.class);
                             startActivity(i);
                             finish();
                         }
-                    }, 2000);
+                    }, 1250);
                 } else {
                     Toast.makeText(this, getString(R.string.error_login_no_account), Toast.LENGTH_SHORT).show();
                 }

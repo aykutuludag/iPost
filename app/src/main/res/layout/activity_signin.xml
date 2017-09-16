@@ -45,27 +45,16 @@
         android:paddingRight="15dp"
         android:paddingTop="15dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="or"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#f1f1f1" />
-
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:layout_alignRight="@+id/login_button"
         android:layout_alignEnd="@+id/login_button"
         android:layout_alignLeft="@+id/login_button"
-        android:layout_alignStart="@+id/login_button" />
+        android:layout_alignRight="@+id/login_button"
+        android:layout_alignStart="@+id/login_button"
+        android:layout_below="@+id/login_button"
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -77,5 +66,15 @@
         android:text="i-Invesment Inc."
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="#f1f1f1" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sign_in_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

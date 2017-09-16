@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity
                 .into(profilePic);
 
         if (savedInstanceState == null) {
-            Fragment fragment = new EventsToday();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
-            navigationView.setCheckedItem(R.id.nav_eventtoday);
-            toolbar.setTitle(R.string.events_today);
+            Fragment fragment = new EventsUpcoming();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpcoming").commit();
+            navigationView.setCheckedItem(R.id.nav_eventupcoming);
+            toolbar.setTitle(R.string.events_upcoming);
         }
     }
 
@@ -122,18 +122,11 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
 
         switch (item.getItemId()) {
-            case R.id.nav_eventtoday:
-                fragment = new EventsToday();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsToday").commit();
-                navigationView.setCheckedItem(R.id.nav_eventtoday);
-                toolbar.setTitle(R.string.events_today);
-                break;
             case R.id.nav_eventupcoming:
                 fragment = new EventsUpcoming();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();

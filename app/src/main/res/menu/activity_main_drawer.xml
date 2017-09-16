@@ -7,10 +7,6 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_eventtoday"
-                    android:icon="@drawable/ic_event_today"
-                    android:title="@string/events_today" />
-                <item
                     android:id="@+id/nav_eventupcoming"
                     android:icon="@drawable/ic_event_upcoming"
                     android:title="@string/events_upcoming" />
