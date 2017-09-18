@@ -16,6 +16,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     FrameLayout frame;
     FragmentTransaction transaction;
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         String name = MainActivity.name;
         String email = MainActivity.email;
-        String photoURL = MainActivity.photoURL;
+        String photoURL = MainActivity.photo;
 
         //Name
         TextView navUsername = findViewById(R.id.profile_name);

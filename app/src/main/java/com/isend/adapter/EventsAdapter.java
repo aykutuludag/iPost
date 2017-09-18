@@ -72,8 +72,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         return (null != feedItemList ? feedItemList.size() : 0);
     }
 
-    private String getDate(String time) {
-        Date date = new Date(Long.parseLong(time));
+    private String getDate(long time) {
+        Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
                 java.util.Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));

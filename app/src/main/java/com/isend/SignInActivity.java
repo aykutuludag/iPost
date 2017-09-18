@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -29,6 +32,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -39,7 +45,8 @@ public class SignInActivity extends AppCompatActivity implements
     SignInButton signInButton;
 
     SharedPreferences prefs;
-    String name, email, photo;
+    String name, email, photo, gender, location;
+    int age;
     boolean isSigned;
 
     LoginButton loginButton;
@@ -55,6 +62,9 @@ public class SignInActivity extends AppCompatActivity implements
         name = prefs.getString("Name", "");
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
+        gender = prefs.getString("Gender", "");
+        age = prefs.getInt("Age", 0);
+        location = prefs.getString("Location", "");
         isSigned = prefs.getBoolean("isSigned", false);
 
         pb = findViewById(R.id.progressBar);
@@ -79,7 +89,7 @@ public class SignInActivity extends AppCompatActivity implements
                 .build();
 
         if (isSigned) {
-            //She signed succesfully
+            //signed succesfully
             loginButton.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
@@ -87,7 +97,7 @@ public class SignInActivity extends AppCompatActivity implements
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    // Check user is already signed
+                    // Check user is already granted permissions
                     if (ContextCompat.checkSelfPermission(SignInActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                         Intent i = new Intent(SignInActivity.this, PermissionsActivity.class);
                         startActivity(i);
@@ -102,7 +112,7 @@ public class SignInActivity extends AppCompatActivity implements
         } else {
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start INTEGER, End INTEGER, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, Email VARCHAR, hasWhatsapp VARCHAR, hasMessenger VARCHAR);");
 
             loginButton.setVisibility(View.VISIBLE);
@@ -120,13 +130,46 @@ public class SignInActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(LoginResult loginResult) {
                 System.out.println(loginResult);
-                prefs.edit().putString("Name", "").apply();
-                prefs.edit().putString("Email", "").apply();
-                prefs.edit().putString("ProfilePhoto", "").apply();
-                prefs.edit().putString("Gender", "transsexual").apply();
-                prefs.edit().putString("Age", "").apply();
-                prefs.edit().putString("Location", "").apply();
-                prefs.edit().putBoolean("isSigned", true).apply();
+
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                System.out.println(response.toString());
+                                try {
+                                    String name = object.getString("name");
+                                    String email = object.getString("email");
+                                    String profilePicUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                                    String gender = object.getString("gender");
+                                    prefs.edit().putString("Name", name).apply();
+                                    prefs.edit().putString("Email", email).apply();
+                                    prefs.edit().putString("ProfilePhoto", profilePicUrl).apply();
+                                    prefs.edit().putString("Gender", gender).apply();
+                                    prefs.edit().putString("Age", "").apply();
+                                    prefs.edit().putString("Location", "").apply();
+                                    prefs.edit().putBoolean("isSigned", true).apply();
+                                    System.out.println(name + email + profilePicUrl + gender);
+                                    Toast.makeText(SignInActivity.this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
+
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent i = new Intent(SignInActivity.this, PermissionsActivity.class);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    }, 1250);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location, events");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override

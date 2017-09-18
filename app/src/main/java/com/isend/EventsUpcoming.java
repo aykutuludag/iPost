@@ -45,8 +45,7 @@ public class EventsUpcoming extends Fragment {
         mRecyclerView = v.findViewById(R.id.recyclerView);
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start VARCHAR, End VARCHAR, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
-        cur = database_account.rawQuery("SELECT * FROM events ORDER BY End DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE Start >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
@@ -60,9 +59,9 @@ public class EventsUpcoming extends Fragment {
                     } else if (((i % 9) == 2)) {
                         item.setDescription(cur.getString(i));
                     } else if (((i % 9) == 3)) {
-                        item.setStartTime(cur.getString(i));
+                        item.setStartTime(cur.getLong(i));
                     } else if (((i % 9) == 4)) {
-                        item.setEndTime(cur.getString(i));
+                        item.setEndTime(cur.getLong(i));
                     } else if (((i % 9) == 5)) {
                         item.setLocation(cur.getString(i));
                     } else if (((i % 9) == 6)) {
