@@ -27,8 +27,7 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static String name, email, photo, gender, location;
-    int age;
+    static String name, email, photo, gender, birthday, location;
     SharedPreferences prefs;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
         gender = prefs.getString("Gender", "");
-        age = prefs.getInt("Age", 0);
+        birthday = prefs.getString("Birthday", "");
         location = prefs.getString("Location", "");
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -79,13 +78,13 @@ public class MainActivity extends AppCompatActivity
         });
 
         //Name
-        TextView navUsername = headerView.findViewById(R.id.name);
+        TextView navUsername = headerView.findViewById(R.id.nav_name);
         navUsername.setText(name);
         //E-mail
-        TextView navEmail = headerView.findViewById(R.id.email);
+        TextView navEmail = headerView.findViewById(R.id.nav_email);
         navEmail.setText(email);
         //ProfilePicture
-        ImageView profilePic = headerView.findViewById(R.id.profile_pic);
+        ImageView profilePic = headerView.findViewById(R.id.nav_picture);
         Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
                 .into(profilePic);
 

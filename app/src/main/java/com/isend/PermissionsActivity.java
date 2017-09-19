@@ -102,7 +102,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CALENDAR_READ: {
+            case REQUEST_CALENDAR_READ:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getEvents();
                 } else {
@@ -110,16 +110,15 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                             .show();
                 }
                 break;
-            }
-            case REQUEST_CONTACTS_READ: {
+            case REQUEST_CONTACTS_READ:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContacts();
                 } else {
                     Toast.makeText(PermissionsActivity.this, getString(R.string.error_aborted), Toast.LENGTH_SHORT).show();
                 }
-            }
-            case REQUEST_SMS_SEND: {
+                break;
+            case REQUEST_SMS_SEND:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
@@ -134,9 +133,10 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     Toast.makeText(PermissionsActivity.this, getString(R.string.error_aborted), Toast.LENGTH_SHORT).show();
                 }
-            }
+                break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
         }
     }
 

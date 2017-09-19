@@ -17,6 +17,44 @@ public class ProfileActivity extends AppCompatActivity {
     FrameLayout frame;
     FragmentTransaction transaction;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+
+        String name = MainActivity.name;
+        String email = MainActivity.email;
+        String photoURL = MainActivity.photo;
+        String gender = MainActivity.gender;
+        String birthday = MainActivity.birthday;
+        String loc = MainActivity.location;
+
+        //Name
+        TextView navUsername = findViewById(R.id.profile_name);
+        navUsername.setText(name);
+        //E-mail
+        TextView navEmail = findViewById(R.id.profile_mail);
+        navEmail.setText(email);
+        //ProfilePicture
+        ImageView profilePic = findViewById(R.id.profile_pic);
+        Picasso.with(this).load(photoURL).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+                .into(profilePic);
+        //Age
+        TextView birthtext = findViewById(R.id.profile_birthday);
+        birthtext.setText(birthday);
+        //Location
+        TextView location = findViewById(R.id.profile_loc);
+        location.setText(loc);
+
+        frame = findViewById(R.id.content);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, new ProfileDetail());
+        transaction.commit();
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,33 +81,4 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        String name = MainActivity.name;
-        String email = MainActivity.email;
-        String photoURL = MainActivity.photo;
-
-        //Name
-        TextView navUsername = findViewById(R.id.profile_name);
-        navUsername.setText(name);
-        //E-mail
-        TextView navEmail = findViewById(R.id.profile_mail);
-        navEmail.setText(email);
-        //ProfilePicture
-        ImageView profilePic = findViewById(R.id.profile_pic);
-        Picasso.with(this).load(photoURL).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
-                .into(profilePic);
-
-        frame = findViewById(R.id.content);
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new ProfileDetail());
-        transaction.commit();
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
 }

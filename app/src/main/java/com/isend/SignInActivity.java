@@ -45,8 +45,7 @@ public class SignInActivity extends AppCompatActivity implements
     SignInButton signInButton;
 
     SharedPreferences prefs;
-    String name, email, photo, gender, location;
-    int age;
+    String name, email, photo, gender, birthday, location;
     boolean isSigned;
 
     LoginButton loginButton;
@@ -63,7 +62,7 @@ public class SignInActivity extends AppCompatActivity implements
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
         gender = prefs.getString("Gender", "");
-        age = prefs.getInt("Age", 0);
+        birthday = prefs.getString("Birthday", "");
         location = prefs.getString("Location", "");
         isSigned = prefs.getBoolean("isSigned", false);
 
@@ -138,18 +137,22 @@ public class SignInActivity extends AppCompatActivity implements
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 System.out.println(response.toString());
                                 try {
-                                    String name = object.getString("name");
-                                    String email = object.getString("email");
-                                    String profilePicUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                                    String gender = object.getString("gender");
+                                    name = object.getString("name");
+                                    email = object.getString("email");
+                                    photo = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                                    gender = object.getString("gender");
+                                    birthday = object.getString("user_birthday");
+                                    location = object.getString("location");
+
                                     prefs.edit().putString("Name", name).apply();
                                     prefs.edit().putString("Email", email).apply();
-                                    prefs.edit().putString("ProfilePhoto", profilePicUrl).apply();
+                                    prefs.edit().putString("ProfilePhoto", photo).apply();
                                     prefs.edit().putString("Gender", gender).apply();
-                                    prefs.edit().putString("Age", "").apply();
-                                    prefs.edit().putString("Location", "").apply();
+                                    prefs.edit().putString("Birthday", birthday).apply();
+                                    prefs.edit().putString("Location", location).apply();
                                     prefs.edit().putBoolean("isSigned", true).apply();
-                                    System.out.println(name + email + profilePicUrl + gender);
+
+
                                     Toast.makeText(SignInActivity.this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
 
                                     new Handler().postDelayed(new Runnable() {
@@ -179,7 +182,6 @@ public class SignInActivity extends AppCompatActivity implements
 
             @Override
             public void onError(FacebookException exception) {
-                System.out.println(exception);
                 prefs.edit().putBoolean("isSigned", false).apply();
             }
         });
@@ -228,7 +230,7 @@ public class SignInActivity extends AppCompatActivity implements
                     } else {
                         prefs.edit().putString("Gender", "transsexual").apply();
                     }
-                    prefs.edit().putString("Age", person.getBirthday()).apply();
+                    prefs.edit().putString("Birthday", person.getBirthday()).apply();
                     prefs.edit().putString("Location", person.getCurrentLocation()).apply();
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
