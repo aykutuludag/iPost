@@ -52,13 +52,13 @@ public class ProfileFriends extends Fragment {
 
         List<ContactItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY ID DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY DisplayName ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
                     System.out.println(cur.getString(i));
-                    switch (i % 3) {
+                    switch (i % 5) {
                         case 0:
                             item = new ContactItem();
                             item.setID(cur.getString(i));
@@ -68,6 +68,12 @@ public class ProfileFriends extends Fragment {
                             break;
                         case 2:
                             item.setPhoneNumber(cur.getString(i));
+                            break;
+                        case 3:
+                            item.setMail(cur.getString(i));
+                            break;
+                        case 4:
+                            item.setContactPhoto(cur.getString(i));
                             feedsList.add(item);
                             break;
                     }

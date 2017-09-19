@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.isend.R;
 import com.isend.model.ContactItem;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -48,8 +51,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         // Setting title
         viewHolder.name.setText(feedItem.getName());
 
+        // Setting phoneNumber
+        viewHolder.number.setText(feedItem.getPhoneNumber());
+
+        //  Setting mail
+        viewHolder.textMail.setText(feedItem.getMail());
+
         // Setting profilephoto
-        Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
+        Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.com_facebook_profile_picture_blank_square).placeholder(R.drawable.com_facebook_profile_picture_blank_square)
                 .into(viewHolder.profilePhoto);
 
         // Setting whatsapp
@@ -74,20 +83,24 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
+        TextView number;
+        TextView textMail;
         ImageView profilePhoto;
         ImageView whatsapp;
         ImageView messenger;
         ImageView mail;
-        ImageView background;
+        RelativeLayout background;
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_name);
+            number = itemView.findViewById(R.id.txt_number);
             profilePhoto = itemView.findViewById(R.id.contactPhoto);
             whatsapp = itemView.findViewById(R.id.whatsapp);
             messenger = itemView.findViewById(R.id.messenger);
             mail = itemView.findViewById(R.id.mail);
-            background = itemView.findViewById(R.id.img_background);
+            background = itemView.findViewById(R.id.card_contact);
+            textMail = itemView.findViewById(R.id.txt_mail);
         }
     }
 }

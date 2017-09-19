@@ -2,6 +2,7 @@ package com.isend;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -33,6 +34,9 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     RelativeLayout layoutCalendar, layoutContacts, layoutSMS;
     Button buttonCalendar, buttonContacts, buttonSMS;
     SQLiteDatabase database_account;
+
+    String contactID, contactName, contactPhone, contactMail, contactPhoto;
+    boolean hasMail, hasMessenger, hasWhatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,18 +205,19 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
         if (cur != null) {
             if (cur.getCount() > 0) {
                 while (cur.moveToNext()) {
-                    String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                    values.put("ID", id);
-
-                    String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    values.put("DisplayName", name);
+                    contactID = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                    values.put("ID", contactID);
+                    values.put("UserMail", getEmail(contactID));
+                    contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                    values.put("DisplayName", contactName);
 
                     if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
+                        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{contactID}, null);
                         if (pCur != null) {
                             while (pCur.moveToNext()) {
-                                String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                values.put("PhoneNumber", phoneNo);
+                                contactPhone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                values.put("PhoneNumber", contactPhone);
+                                values.put("ContactPhoto", getContactPhoto(PermissionsActivity.this, contactPhone));
                             }
                             pCur.close();
                         }
@@ -221,9 +226,47 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 }
             }
             cur.close();
+
+
             layoutContacts.setVisibility(View.GONE);
             layoutSMS.setVisibility(View.VISIBLE);
             Toast.makeText(PermissionsActivity.this, getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static String getContactPhoto(Context context, String phoneNumber) {
+        ContentResolver cr = context.getContentResolver();
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String contactImage = null;
+        if (cursor.moveToFirst()) {
+            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return contactImage;
+    }
+
+    public String getEmail(String contactId) {
+        String emailStr = "";
+        final String[] projection = new String[]{ContactsContract.CommonDataKinds.Email.DATA,
+                ContactsContract.CommonDataKinds.Email.TYPE};
+
+        Cursor emailq = managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, ContactsContract.Data.CONTACT_ID + "=?", new String[]{contactId}, null);
+
+        if (emailq.moveToFirst()) {
+            final int contactEmailColumnIndex = emailq.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+
+            while (!emailq.isAfterLast()) {
+                emailStr = emailStr + emailq.getString(contactEmailColumnIndex) + ";";
+                emailq.moveToNext();
+            }
+        }
+        return emailStr;
     }
 }
