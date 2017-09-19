@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -52,12 +51,15 @@ public class SignInActivity extends AppCompatActivity implements
     CallbackManager callbackManager;
     ProgressBar pb;
 
+    int googleSign = 9001;
+    int fbSign = 1320;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "");
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
@@ -76,19 +78,24 @@ public class SignInActivity extends AppCompatActivity implements
         loginButton.setReadPermissions("email");
 
         /* Google Sign-In */
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestScopes(Plus.SCOPE_PLUS_LOGIN)
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
+                .build();
+
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(this);
 
-        // Build a GoogleApiClient with access to the Google Sign-In API and the options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .addApi(Plus.API)
-                .build();
-
+        // Check the user is signed or not
         if (isSigned) {
-            //signed succesfully
+            //signed already
             loginButton.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
@@ -112,7 +119,7 @@ public class SignInActivity extends AppCompatActivity implements
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start INTEGER, End INTEGER, Location VARCHAR, Owner VARCHAR, Color VARCHAR, Source VARCHAR);");
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, Email VARCHAR, hasWhatsapp VARCHAR, hasMessenger VARCHAR);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR);");
 
             loginButton.setVisibility(View.VISIBLE);
             signInButton.setVisibility(View.VISIBLE);
@@ -121,7 +128,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     private void googleSignIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, 9001);
+        startActivityForResult(signInIntent, googleSign);
     }
 
     private void facebookLogin() {
@@ -207,7 +214,7 @@ public class SignInActivity extends AppCompatActivity implements
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
         //Google
-        if (requestCode == 9001) {
+        if (requestCode == googleSign) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
@@ -233,6 +240,7 @@ public class SignInActivity extends AppCompatActivity implements
                     prefs.edit().putString("Birthday", person.getBirthday()).apply();
                     prefs.edit().putString("Location", person.getCurrentLocation()).apply();
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
+                    System.out.println(person.getBirthday() + person.getCurrentLocation());
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
                     loginButton.setVisibility(View.INVISIBLE);
                     signInButton.setVisibility(View.INVISIBLE);

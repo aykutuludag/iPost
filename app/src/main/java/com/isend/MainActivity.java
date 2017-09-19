@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        prefs = this.getSharedPreferences("SignIn", Context.MODE_PRIVATE);
+        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "");
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");

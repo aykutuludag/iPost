@@ -42,7 +42,7 @@ public class EventsUpcoming extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        mRecyclerView = v.findViewById(R.id.recyclerView);
+        mRecyclerView = v.findViewById(R.id.eventView);
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         cur = database_account.rawQuery("SELECT * FROM events WHERE Start >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
@@ -76,11 +76,11 @@ public class EventsUpcoming extends Fragment {
                     }
                 }
             } while (cur.moveToNext());
+            cur.close();
         } else {
             //First opening
             Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
         }
-        cur.close();
 
         // Adapter
         mAdapter = new EventsAdapter(getActivity(), feedsList);

@@ -49,7 +49,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         viewHolder.name.setText(feedItem.getName());
 
         // Setting profilephoto
-        Picasso.with(mContext).load(feedItem.getProfilePhoto()).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
+        Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
                 .into(viewHolder.profilePhoto);
 
         // Setting whatsapp
@@ -83,7 +83,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_name);
-            profilePhoto = itemView.findViewById(R.id.profilePhoto);
+            profilePhoto = itemView.findViewById(R.id.contactPhoto);
             whatsapp = itemView.findViewById(R.id.whatsapp);
             messenger = itemView.findViewById(R.id.messenger);
             mail = itemView.findViewById(R.id.mail);

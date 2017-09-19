@@ -51,7 +51,7 @@ public class ProfileDetail extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        prefs = getActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         isContactSync = prefs.getBoolean("isContactSync", false);
         isCalendarSync = prefs.getBoolean("isCalendarSync", false);
 

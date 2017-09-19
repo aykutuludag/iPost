@@ -36,7 +36,7 @@ public class ProfileAccounts extends Fragment {
 
         View v = inflater.inflate(R.layout.profile_accounts, container, false);
 
-        prefs = getActivity().getSharedPreferences("Profile", MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("ProfileInformation", MODE_PRIVATE);
         isFacebookSync = prefs.getBoolean("Facebook", false);
         isGoogleSync = prefs.getBoolean("Google", false);
         isOutlookSync = prefs.getBoolean("Outlook", false);

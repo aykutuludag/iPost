@@ -46,7 +46,7 @@ public class EventsPast extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        mRecyclerView = v.findViewById(R.id.recyclerView);
+        mRecyclerView = v.findViewById(R.id.eventView);
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         cur = database_account.rawQuery("SELECT * FROM events WHERE Start < " + System.currentTimeMillis() + " ORDER BY Start DESC", null);

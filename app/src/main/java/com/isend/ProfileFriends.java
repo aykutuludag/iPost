@@ -45,21 +45,11 @@ public class ProfileFriends extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        prefs = getActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         isSync = prefs.getBoolean("isSync", false);
 
-        mRecyclerView = v.findViewById(R.id.recyclerView);
+        mRecyclerView = v.findViewById(R.id.contactView);
 
-        if (isSync) {
-            showFriends();
-        } else {
-            //Toast
-        }
-
-        return v;
-    }
-
-    private void showFriends() {
         List<ContactItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY ID DESC", null);
@@ -68,7 +58,7 @@ public class ProfileFriends extends Fragment {
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
                     System.out.println(cur.getString(i));
-                    switch (i % 9) {
+                    switch (i % 3) {
                         case 0:
                             item = new ContactItem();
                             item.setID(cur.getString(i));
@@ -78,34 +68,25 @@ public class ProfileFriends extends Fragment {
                             break;
                         case 2:
                             item.setPhoneNumber(cur.getString(i));
-                            break;
-                        case 3:
-                            item.setProfilePhoto(cur.getString(i));
-                            break;
-                        case 4:
-                            item.setWhastaspp(cur.getString(i));
-                            break;
-                        case 5:
-                            item.setMessenger(cur.getString(i));
-                            break;
-                        case 6:
-                            item.setMail(cur.getString(i));
+                            feedsList.add(item);
                             break;
                     }
                 }
             } while (cur.moveToNext());
+            cur.close();
         } else {
-            //First opening and no events for today has been found.
-            Toast.makeText(getActivity(), "There is no events for today. You can add event or sync your calendar with iSend.", Toast.LENGTH_LONG).show();
+            // Error no contact found
+            Toast.makeText(getActivity(), "No friends", Toast.LENGTH_LONG).show();
         }
-        cur.close();
 
         // Adapter
         mAdapter = new ContactAdapter(getActivity(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns
-        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        mLayoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        return v;
     }
 }

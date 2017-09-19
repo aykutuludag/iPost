@@ -55,24 +55,23 @@ public class ProfileActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_detail:
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.content, new ProfileDetail());
                     transaction.commit();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_accounts:
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.content, new ProfileAccounts());
                     transaction.commit();
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_friends:
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.content, new ProfileFriends());
                     transaction.commit();

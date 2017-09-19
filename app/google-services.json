@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "802887467777",
-    "project_id": "firebase-isend"
+    "firebase_url": "https://fir-isend.firebaseio.com",
+    "project_id": "firebase-isend",
+    "storage_bucket": "firebase-isend.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "802887467777-f97apms94btbudsvlr53bltchfjtraa6.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "802887467777-gpb27m4cak7l9jkc5nl323vhsj74j9j1.apps.googleusercontent.com",
           "client_type": 1,
@@ -38,11 +44,16 @@
           }
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802887467777-f97apms94btbudsvlr53bltchfjtraa6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

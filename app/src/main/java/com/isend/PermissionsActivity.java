@@ -213,11 +213,11 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                             while (pCur.moveToNext()) {
                                 String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 values.put("PhoneNumber", phoneNo);
-                                database_account.insert("contacts", null, values);
                             }
                             pCur.close();
                         }
                     }
+                    database_account.insert("contacts", null, values);
                 }
             }
             cur.close();

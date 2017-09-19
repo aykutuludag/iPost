@@ -5,7 +5,7 @@ public class ContactItem {
     private String ID;
     private String name;
     private String phoneNumber;
-    private String profilePhoto;
+    private String contactPhoto;
     private String whatsapp;
     private String messenger;
     private String mail;
@@ -34,12 +34,12 @@ public class ContactItem {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
+    public String getContactPhoto() {
+        return contactPhoto;
     }
 
-    public void setProfilePhoto(String profilePhoto) {
-        this.profilePhoto = profilePhoto;
+    public void setContactPhoto(String contactPhoto) {
+        this.contactPhoto = contactPhoto;
     }
 
     public String getWhatsapp() {
