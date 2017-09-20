@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -20,6 +22,7 @@ public class ProfileAccounts extends Fragment {
 
     CallbackManager callbackManager;
     SQLiteDatabase database_account;
+    Tracker t;
 
     ImageView facebook, google, outlook, iCalendar;
 
@@ -28,6 +31,12 @@ public class ProfileAccounts extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.profile_accounts, container, false);
+
+        // Analytics
+        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t.setScreenName("Profile - Accounts");
+        t.enableAdvertisingIdCollection(true);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         facebook = v.findViewById(R.id.facebookCalendar);
         google = v.findViewById(R.id.googleCalendar);

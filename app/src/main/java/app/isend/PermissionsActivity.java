@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -37,6 +37,24 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
 
     String contactID, contactName, contactPhone, contactMail, contactPhoto;
     boolean hasMail, hasMessenger, hasWhatsapp;
+
+    public static String getContactPhoto(Context context, String phoneNumber) {
+        ContentResolver cr = context.getContentResolver();
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String contactImage = null;
+        if (cursor.moveToFirst()) {
+            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return contactImage;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,24 +249,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             layoutSMS.setVisibility(View.VISIBLE);
             Toast.makeText(PermissionsActivity.this, getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public static String getContactPhoto(Context context, String phoneNumber) {
-        ContentResolver cr = context.getContentResolver();
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        String contactImage = null;
-        if (cursor.moveToFirst()) {
-            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
-        }
-
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-        return contactImage;
     }
 
     public String getEmail(String contactId) {

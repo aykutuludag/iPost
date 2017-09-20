@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.isend.adapter.ContactAdapter;
-import com.isend.model.ContactItem;
+import app.isend.adapter.ContactAdapter;
+import app.isend.model.ContactItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class ProfileFriends extends Fragment {
 
         // Analytics
         t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
-        t.setScreenName("Profile / Friends");
+        t.setScreenName("Profile - Friends");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 

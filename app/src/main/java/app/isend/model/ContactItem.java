@@ -1,4 +1,4 @@
-package com.isend.model;
+package app.isend.model;
 
 public class ContactItem {
 

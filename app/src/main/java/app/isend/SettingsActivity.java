@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 
 import android.annotation.TargetApi;
@@ -21,6 +21,9 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.List;
 
 /**
@@ -35,10 +38,6 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
-    /**
-     * A preference value change listener that updates the preference's summary
-     * to reflect its new value.
-     */
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -86,6 +85,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         }
     };
+    /**
+     * A preference value change listener that updates the preference's summary
+     * to reflect its new value.
+     */
+
+    Tracker t;
 
     /**
      * Helper method to determine if the device has an extra-large screen. For
@@ -121,6 +126,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        // Analytics
+        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+        t.setScreenName("Settings");
+        t.enableAdvertisingIdCollection(true);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /**

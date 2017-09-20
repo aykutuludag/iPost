@@ -1,4 +1,4 @@
-package com.isend.adapter;
+package app.isend.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +9,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.isend.R;
-import com.isend.model.ContactItem;
+import app.isend.R;
+import app.isend.model.ContactItem;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

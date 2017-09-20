@@ -39,13 +39,13 @@
                 android:icon="@drawable/ic_settings"
                 android:title="@string/other_settings" />
             <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help"
+                android:title="@string/other_help" />
+            <item
                 android:id="@+id/nav_privacy"
                 android:icon="@drawable/ic_privacy"
                 android:title="@string/other_privacy" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_about"
-                android:title="@string/other_about" />
         </menu>
     </item>
 

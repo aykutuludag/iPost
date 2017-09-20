@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.app.Application;
 

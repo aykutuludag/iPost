@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -47,7 +47,7 @@ public class ProfileDetail extends Fragment {
 
         // Analytics
         t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
-        t.setScreenName("Profile / Detail");
+        t.setScreenName("Profile - Detail");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 

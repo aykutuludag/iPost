@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -54,10 +56,18 @@ public class SignInActivity extends AppCompatActivity implements
     int googleSign = 9001;
     int fbSign = 1320;
 
+    Tracker t;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
+        // Analytics
+        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+        t.setScreenName("Sign-In");
+        t.enableAdvertisingIdCollection(true);
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "");

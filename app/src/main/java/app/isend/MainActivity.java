@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.content.Context;
 import android.content.Intent;
@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+        if (id == R.id.action_about) {
+            Intent i = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(i);
             return true;
         }
@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
-
         switch (item.getItemId()) {
             case R.id.nav_eventupcoming:
                 fragment = new EventsUpcoming();
@@ -149,21 +148,21 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(i);
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_help:
+                Intent i2 = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(i2);
                 break;
             case R.id.nav_privacy:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.nav_about:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                Intent i3 = new Intent(MainActivity.this, PrivacyActivity.class);
+                startActivity(i3);
                 break;
             case R.id.nav_rate:
-                //PUANLA
-                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.isend"));
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=app.isend"));
                 startActivity(intent4);
                 break;
             case R.id.nav_subscriptions:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_feedback:
                 Intent intent = new Intent(Intent.ACTION_SENDTO);

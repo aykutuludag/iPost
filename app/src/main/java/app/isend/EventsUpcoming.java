@@ -1,4 +1,4 @@
-package com.isend;
+package app.isend;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,16 +13,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.isend.adapter.EventsAdapter;
-import com.isend.model.EventItem;
+import app.isend.adapter.EventsAdapter;
+import app.isend.model.EventItem;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class EventsPast extends Fragment {
+public class EventsUpcoming extends Fragment {
 
     RecyclerView mRecyclerView;
     GridLayoutManager mLayoutManager;
@@ -37,19 +36,16 @@ public class EventsPast extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.events_general, container, false);
 
-        //Calendar
-        Calendar rightNow = Calendar.getInstance();
-
         // Analytics
         t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
-        t.setScreenName("Upcoming events");
+        t.setScreenName("Events - Upcoming");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
         mRecyclerView = v.findViewById(R.id.eventView);
         List<EventItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("SELECT * FROM events WHERE Start < " + System.currentTimeMillis() + " ORDER BY Start DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE Start >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
@@ -80,11 +76,11 @@ public class EventsPast extends Fragment {
                     }
                 }
             } while (cur.moveToNext());
+            cur.close();
         } else {
             //First opening
             Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
         }
-        cur.close();
 
         // Adapter
         mAdapter = new EventsAdapter(getActivity(), feedsList);
