@@ -96,9 +96,10 @@
             android:id="@+id/accounts_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/account_desc"
+            android:layout_alignStart="@+id/account_desc"
             android:layout_below="@+id/contacts_button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Accounts"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 

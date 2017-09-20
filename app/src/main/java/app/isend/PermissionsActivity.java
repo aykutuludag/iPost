@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,27 +35,10 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     RelativeLayout layoutCalendar, layoutContacts, layoutSMS;
     Button buttonCalendar, buttonContacts, buttonSMS;
     SQLiteDatabase database_account;
+    SharedPreferences prefs;
 
     String contactID, contactName, contactPhone, contactMail, contactPhoto;
     boolean hasNumber, hasMail, hasMessenger, hasWhatsapp;
-
-    public static String getContactPhoto(Context context, String phoneNumber) {
-        ContentResolver cr = context.getContentResolver();
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        String contactImage = null;
-        if (cursor.moveToFirst()) {
-            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
-        }
-
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-        return contactImage;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +53,8 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
         t.setScreenName("Permissions");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
+
+        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         // Create local database to save contacs
         database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
@@ -207,6 +193,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 database_account.insert("events", null, values);
             }
             cur.close();
+            prefs.edit().putBoolean("isCalendarSync", true).apply();
             layoutCalendar.setVisibility(View.GONE);
             layoutContacts.setVisibility(View.VISIBLE);
             Toast.makeText(this, getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
@@ -223,9 +210,10 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             if (cur.getCount() > 0) {
                 while (cur.moveToNext()) {
                     contactID = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                    String[] contactMail = getEmail(contactID).split(";");
+                    String[] contactMails = getEmail(contactID).split(";");
+                    contactMail = contactMails[0];
                     values.put("ID", contactID);
-                    values.put("UserMail", contactMail[0]);
+                    values.put("UserMail", contactMail);
                     contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     values.put("DisplayName", contactName);
 
@@ -246,7 +234,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             }
             cur.close();
 
-
+            prefs.edit().putBoolean("isContactSync", true).apply();
             layoutContacts.setVisibility(View.GONE);
             layoutSMS.setVisibility(View.VISIBLE);
             Toast.makeText(PermissionsActivity.this, getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
@@ -269,5 +257,23 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             }
         }
         return emailStr;
+    }
+
+    public static String getContactPhoto(Context context, String phoneNumber) {
+        ContentResolver cr = context.getContentResolver();
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String contactImage = null;
+        if (cursor.moveToFirst()) {
+            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return contactImage;
     }
 }

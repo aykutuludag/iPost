@@ -169,7 +169,6 @@ public class SignInActivity extends AppCompatActivity implements
                                     prefs.edit().putString("Location", location).apply();
                                     prefs.edit().putBoolean("isSigned", true).apply();
 
-
                                     Toast.makeText(SignInActivity.this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
 
                                     new Handler().postDelayed(new Runnable() {

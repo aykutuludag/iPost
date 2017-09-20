@@ -7,19 +7,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +32,8 @@ public class ProfileDetail extends Fragment {
     Tracker t;
     SQLiteDatabase database_account;
     SharedPreferences prefs;
+    boolean isCalendarSync, isContactSync;
+    TextView calendarStatus, contactsStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +46,24 @@ public class ProfileDetail extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
+        calendarStatus = v.findViewById(R.id.calendar_status);
+        contactsStatus = v.findViewById(R.id.contacts_status);
+
         prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+        isCalendarSync = prefs.getBoolean("isCalendarSync", false);
+        isContactSync = prefs.getBoolean("isContactSync", false);
+
+        if (isCalendarSync) {
+            calendarStatus.setText("Sync");
+        } else {
+            calendarStatus.setText("Not sync");
+        }
+
+        if (isContactSync) {
+            contactsStatus.setText("Sync");
+        } else {
+            contactsStatus.setText("Not sync");
+        }
 
         // Create local database to save contacs
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
