@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import codes.isend.R;
+
 public class ProfileActivity extends AppCompatActivity {
 
     FrameLayout frame;

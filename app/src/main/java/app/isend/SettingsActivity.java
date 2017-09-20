@@ -26,6 +26,8 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.List;
 
+import codes.isend.R;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,

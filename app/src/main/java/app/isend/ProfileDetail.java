@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import codes.isend.R;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileDetail extends Fragment {

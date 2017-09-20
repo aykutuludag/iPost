@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import codes.isend.R;
 import app.isend.adapter.ContactAdapter;
 import app.isend.model.ContactItem;
 

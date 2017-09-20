@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import app.isend.R;
+import codes.isend.R;
 import app.isend.model.EventItem;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {

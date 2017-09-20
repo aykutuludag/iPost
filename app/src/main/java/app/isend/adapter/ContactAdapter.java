@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import app.isend.R;
+import codes.isend.R;
 import app.isend.model.ContactItem;
 import com.squareup.picasso.Picasso;
 

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import codes.isend.R;
 import app.isend.adapter.EventsAdapter;
 import app.isend.model.EventItem;
 

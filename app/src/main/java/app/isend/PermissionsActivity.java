@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import codes.isend.R;
+
 public class PermissionsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_CALENDAR_READ = 0;
