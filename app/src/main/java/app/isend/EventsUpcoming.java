@@ -14,12 +14,11 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import codes.isend.R;
-import app.isend.adapter.EventsAdapter;
-import app.isend.model.EventItem;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import app.isend.adapter.EventsAdapter;
+import app.isend.model.EventItem;
 
 import static android.content.Context.MODE_PRIVATE;
 

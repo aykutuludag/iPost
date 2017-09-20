@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import codes.isend.R;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

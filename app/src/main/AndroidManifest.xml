@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="codes.isend">
+    package="app.isend">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -39,7 +39,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="codes.isend.abc.MainActivity" />
+                android:value="app.isend.MainActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -47,7 +47,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="codes.isend.abc.MainActivity" />
+                android:value="app.isend.MainActivity" />
         </activity>
         <activity
             android:name=".HelpActivity"
@@ -55,7 +55,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="codes.isend.abc.MainActivity" />
+                android:value="app.isend.MainActivity" />
         </activity>
         <activity
             android:name=".PrivacyActivity"
@@ -63,7 +63,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="codes.isend.abc.MainActivity" />
+                android:value="app.isend.MainActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -71,7 +71,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="codes.isend.abc.MainActivity" />
+                android:value="app.isend.MainActivity" />
         </activity>
 
         <meta-data

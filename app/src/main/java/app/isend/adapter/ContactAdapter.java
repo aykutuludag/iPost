@@ -9,11 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import codes.isend.R;
-import app.isend.model.ContactItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import app.isend.R;
+import app.isend.model.ContactItem;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
     private List<ContactItem> feedItemList;

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import codes.isend.R;
+import app.isend.R;
 import app.isend.model.EventItem;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
@@ -74,7 +74,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private String getDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm",
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM HH:mm",
                 java.util.Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
         return sdf.format(date);
