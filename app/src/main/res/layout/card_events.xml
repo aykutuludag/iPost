@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -15,7 +15,7 @@
         card_view:cardUseCompatPadding="true">
 
         <RelativeLayout
-            android:id="@+id/event_layout"
+            android:id="@+id/single_event"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#212121">
@@ -44,21 +44,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
                 android:gravity="center"
-                android:text="02:00"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
-
-            <TextView
-                android:id="@+id/txt_endtime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/txt_startime"
-                android:layout_alignTop="@+id/txt_startime"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/txt_startime"
-                android:layout_toRightOf="@+id/txt_startime"
-                android:gravity="center"
-                android:text="06:00"
+                android:text="30 Eylül 2017 00:00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
             <TextView
@@ -70,55 +56,56 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
-                android:text="Çayyolu/ Ankara"
+                android:text="Ankara, Türkiye"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/iconTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/txt_startime"
                 android:layout_alignLeft="@+id/txt_startime"
                 android:layout_alignStart="@+id/txt_startime"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="8dp"
                 card_view:srcCompat="@drawable/ic_timelapse_white_24dp" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/iconLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/txt_loc"
                 android:layout_alignEnd="@+id/txt_loc"
                 android:layout_alignRight="@+id/txt_loc"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="8dp"
                 card_view:srcCompat="@drawable/ic_location_on_white_24dp" />
 
             <RelativeLayout
+                android:id="@+id/EventOptions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:layout_alignTop="@+id/txt_name"
-                android:layout_alignRight="@+id/imageView4"
-                android:layout_alignEnd="@+id/imageView4">
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/iconLocation"
+                android:layout_alignRight="@+id/iconLocation"
+                android:layout_alignTop="@+id/txt_name">
 
                 <ImageView
                     android:id="@+id/sms"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:alpha="0.5"
                     android:layout_centerVertical="true"
+                    android:alpha="0.5"
                     card_view:srcCompat="@drawable/sms_icon" />
 
                 <ImageView
                     android:id="@+id/whatsapp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:alpha="0.5"
                     android:layout_alignTop="@+id/messenger"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/messenger"
                     android:layout_toRightOf="@+id/messenger"
+                    android:alpha="0.5"
                     card_view:srcCompat="@drawable/whatsapp_icon" />
 
                 <ImageView
@@ -127,20 +114,20 @@
                     android:layout_height="25dp"
                     android:layout_alignTop="@+id/mail"
                     android:layout_marginLeft="5dp"
-                    android:alpha="0.5"
                     android:layout_toEndOf="@+id/mail"
                     android:layout_toRightOf="@+id/mail"
+                    android:alpha="0.5"
                     card_view:srcCompat="@drawable/messenger_icon" />
 
                 <ImageView
                     android:id="@+id/mail"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:alpha="0.5"
                     android:layout_alignTop="@+id/sms"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/sms"
                     android:layout_toRightOf="@+id/sms"
+                    android:alpha="0.5"
                     card_view:srcCompat="@drawable/gmail_icon" />
             </RelativeLayout>
 

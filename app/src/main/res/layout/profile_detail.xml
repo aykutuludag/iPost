@@ -1,47 +1,117 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.isend.ProfileDetail">
+    tools:context="app.isend.ProfileDetail">
 
-    <TextView
-        android:id="@+id/calendar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Calendar"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-    <ImageView
-        android:id="@+id/calendar_button"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/calendar_title"
-        app:srcCompat="@drawable/calendar_pic" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/contacts_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="16dp"
-        android:text="Contacts"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        <TextView
+            android:id="@+id/calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Calendar  : "
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <ImageView
-        android:id="@+id/contacts_button"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/contacts_title"
-        app:srcCompat="@drawable/contact_pic" />
+        <TextView
+            android:id="@+id/calendar_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/calendar_title"
+            android:layout_alignTop="@+id/calendar_title"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/calendar_title"
+            android:layout_toRightOf="@+id/calendar_title"
+            android:gravity="center"
+            android:text="Sync"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/calendar_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/calendar_title"
+            android:layout_margin="16dp"
+            android:text="If you want to delete all events and resync from device calendar click the button sync now!\n\nRemember, this action deletes all events including your created own in iSend, Facebook events etc.. and your posts." />
+
+        <Button
+            android:id="@+id/calendar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calendar_desc"
+            android:layout_centerHorizontal="true"
+            android:text="Resync events" />
+
+        <TextView
+            android:id="@+id/contacts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/calendar_desc"
+            android:layout_alignStart="@+id/calendar_desc"
+            android:layout_below="@+id/calendar_button"
+            android:layout_marginTop="8dp"
+            android:text="Contacts : "
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/contacts_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/contacts_title"
+            android:layout_alignLeft="@+id/calendar_status"
+            android:layout_alignStart="@+id/calendar_status"
+            android:layout_alignTop="@+id/contacts_title"
+            android:gravity="center"
+            android:text="Sync"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/contacts_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/contacts_status"
+            android:layout_margin="16dp"
+            android:text="If you want to remove all contacts from iSend and resync with your device contacts click the button Sync contacts!\n\nRemember, this action deletes all contacts customization." />
+
+        <Button
+            android:id="@+id/contacts_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contacts_desc"
+            android:layout_centerHorizontal="true"
+            android:text="Resync contacts" />
+
+        <TextView
+            android:id="@+id/accounts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contacts_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Accounts"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/account_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/accounts_title"
+            android:layout_margin="16dp"
+            android:text="You can connect some calendar services such as Google Calendar, iCalendar etc. to iSend in connected accounts section." />
+
+    </RelativeLayout>
+
+</ScrollView>

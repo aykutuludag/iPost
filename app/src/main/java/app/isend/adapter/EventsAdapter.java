@@ -1,6 +1,10 @@
 package app.isend.adapter;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +26,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            /*ViewHolder holder = (ViewHolder) view.getTag();
+            ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
             long eventID = Long.parseLong(feedItemList.get(position).getID());
             Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-            Intent intent = new Intent(Intent.ACTION_EDIT)
-                    .setData(uri);
-            mContext.startActivity(intent);*/
+            Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+            mContext.startActivity(intent);
         }
     };
 
@@ -53,9 +56,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         // Setting startTime
         viewHolder.startTime.setText(getDate(feedItem.getStartTime()));
 
-        // Setting endTime
-        viewHolder.endTime.setText(getDate(feedItem.getEndTime()));
-
         // Setting location
         viewHolder.location.setText(feedItem.getLocation());
 
@@ -74,7 +74,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private String getDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM HH:mm",
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm",
                 java.util.Locale.getDefault());
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
         return sdf.format(date);
@@ -84,7 +84,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         TextView title;
         TextView startTime;
-        TextView endTime;
         TextView location;
         RelativeLayout background;
 
@@ -92,9 +91,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             super(itemView);
             title = itemView.findViewById(R.id.txt_name);
             startTime = itemView.findViewById(R.id.txt_startime);
-            endTime = itemView.findViewById(R.id.txt_endtime);
             location = itemView.findViewById(R.id.txt_loc);
-            background = itemView.findViewById(R.id.event_layout);
+            background = itemView.findViewById(R.id.single_event);
         }
     }
 

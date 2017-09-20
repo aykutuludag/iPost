@@ -98,7 +98,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             whatsapp = itemView.findViewById(R.id.whatsapp);
             messenger = itemView.findViewById(R.id.messenger);
             mail = itemView.findViewById(R.id.mail);
-            background = itemView.findViewById(R.id.card_contact);
+            background = itemView.findViewById(R.id.single_contact);
             textMail = itemView.findViewById(R.id.txt_mail);
         }
     }

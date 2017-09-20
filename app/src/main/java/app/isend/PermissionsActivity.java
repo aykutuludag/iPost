@@ -36,7 +36,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     SQLiteDatabase database_account;
 
     String contactID, contactName, contactPhone, contactMail, contactPhoto;
-    boolean hasMail, hasMessenger, hasWhatsapp;
+    boolean hasNumber, hasMail, hasMessenger, hasWhatsapp;
 
     public static String getContactPhoto(Context context, String phoneNumber) {
         ContentResolver cr = context.getContentResolver();
@@ -166,6 +166,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     private void getEvents() {
         Cursor cur;
         ContentResolver cr = this.getContentResolver();
+        ContentValues values = new ContentValues();
 
         String[] mProjection =
                 {
@@ -195,7 +196,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
 
                 System.out.println("ID: " + id + "Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "owner:" + owner + "color:" + color);
 
-                ContentValues values = new ContentValues();
                 values.put("ID", id);
                 values.put("Title", title);
                 values.put("Description", desc);
@@ -223,8 +223,9 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             if (cur.getCount() > 0) {
                 while (cur.moveToNext()) {
                     contactID = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                    String[] contactMail = getEmail(contactID).split(";");
                     values.put("ID", contactID);
-                    values.put("UserMail", getEmail(contactID));
+                    values.put("UserMail", contactMail[0]);
                     contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     values.put("DisplayName", contactName);
 
@@ -234,7 +235,8 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                             while (pCur.moveToNext()) {
                                 contactPhone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 values.put("PhoneNumber", contactPhone);
-                                values.put("ContactPhoto", getContactPhoto(PermissionsActivity.this, contactPhone));
+                                contactPhoto = getContactPhoto(PermissionsActivity.this, contactPhone);
+                                values.put("ContactPhoto", contactPhoto);
                             }
                             pCur.close();
                         }

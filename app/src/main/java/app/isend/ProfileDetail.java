@@ -36,9 +36,6 @@ public class ProfileDetail extends Fragment {
     Tracker t;
     SQLiteDatabase database_account;
     SharedPreferences prefs;
-    Boolean isContactSync, isCalendarSync;
-    TextView calendarText, contactsText;
-    ImageView calendarButton, contactsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,61 +49,9 @@ public class ProfileDetail extends Fragment {
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
         prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        isContactSync = prefs.getBoolean("isContactSync", false);
-        isCalendarSync = prefs.getBoolean("isCalendarSync", false);
 
         // Create local database to save contacs
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-
-        // CALENDAR
-        calendarButton = v.findViewById(R.id.calendar_button);
-        calendarText = v.findViewById(R.id.calendar_title);
-
-        if (isCalendarSync) {
-            calendarText.setTextColor(Color.GREEN);
-        } else {
-            calendarText.setTextColor(Color.BLACK);
-        }
-
-        // CONTACTS
-        contactsButton = v.findViewById(R.id.contacts_button);
-        contactsText = v.findViewById(R.id.contacts_title);
-
-        if (isContactSync) {
-            contactsText.setTextColor(Color.GREEN);
-        } else {
-            contactsText.setTextColor(Color.BLACK);
-        }
-
-        View.OnClickListener buttonListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.calendar_button:
-                        if (!isCalendarSync) {
-                            if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
-                            } else {
-                                getEvents();
-                            }
-                        } else {
-                            deleteEvents();
-                        }
-                    case R.id.contacts_button:
-                        if (isContactSync) {
-                            deleteContacts();
-                        } else {
-                            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CONTACTS}, 0);
-                            } else {
-                                getContacts();
-                            }
-                        }
-                        break;
-                }
-            }
-        };
-        calendarButton.setOnClickListener(buttonListener);
-        contactsButton.setOnClickListener(buttonListener);
 
         return v;
     }

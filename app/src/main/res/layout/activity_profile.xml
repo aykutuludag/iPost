@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.isend.ProfileActivity">
+    tools:context="app.isend.ProfileActivity">
 
     <RelativeLayout
         android:id="@+id/header"
