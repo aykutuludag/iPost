@@ -186,7 +186,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 values.put("Location", location);
                 values.put("Owner", owner);
                 values.put("Color", color);
-                values.put("Source", "Device");
                 database_account.insert("events", null, values);
             }
             cur.close();

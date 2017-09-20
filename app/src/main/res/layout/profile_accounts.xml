@@ -1,16 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#212121">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/account_facebook"
+    <ImageView
+        android:id="@+id/facebookCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:layout_heightPercent="33.3%"
-        app:layout_widthPercent="50%" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/facebookevents" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/googleCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/facebookCalendar"
+        android:layout_toRightOf="@+id/facebookCalendar"
+        android:scaleType="centerCrop"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/googlecalendar" />
+
+    <ImageView
+        android:id="@+id/outlookCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/facebookCalendar"
+        android:scaleType="centerCrop"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/outlookcalendar" />
+
+    <ImageView
+        android:id="@+id/iCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/googleCalendar"
+        android:scaleType="centerCrop"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        app:srcCompat="@drawable/icalendar" />
+
+</android.support.percent.PercentRelativeLayout>

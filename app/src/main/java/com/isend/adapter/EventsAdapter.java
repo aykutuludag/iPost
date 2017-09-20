@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.isend.R;
@@ -86,7 +87,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         TextView startTime;
         TextView endTime;
         TextView location;
-        ImageView background;
+        RelativeLayout background;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -94,7 +95,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             startTime = itemView.findViewById(R.id.txt_startime);
             endTime = itemView.findViewById(R.id.txt_endtime);
             location = itemView.findViewById(R.id.txt_loc);
-            background = itemView.findViewById(R.id.img_background);
+            background = itemView.findViewById(R.id.event_layout);
         }
     }
 
