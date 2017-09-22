@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,30 +25,28 @@ import app.isend.model.ContactItem;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ProfileFriends extends Fragment {
+public class ProfileContacts extends Fragment {
 
     Tracker t;
     SQLiteDatabase database_account;
     Cursor cur;
     SharedPreferences prefs;
     ContactItem item;
-    boolean isSync;
     RecyclerView mRecyclerView;
     GridLayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.profile_friends, container, false);
+        View v = inflater.inflate(R.layout.profile_contacts, container, false);
 
         // Analytics
         t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
-        t.setScreenName("Profile - Friends");
+        t.setScreenName("Profile - Contacts");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
         prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        isSync = prefs.getBoolean("isSync", false);
 
         mRecyclerView = v.findViewById(R.id.contactView);
 
@@ -58,11 +57,12 @@ public class ProfileFriends extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    System.out.println(cur.getString(i));
                     switch (i % 5) {
                         case 0:
                             item = new ContactItem();
                             item.setID(cur.getString(i));
+                            item.setWhastaspp(hasWhatsApp(cur.getString(i)));
+                            item.setMessenger(hasMessenger(cur.getString(i)));
                             break;
                         case 1:
                             item.setName(cur.getString(i));
@@ -95,5 +95,42 @@ public class ProfileFriends extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         return v;
+    }
+
+    public String hasWhatsApp(String contactID) {
+        String rowContactId = null;
+        boolean hasWhatsApp;
+
+        String[] projection = new String[]{ContactsContract.RawContacts._ID};
+        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
+        String[] selectionArgs = new String[]{contactID, "com.whatsapp"};
+        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (cursor != null) {
+            hasWhatsApp = cursor.moveToNext();
+            if (hasWhatsApp) {
+                rowContactId = cursor.getString(0);
+            }
+            cursor.close();
+        }
+        return rowContactId;
+    }
+
+    public String hasMessenger(String contactID) {
+        String rowContactId = null;
+        boolean hasMessenger;
+
+        String[] projection = new String[]{ContactsContract.RawContacts._ID};
+        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
+        String[] selectionArgs = new String[]{contactID, "com.facebook.katana"};
+        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (cursor != null) {
+            hasMessenger = cursor.moveToNext();
+            if (hasMessenger) {
+                rowContactId = cursor.getString(0);
+                System.out.println(rowContactId);
+            }
+            cursor.close();
+        }
+        return rowContactId;
     }
 }

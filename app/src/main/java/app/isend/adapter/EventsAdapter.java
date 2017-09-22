@@ -1,10 +1,7 @@
 package app.isend.adapter;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import app.isend.AboutActivity;
-import app.isend.MainActivity;
 import app.isend.R;
 import app.isend.SingleEvent;
 import app.isend.model.EventItem;
@@ -93,7 +88,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.txt_name);
+            title = itemView.findViewById(R.id.contact_name);
             startTime = itemView.findViewById(R.id.txt_startime);
             location = itemView.findViewById(R.id.txt_loc);
             background = itemView.findViewById(R.id.single_event);

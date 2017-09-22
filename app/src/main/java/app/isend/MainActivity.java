@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kobakei.ratethisapp.RateThisApp;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity
             navigationView.setCheckedItem(R.id.nav_eventupcoming);
             toolbar.setTitle(R.string.events_upcoming);
         }
+
+        // AppRater
+        RateThisApp.onCreate(this);
+        RateThisApp.showRateDialogIfNeeded(this);
     }
 
     @Override

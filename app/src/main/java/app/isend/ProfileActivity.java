@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
         String name = MainActivity.name;
         String email = MainActivity.email;
         String photoURL = MainActivity.photo;
-        String gender = MainActivity.gender;
+        String sex = MainActivity.gender;
         String birthday = MainActivity.birthday;
         String loc = MainActivity.location;
 
@@ -51,6 +51,10 @@ public class ProfileActivity extends AppCompatActivity {
         //Location
         TextView location = findViewById(R.id.profile_loc);
         location.setText(loc);
+
+        //Gender
+        TextView gender = findViewById(R.id.profile_gender);
+        gender.setText(sex);
 
         header = findViewById(R.id.header_profile);
         header.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_friends:
                     transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content, new ProfileFriends());
+                    transaction.replace(R.id.content, new ProfileContacts());
                     transaction.commit();
                     return true;
             }

@@ -25,14 +25,137 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignLeft="@+id/text_info"
+            android:layout_alignStart="@+id/text_info"
+            android:layout_below="@+id/inputName"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/profile_photo"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/profile_photo"
+            android:layout_marginRight="8dp">
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Aykut Uludağ"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/indicator_mail"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/profile_photo"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/profile_photo"
+            android:layout_toRightOf="@+id/profile_photo"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_email_dark" />
+
+        <TextView
+            android:id="@+id/mail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/inputMail"
+            android:layout_alignTop="@+id/indicator_mail"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/indicator_mail"
+            android:layout_toRightOf="@+id/indicator_mail"
+            android:gravity="center"
+            android:text="E-mail"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/indicator_mail"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/indicator_mail"
+            android:layout_below="@+id/indicator_mail"
+            android:layout_marginRight="8dp">
+
+            <EditText
+                android:id="@+id/editTextMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:hint="aykutuludag1@gmail.com"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/indicator_loc"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignLeft="@+id/inputMail"
+            android:layout_alignStart="@+id/inputMail"
+            android:layout_below="@+id/inputMail"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/ic_location_dark" />
+
+        <TextView
+            android:id="@+id/location_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/mail_title"
+            android:layout_alignStart="@+id/mail_title"
+            android:layout_below="@+id/inputMail"
+            android:gravity="center"
+            android:text="Location"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_photo"
+            android:layout_alignLeft="@+id/indicator_loc"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/indicator_loc"
+            android:layout_below="@+id/indicator_loc"
+            android:layout_marginRight="8dp">
+
+            <EditText
+                android:id="@+id/editTextLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Ankara, Turkey"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="Profile photo, name and email fields can be only changed by changing login account or type."
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

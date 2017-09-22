@@ -73,7 +73,7 @@ public class SignInActivity extends AppCompatActivity implements
         name = prefs.getString("Name", "-");
         email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "0");
+        gender = prefs.getString("Gender", "-");
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);

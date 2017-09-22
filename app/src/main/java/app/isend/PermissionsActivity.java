@@ -38,7 +38,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     SharedPreferences prefs;
 
     String contactID, contactName, contactPhone, contactMail, contactPhoto;
-    boolean hasNumber, hasMail, hasMessenger, hasWhatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

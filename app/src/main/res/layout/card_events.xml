@@ -21,7 +21,7 @@
             android:background="#212121">
 
             <TextView
-                android:id="@+id/txt_name"
+                android:id="@+id/contact_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -87,10 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/iconLocation"
                 android:layout_alignRight="@+id/iconLocation"
-                android:layout_alignTop="@+id/txt_name">
+                android:layout_alignTop="@+id/contact_name">
 
                 <ImageView
-                    android:id="@+id/sms"
+                    android:id="@+id/options_sms"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"
@@ -101,32 +101,32 @@
                     android:id="@+id/whatsapp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignTop="@+id/messenger"
+                    android:layout_alignTop="@+id/options_messenger"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/messenger"
-                    android:layout_toRightOf="@+id/messenger"
+                    android:layout_toEndOf="@+id/options_messenger"
+                    android:layout_toRightOf="@+id/options_messenger"
                     android:alpha="0.5"
                     card_view:srcCompat="@drawable/whatsapp_icon" />
 
                 <ImageView
-                    android:id="@+id/messenger"
+                    android:id="@+id/options_messenger"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignTop="@+id/mail"
+                    android:layout_alignTop="@+id/options_mail"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/mail"
-                    android:layout_toRightOf="@+id/mail"
+                    android:layout_toEndOf="@+id/options_mail"
+                    android:layout_toRightOf="@+id/options_mail"
                     android:alpha="0.5"
                     card_view:srcCompat="@drawable/messenger_icon" />
 
                 <ImageView
-                    android:id="@+id/mail"
+                    android:id="@+id/options_mail"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignTop="@+id/sms"
+                    android:layout_alignTop="@+id/options_sms"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/sms"
-                    android:layout_toRightOf="@+id/sms"
+                    android:layout_toEndOf="@+id/options_sms"
+                    android:layout_toRightOf="@+id/options_sms"
                     android:alpha="0.5"
                     card_view:srcCompat="@drawable/gmail_icon" />
             </RelativeLayout>

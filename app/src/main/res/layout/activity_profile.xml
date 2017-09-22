@@ -44,7 +44,7 @@
             android:layout_alignLeft="@+id/profile_name"
             android:layout_alignStart="@+id/profile_name"
             android:layout_below="@+id/profile_name"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             app:srcCompat="@drawable/icon_email" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_alignLeft="@+id/indicator_mail"
             android:layout_alignStart="@+id/indicator_mail"
             android:layout_below="@+id/indicator_mail"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_location" />
 
@@ -87,7 +87,7 @@
             android:layout_alignLeft="@+id/indicator_loc"
             android:layout_alignStart="@+id/indicator_loc"
             android:layout_below="@+id/indicator_loc"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="7dp"
             android:scaleType="fitStart"
             app:srcCompat="@drawable/birthday_icon" />
 
@@ -101,6 +101,29 @@
             android:layout_toRightOf="@+id/indicator_birthday"
             android:text="May 3, 1993"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+
+        <ImageView
+            android:id="@+id/indicator_gender"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignLeft="@+id/indicator_birthday"
+            android:layout_alignStart="@+id/indicator_birthday"
+            android:layout_below="@+id/profile_birthday"
+            android:layout_marginTop="7dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/icon_gender" />
+
+        <TextView
+            android:id="@+id/profile_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/indicator_gender"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/indicator_gender"
+            android:layout_toRightOf="@+id/indicator_gender"
+            android:text="Male"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+
     </RelativeLayout>
 
     <FrameLayout

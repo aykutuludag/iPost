@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import app.isend.AboutActivity;
 import app.isend.R;
 import app.isend.SingleContact;
 import app.isend.model.ContactItem;
@@ -63,14 +62,33 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.com_facebook_profile_picture_blank_square).placeholder(R.drawable.com_facebook_profile_picture_blank_square)
                 .into(viewHolder.profilePhoto);
 
-        // Setting whatsapp
-        viewHolder.whatsapp.setVisibility(View.VISIBLE);
-
-        // Setting messenger
-        viewHolder.messenger.setVisibility(View.VISIBLE);
+        //  Setting SMS
+        if (feedItem.getPhoneNumber() != null) {
+            viewHolder.SMS.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.SMS.setVisibility(View.GONE);
+        }
 
         // Setting mail
-        viewHolder.mail.setVisibility(View.VISIBLE);
+        if (feedItem.getMail() != null) {
+            viewHolder.mail.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.mail.setVisibility(View.GONE);
+        }
+
+        // Setting whatsapp
+        if (feedItem.getWhatsapp() != null) {
+            viewHolder.whatsapp.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.whatsapp.setVisibility(View.GONE);
+        }
+
+        // Setting messenger
+        if (feedItem.getMessenger() != null) {
+            viewHolder.messenger.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.messenger.setVisibility(View.GONE);
+        }
 
         // Handle click event on image click
         viewHolder.background.setOnClickListener(clickListener);
@@ -91,18 +109,22 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         ImageView whatsapp;
         ImageView messenger;
         ImageView mail;
+        ImageView SMS;
         RelativeLayout background;
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.txt_name);
-            number = itemView.findViewById(R.id.txt_number);
-            profilePhoto = itemView.findViewById(R.id.contactPhoto);
-            whatsapp = itemView.findViewById(R.id.whatsapp);
-            messenger = itemView.findViewById(R.id.messenger);
-            mail = itemView.findViewById(R.id.mail);
+            name = itemView.findViewById(R.id.contact_name);
+            textMail = itemView.findViewById(R.id.contact_mail);
+            number = itemView.findViewById(R.id.contact_number);
+            profilePhoto = itemView.findViewById(R.id.contact_photo);
+
+            SMS = itemView.findViewById(R.id.options_sms);
+            whatsapp = itemView.findViewById(R.id.options_whatsapp);
+            messenger = itemView.findViewById(R.id.options_messenger);
+            mail = itemView.findViewById(R.id.options_mail);
+
             background = itemView.findViewById(R.id.single_contact);
-            textMail = itemView.findViewById(R.id.txt_mail);
         }
     }
 }
