@@ -9,16 +9,20 @@
     tools:context="app.isend.ProfileActivity">
 
     <RelativeLayout
-        android:id="@+id/header"
+        android:id="@+id/header_profile"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="#40000000">
+        android:background="#212121">
 
         <ImageView
             android:id="@+id/profile_pic"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
@@ -31,40 +35,72 @@
             android:layout_toEndOf="@+id/profile_pic"
             android:layout_toRightOf="@+id/profile_pic"
             android:text="Sheldon Cooper"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
+
+        <ImageView
+            android:id="@+id/indicator_mail"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignLeft="@+id/profile_name"
+            android:layout_alignStart="@+id/profile_name"
+            android:layout_below="@+id/profile_name"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/icon_email" />
 
         <TextView
             android:id="@+id/profile_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/profile_name"
-            android:layout_alignStart="@+id/profile_name"
-            android:layout_below="@+id/profile_name"
-            android:layout_marginTop="5dp"
+            android:layout_alignBottom="@+id/indicator_mail"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/indicator_mail"
+            android:layout_toRightOf="@+id/indicator_mail"
             android:text="sheldon.cooper@caltech.edu"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+
+        <ImageView
+            android:id="@+id/indicator_loc"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignLeft="@+id/indicator_mail"
+            android:layout_alignStart="@+id/indicator_mail"
+            android:layout_below="@+id/indicator_mail"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/ic_location" />
 
         <TextView
             android:id="@+id/profile_loc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/profile_mail"
-            android:layout_alignStart="@+id/profile_mail"
-            android:layout_below="@+id/profile_mail"
-            android:layout_marginTop="5dp"
+            android:layout_alignTop="@+id/indicator_loc"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/indicator_loc"
+            android:layout_toRightOf="@+id/indicator_loc"
             android:text="Pasadena, California"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+
+        <ImageView
+            android:id="@+id/indicator_birthday"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignLeft="@+id/indicator_loc"
+            android:layout_alignStart="@+id/indicator_loc"
+            android:layout_below="@+id/indicator_loc"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/birthday_icon" />
 
         <TextView
             android:id="@+id/profile_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/profile_loc"
-            android:layout_alignStart="@+id/profile_loc"
-            android:layout_below="@+id/profile_loc"
-            android:layout_marginTop="5dp"
+            android:layout_alignTop="@+id/indicator_birthday"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/indicator_birthday"
+            android:layout_toRightOf="@+id/indicator_birthday"
             android:text="May 3, 1993"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
     </RelativeLayout>
 
     <FrameLayout

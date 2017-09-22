@@ -70,12 +70,12 @@ public class SignInActivity extends AppCompatActivity implements
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        name = prefs.getString("Name", "");
-        email = prefs.getString("Email", "");
+        name = prefs.getString("Name", "-");
+        email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "");
-        birthday = prefs.getString("Birthday", "");
-        location = prefs.getString("Location", "");
+        gender = prefs.getString("Gender", "0");
+        birthday = prefs.getString("Birthday", "-");
+        location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);
 
         pb = findViewById(R.id.progressBar);
@@ -244,10 +244,18 @@ public class SignInActivity extends AppCompatActivity implements
                     } else if (person.getGender() == 1) {
                         prefs.edit().putString("Gender", "female").apply();
                     } else {
-                        prefs.edit().putString("Gender", "transsexual").apply();
+                        prefs.edit().putString("Gender", "other").apply();
                     }
-                    prefs.edit().putString("Birthday", person.getBirthday()).apply();
-                    prefs.edit().putString("Location", person.getCurrentLocation()).apply();
+
+
+                    if (person.getBirthday() != null) {
+                        prefs.edit().putString("Birthday", person.getBirthday()).apply();
+                    }
+
+                    if (person.getCurrentLocation() != null) {
+                        prefs.edit().putString("Location", person.getCurrentLocation()).apply();
+                    }
+
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
                     System.out.println(person.getBirthday() + person.getCurrentLocation());
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();

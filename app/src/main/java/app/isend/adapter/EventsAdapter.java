@@ -17,7 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import app.isend.AboutActivity;
+import app.isend.MainActivity;
 import app.isend.R;
+import app.isend.SingleEvent;
 import app.isend.model.EventItem;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
@@ -29,8 +32,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
             long eventID = Long.parseLong(feedItemList.get(position).getID());
-            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-            Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+
+            Intent intent = new Intent(mContext, SingleEvent.class);
+            intent.putExtra("EVENT_ID", eventID);
             mContext.startActivity(intent);
         }
     };

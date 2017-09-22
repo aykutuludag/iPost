@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        name = prefs.getString("Name", "");
-        email = prefs.getString("Email", "");
+        name = prefs.getString("Name", "-");
+        email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "");
-        birthday = prefs.getString("Birthday", "");
-        location = prefs.getString("Location", "");
+        gender = prefs.getString("Gender", "0");
+        birthday = prefs.getString("Birthday", "-");
+        location = prefs.getString("Location", "-");
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

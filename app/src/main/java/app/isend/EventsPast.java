@@ -51,29 +51,33 @@ public class EventsPast extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    System.out.println(cur.getString(i));
-                    if ((i % 9) == 0) {
-                        item = new EventItem();
-                        item.setID(cur.getString(i));
-                    } else if (((i % 9) == 1)) {
-                        item.setTitle(cur.getString(i));
-                    } else if (((i % 9) == 2)) {
-                        item.setDescription(cur.getString(i));
-                    } else if (((i % 9) == 3)) {
-                        item.setStartTime(cur.getLong(i));
-                    } else if (((i % 9) == 4)) {
-                        item.setEndTime(cur.getLong(i));
-                    } else if (((i % 9) == 5)) {
-                        item.setLocation(cur.getString(i));
-                    } else if (((i % 9) == 6)) {
-                        item.setOwner(cur.getString(i));
-                    } else if (((i % 9) == 7)) {
-                        item.setBackground(cur.getString(i));
-                    } else if (((i % 9) == 8)) {
-                        item.setSource(cur.getString(i));
-                        feedsList.add(item);
-                    } else {
-                        //Do nothing
+                    switch (i % 8) {
+                        case 0:
+                            item = new EventItem();
+                            item.setID(cur.getString(i));
+                            break;
+                        case 1:
+                            item.setTitle(cur.getString(i));
+                            break;
+                        case 2:
+                            item.setDescription(cur.getString(i));
+                            break;
+                        case 3:
+                            item.setStartTime(cur.getLong(i));
+                            break;
+                        case 4:
+                            item.setEndTime(cur.getLong(i));
+                            break;
+                        case 5:
+                            item.setLocation(cur.getString(i));
+                            break;
+                        case 6:
+                            item.setOwner(cur.getString(i));
+                            break;
+                        case 7:
+                            item.setBackground(cur.getString(i));
+                            feedsList.add(item);
+                            break;
                     }
                 }
             } while (cur.moveToNext());

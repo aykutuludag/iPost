@@ -78,7 +78,7 @@
                 android:layout_alignEnd="@+id/txt_loc"
                 android:layout_alignRight="@+id/txt_loc"
                 android:layout_marginBottom="8dp"
-                card_view:srcCompat="@drawable/ic_location_on_white_24dp" />
+                card_view:srcCompat="@drawable/ic_location" />
 
             <RelativeLayout
                 android:id="@+id/EventOptions"

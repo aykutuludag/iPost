@@ -102,7 +102,7 @@ public class ProfileAccounts extends Fragment {
         } else {
             google.setAlpha(0.5f);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.calendar")));
-            Toast.makeText(getActivity(), "After installing the app, you can sync your calendar with iSend in here.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -114,7 +114,7 @@ public class ProfileAccounts extends Fragment {
         } else {
             outlook.setAlpha(0.5f);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.microsoft.office.outlook")));
-            Toast.makeText(getActivity(), "After installing the app, you can sync your calendar with iSend in here.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -126,7 +126,7 @@ public class ProfileAccounts extends Fragment {
         } else {
             iCalendar.setAlpha(0.5f);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.mike.cal.sync")));
-            Toast.makeText(getActivity(), "After installing the app, you can sync your calendar with iSend in here.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }
     }
 

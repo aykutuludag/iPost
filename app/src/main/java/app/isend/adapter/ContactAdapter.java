@@ -1,6 +1,7 @@
 package app.isend.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import app.isend.AboutActivity;
 import app.isend.R;
+import app.isend.SingleContact;
 import app.isend.model.ContactItem;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
@@ -22,13 +25,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            /*ViewHolder holder = (ViewHolder) view.getTag();
+            ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
-            long eventID = Long.parseLong(feedItemList.get(position).getID());
-            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-            Intent intent = new Intent(Intent.ACTION_EDIT)
-                    .setData(uri);
-            mContext.startActivity(intent);*/
+            long contactID = Long.parseLong(feedItemList.get(position).getID());
+
+            Intent intent = new Intent(mContext, SingleContact.class);
+            intent.putExtra("EVENT_ID", contactID);
+            mContext.startActivity(intent);
         }
     };
 
