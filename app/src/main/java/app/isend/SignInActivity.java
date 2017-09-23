@@ -56,15 +56,13 @@ public class SignInActivity extends AppCompatActivity implements
     int googleSign = 9001;
     int fbSign = 1320;
 
-    Tracker t;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
         // Analytics
-        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+        Tracker t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
         t.setScreenName("Sign-In");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
@@ -73,7 +71,7 @@ public class SignInActivity extends AppCompatActivity implements
         name = prefs.getString("Name", "-");
         email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "-");
+        gender = prefs.getString("Gender", "Other");
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);

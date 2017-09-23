@@ -27,50 +27,63 @@
 
         <ImageView
             android:id="@+id/profile_photo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_alignLeft="@+id/text_info"
-            android:layout_alignStart="@+id/text_info"
-            android:layout_below="@+id/inputName"
+            android:layout_width="142dp"
+            android:layout_height="142dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputName"
+        <TextView
+            android:id="@+id/name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/profile_photo"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/profile_photo"
+            android:layout_toRightOf="@+id/profile_photo"
+            android:gravity="center"
+            android:text="Display Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <EditText
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/profile_photo"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/profile_photo"
-            android:layout_marginRight="8dp">
+            android:layout_alignLeft="@+id/name_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/name_title"
+            android:layout_below="@+id/name_title"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:gravity="bottom"
+            android:hint="Aykut Uludağ"
+            android:inputType="textPersonName"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="Aykut Uludağ"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-        </android.support.design.widget.TextInputLayout>
 
         <ImageView
             android:id="@+id/indicator_mail"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignTop="@+id/profile_photo"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/profile_photo"
-            android:layout_toRightOf="@+id/profile_photo"
-            android:layout_weight="1"
+            android:layout_alignLeft="@+id/editTextName"
+            android:layout_alignStart="@+id/editTextName"
+            android:layout_below="@+id/editTextName"
+            android:layout_marginTop="8dp"
             app:srcCompat="@drawable/icon_email_dark" />
 
         <TextView
             android:id="@+id/mail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/inputMail"
+            android:layout_alignBottom="@+id/indicator_mail"
             android:layout_alignTop="@+id/indicator_mail"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
@@ -80,35 +93,48 @@
             android:text="E-mail"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputMail"
+        <EditText
+            android:id="@+id/editTextMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_photo"
             android:layout_alignLeft="@+id/indicator_mail"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/indicator_mail"
             android:layout_below="@+id/indicator_mail"
-            android:layout_marginRight="8dp">
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:gravity="bottom"
+            android:hint="aykutuludag1@gmail.com"
+            android:inputType="textEmailAddress"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <EditText
-                android:id="@+id/editTextMail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:enabled="false"
-                android:hint="aykutuludag1@gmail.com"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
-        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:id="@+id/text_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editTextMail"
+            android:layout_alignLeft="@+id/profile_photo"
+            android:layout_alignRight="@+id/editTextMail"
+            android:layout_alignStart="@+id/profile_photo"
+            android:layout_below="@+id/profile_photo"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Profile photo, name and email fields can be only changed by changing login account or type."
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         <ImageView
             android:id="@+id/indicator_loc"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignLeft="@+id/inputMail"
-            android:layout_alignStart="@+id/inputMail"
-            android:layout_below="@+id/inputMail"
+            android:layout_alignLeft="@+id/text_info"
+            android:layout_alignStart="@+id/text_info"
+            android:layout_below="@+id/text_info"
+            android:layout_marginTop="10dp"
             android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_location_dark" />
 
@@ -116,45 +142,125 @@
             android:id="@+id/location_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/mail_title"
-            android:layout_alignStart="@+id/mail_title"
-            android:layout_below="@+id/inputMail"
+            android:layout_alignBottom="@+id/indicator_loc"
+            android:layout_alignTop="@+id/indicator_loc"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/indicator_loc"
+            android:layout_toRightOf="@+id/indicator_loc"
             android:gravity="center"
             android:text="Location"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLocation"
+        <EditText
+            android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/profile_photo"
             android:layout_alignLeft="@+id/indicator_loc"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/indicator_loc"
             android:layout_below="@+id/indicator_loc"
-            android:layout_marginRight="8dp">
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:enabled="true"
+            android:hint="Ankara, Turkey"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <EditText
-                android:id="@+id/editTextLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="Ankara, Turkey"
-                android:inputType="textPersonName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
-        </android.support.design.widget.TextInputLayout>
+        <ImageView
+            android:id="@+id/indicatorBirthday"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignLeft="@+id/editTextLocation"
+            android:layout_alignStart="@+id/editTextLocation"
+            android:layout_below="@+id/editTextLocation"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/birthday_icon_dark" />
 
         <TextView
-            android:id="@+id/text_info"
+            android:id="@+id/birthday_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
+            android:layout_alignBottom="@+id/indicatorBirthday"
+            android:layout_alignLeft="@+id/location_title"
+            android:layout_alignStart="@+id/location_title"
+            android:layout_alignTop="@+id/indicatorBirthday"
             android:gravity="center"
-            android:text="Profile photo, name and email fields can be only changed by changing login account or type."
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:text="Birthday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+        <EditText
+            android:id="@+id/editTextBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/indicatorBirthday"
+            android:layout_alignStart="@+id/indicatorBirthday"
+            android:layout_below="@+id/indicatorBirthday"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:enabled="true"
+            android:focusableInTouchMode="false"
+            android:hint="May 3, 1993"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <ImageView
+            android:id="@+id/indicator_gender"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignLeft="@+id/editTextBirthday"
+            android:layout_alignStart="@+id/editTextBirthday"
+            android:layout_below="@+id/editTextBirthday"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/icon_gender_dark" />
+
+        <TextView
+            android:id="@+id/gender_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/indicator_gender"
+            android:layout_alignLeft="@+id/birthday_title"
+            android:layout_alignStart="@+id/birthday_title"
+            android:layout_alignTop="@+id/indicator_gender"
+            android:gravity="center"
+            android:text="Gender"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/indicator_gender"
+            android:layout_alignStart="@+id/indicator_gender"
+            android:layout_below="@+id/indicator_gender"
+            android:layout_marginTop="10dp"
+            android:checkedButton="@+id/genderMale"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/genderMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/genderFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/genderOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Other" />
+        </RadioGroup>
 
     </RelativeLayout>
 

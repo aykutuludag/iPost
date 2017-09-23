@@ -1,6 +1,8 @@
 package app.isend;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -20,19 +22,22 @@ public class ProfileActivity extends AppCompatActivity {
     FrameLayout frame;
     FragmentTransaction transaction;
     RelativeLayout header;
+    SharedPreferences prefs;
+
+    String name, email, photo, gender, birthday, location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-        String name = MainActivity.name;
-        String email = MainActivity.email;
-        String photoURL = MainActivity.photo;
-        String sex = MainActivity.gender;
-        String birthday = MainActivity.birthday;
-        String loc = MainActivity.location;
+        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+        name = prefs.getString("Name", "-");
+        email = prefs.getString("Email", "-");
+        photo = prefs.getString("ProfilePhoto", "");
+        gender = prefs.getString("Gender", "Other");
+        birthday = prefs.getString("Birthday", "-");
+        location = prefs.getString("Location", "-");
 
         //Name
         TextView navUsername = findViewById(R.id.profile_name);
@@ -42,19 +47,19 @@ public class ProfileActivity extends AppCompatActivity {
         navEmail.setText(email);
         //ProfilePicture
         ImageView profilePic = findViewById(R.id.profile_pic);
-        Picasso.with(this).load(photoURL).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
                 .into(profilePic);
         //Age
         TextView birthtext = findViewById(R.id.profile_birthday);
         birthtext.setText(birthday);
 
         //Location
-        TextView location = findViewById(R.id.profile_loc);
-        location.setText(loc);
+        TextView loc = findViewById(R.id.profile_loc);
+        loc.setText(location);
 
         //Gender
-        TextView gender = findViewById(R.id.profile_gender);
-        gender.setText(sex);
+        TextView sex = findViewById(R.id.profile_gender);
+        sex.setText(gender);
 
         header = findViewById(R.id.header_profile);
         header.setOnClickListener(new View.OnClickListener() {

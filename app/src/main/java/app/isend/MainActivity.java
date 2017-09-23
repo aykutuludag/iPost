@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         name = prefs.getString("Name", "-");
         email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "0");
+        gender = prefs.getString("Gender", "Other");
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
 
@@ -145,10 +145,16 @@ public class MainActivity extends AppCompatActivity
                 toolbar.setTitle(R.string.events_past);
                 break;
             case R.id.nav_postplanned:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                fragment = new PostPlanned();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "PostPlanned").commit();
+                navigationView.setCheckedItem(R.id.nav_postplanned);
+                toolbar.setTitle(R.string.posts_planned);
                 break;
             case R.id.nav_postsent:
-                Toast.makeText(this, "Not ready", Toast.LENGTH_SHORT).show();
+                fragment = new PostSent();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "PostSent").commit();
+                navigationView.setCheckedItem(R.id.nav_postsent);
+                toolbar.setTitle(R.string.posts_sent);
                 break;
             case R.id.nav_settings:
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
