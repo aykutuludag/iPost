@@ -39,6 +39,24 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
 
     String contactID, contactName, contactPhone, contactMail, contactPhoto;
 
+    public static String getContactPhoto(Context context, String phoneNumber) {
+        ContentResolver cr = context.getContentResolver();
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String contactImage = null;
+        if (cursor.moveToFirst()) {
+            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
+        }
+
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return contactImage;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -256,23 +274,5 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             }
         }
         return emailStr;
-    }
-
-    public static String getContactPhoto(Context context, String phoneNumber) {
-        ContentResolver cr = context.getContentResolver();
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_URI}, null, null, null);
-        if (cursor == null) {
-            return null;
-        }
-        String contactImage = null;
-        if (cursor.moveToFirst()) {
-            contactImage = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_URI));
-        }
-
-        if (!cursor.isClosed()) {
-            cursor.close();
-        }
-        return contactImage;
     }
 }

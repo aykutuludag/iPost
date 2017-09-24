@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -20,7 +19,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileAccounts extends Fragment {
 
-    CallbackManager callbackManager;
     SQLiteDatabase database_account;
     Tracker t;
 
@@ -91,7 +89,7 @@ public class ProfileAccounts extends Fragment {
     }
 
     void facebookCalendar() {
-
+        //Coming soon
     }
 
     void googleCalendar() {
@@ -145,7 +143,5 @@ public class ProfileAccounts extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        System.out.println(data);
     }
 }

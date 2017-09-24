@@ -14,13 +14,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
@@ -32,9 +25,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -49,12 +39,9 @@ public class SignInActivity extends AppCompatActivity implements
     String name, email, photo, gender, birthday, location;
     boolean isSigned;
 
-    LoginButton loginButton;
-    CallbackManager callbackManager;
     ProgressBar pb;
 
     int googleSign = 9001;
-    int fbSign = 1320;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +63,14 @@ public class SignInActivity extends AppCompatActivity implements
         location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);
 
+        // ProgressBar
         pb = findViewById(R.id.progressBar);
 
-         /* Facebook Sign-In */
-        callbackManager = CallbackManager.Factory.create();
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("public_profile");
-        loginButton.setReadPermissions("user_events");
-        loginButton.setReadPermissions("email");
-
         /* Google Sign-In */
+        signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
+        signInButton.setOnClickListener(this);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestScopes(Plus.SCOPE_PLUS_LOGIN)
@@ -97,14 +82,9 @@ public class SignInActivity extends AppCompatActivity implements
                 .addApi(Plus.API)
                 .build();
 
-        signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_WIDE);
-        signInButton.setOnClickListener(this);
-
         // Check the user is signed or not
         if (isSigned) {
             //signed already
-            loginButton.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
 
@@ -129,7 +109,6 @@ public class SignInActivity extends AppCompatActivity implements
             database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start INTEGER, End INTEGER, Location VARCHAR, Owner VARCHAR, Color VARCHAR);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, UserMail VARCHAR, ContactPhoto VARCHAR);");
 
-            loginButton.setVisibility(View.VISIBLE);
             signInButton.setVisibility(View.VISIBLE);
         }
     }
@@ -140,65 +119,7 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void facebookLogin() {
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                System.out.println(loginResult);
-
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                System.out.println(response.toString());
-                                try {
-                                    name = object.getString("name");
-                                    email = object.getString("email");
-                                    photo = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                                    gender = object.getString("gender");
-                                    birthday = object.getString("user_birthday");
-                                    location = object.getString("location");
-
-                                    prefs.edit().putString("Name", name).apply();
-                                    prefs.edit().putString("Email", email).apply();
-                                    prefs.edit().putString("ProfilePhoto", photo).apply();
-                                    prefs.edit().putString("Gender", gender).apply();
-                                    prefs.edit().putString("Birthday", birthday).apply();
-                                    prefs.edit().putString("Location", location).apply();
-                                    prefs.edit().putBoolean("isSigned", true).apply();
-
-                                    Toast.makeText(SignInActivity.this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Intent i = new Intent(SignInActivity.this, PermissionsActivity.class);
-                                            startActivity(i);
-                                            finish();
-                                        }
-                                    }, 1250);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location, events");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                prefs.edit().putBoolean("isSigned", false).apply();
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                prefs.edit().putBoolean("isSigned", false).apply();
-            }
-        });
+        //Coming soon
     }
 
     @Override
@@ -207,20 +128,12 @@ public class SignInActivity extends AppCompatActivity implements
             case R.id.sign_in_button:
                 googleSignIn();
                 break;
-            case R.id.login_button:
-                facebookLogin();
-                break;
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //Facebook
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-        //Google
         if (requestCode == googleSign) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
@@ -255,9 +168,7 @@ public class SignInActivity extends AppCompatActivity implements
                     }
 
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
-                    System.out.println(person.getBirthday() + person.getCurrentLocation());
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
-                    loginButton.setVisibility(View.INVISIBLE);
                     signInButton.setVisibility(View.INVISIBLE);
                     pb.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {

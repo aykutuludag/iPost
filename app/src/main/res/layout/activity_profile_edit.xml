@@ -34,7 +34,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+            app:srcCompat="@drawable/ic_blank_photo" />
 
         <TextView
             android:id="@+id/name_title"

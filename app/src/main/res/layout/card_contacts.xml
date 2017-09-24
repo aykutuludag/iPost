@@ -62,7 +62,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                card_view:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
+                card_view:srcCompat="@drawable/ic_blank_photo" />
 
             <RelativeLayout
                 android:id="@+id/ContactOptions"
@@ -76,9 +76,6 @@
                     android:id="@+id/options_sms"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_alignBottom="@+id/contact_photo"
-                    android:layout_alignLeft="@+id/contact_mail"
-                    android:layout_alignStart="@+id/contact_mail"
                     card_view:srcCompat="@drawable/sms_icon" />
 
                 <ImageView

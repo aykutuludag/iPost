@@ -2,8 +2,6 @@
 
     <!-- General -->
     <string name="app_name">iSend</string>
-    <string name="facebook_app_id">883953245105670</string>
-    <string name="fb_login_protocol_scheme">fb883953245105670</string>
 
     <!-- ErrorTypes -->
     <string name="error_login_no_account">Error Code: 001 - We couldn\'t fetch your account information. Please check your Google account and internet connection then try again later&#8230;</string>
