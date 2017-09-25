@@ -5,14 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+import android.widget.ViewSwitcher;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -26,6 +34,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -38,10 +49,14 @@ public class SignInActivity extends AppCompatActivity implements
     SharedPreferences prefs;
     String name, email, photo, gender, birthday, location;
     boolean isSigned;
+    TextSwitcher slogan;
 
     ProgressBar pb;
 
     int googleSign = 9001;
+
+    int element = 0;
+    String slogans[] = {"This is the slogan area. We can write whatever we want!", "Totally we can do it!", "Yeah I'm doing it right now!"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +77,55 @@ public class SignInActivity extends AppCompatActivity implements
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);
+
+        String fileName = "android.resource://" + getPackageName() + "/raw/background_singin";
+        VideoView vv = this.findViewById(R.id.videoView);
+        vv.setVideoURI(Uri.parse(fileName));
+        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+                mp.setLooping(true);
+
+            }
+        });
+        vv.start();
+
+        slogan = findViewById(R.id.textSwitcher);
+        slogan.setInAnimation(SignInActivity.this, android.R.anim.slide_in_left);
+        slogan.setOutAnimation(SignInActivity.this, android.R.anim.slide_out_right);
+        slogan.setFactory(new ViewSwitcher.ViewFactory() {
+
+            public View makeView() {
+                // TODO Auto-generated method stub
+                // create new textView and set the properties like clolr, size etc
+                TextView myText = new TextView(SignInActivity.this);
+                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+                myText.setTextSize(36);
+                myText.setTextColor(Color.BLACK);
+                return myText;
+            }
+        });
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SignInActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        element++;
+                        if ((element % 3) == 0) {
+                            slogan.setText(slogans[0]);
+                        } else if ((element % 3) == 1) {
+                            slogan.setText(slogans[1]);
+                        } else {
+                            slogan.setText(slogans[2]);
+                        }
+                    }
+                });
+            }
+        }, 0, 4000);
 
         // ProgressBar
         pb = findViewById(R.id.progressBar);
