@@ -1,7 +1,6 @@
 package app.isend.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import app.isend.R;
-import app.isend.SingleContact;
 import app.isend.model.ContactItem;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
@@ -24,13 +23,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ViewHolder holder = (ViewHolder) view.getTag();
-            int position = holder.getAdapterPosition();
-            long contactID = Long.parseLong(feedItemList.get(position).getID());
-
-            Intent intent = new Intent(mContext, SingleContact.class);
-            intent.putExtra("EVENT_ID", contactID);
-            mContext.startActivity(intent);
+            Toast.makeText(mContext,"You can update contact info from Contacts. Changes will shown within an hour.", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -77,14 +70,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
 
         // Setting whatsapp
-        if (feedItem.getWhatsapp() != null) {
+        if (feedItem.getWhatsapp() == 1) {
             viewHolder.whatsapp.setVisibility(View.VISIBLE);
         } else {
             viewHolder.whatsapp.setVisibility(View.GONE);
         }
 
         // Setting messenger
-        if (feedItem.getMessenger() != null) {
+        if (feedItem.getMessenger() == 1) {
             viewHolder.messenger.setVisibility(View.VISIBLE);
         } else {
             viewHolder.messenger.setVisibility(View.GONE);

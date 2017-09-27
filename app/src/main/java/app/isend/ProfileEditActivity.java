@@ -53,8 +53,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
 
-        editName = findViewById(R.id.editTextName);
-        editMail = findViewById(R.id.editTextMail);
+        editName = findViewById(R.id.editEventName);
+        editMail = findViewById(R.id.editTextDesc);
         editLocation = findViewById(R.id.editTextLocation);
         editBirthday = findViewById(R.id.editTextBirthday);
         editGender = findViewById(R.id.radioGroupGender);
@@ -69,7 +69,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         editMail.setText(email);
 
         // Setting photo
-        ImageView profilePic = findViewById(R.id.profile_photo);
+        ImageView profilePic = findViewById(R.id.event_photo);
         Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
                 .into(profilePic);
 
@@ -100,19 +100,19 @@ public class ProfileEditActivity extends AppCompatActivity {
         editBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int calendarYear = 2005;
-                int calendarMonth = 1;
-                int calendarDay = 1;
+                int calendarYear = 1999;
+                int calendarMonth = 11;
+                int calendarDay = 31;
 
                 if (!birthday.contains("-")) {
                     try {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY", Locale.GERMAN);
                         Date birthDateasDate = sdf.parse(birthday);
                         calendarDay = Calendar.DAY_OF_MONTH;
                         calendarMonth = Calendar.MONTH;
                         calendarYear = Calendar.YEAR;
                         Toast.makeText(ProfileEditActivity.this, birthDateasDate.toString(), Toast.LENGTH_SHORT);
-                        System.out.print(birthDateasDate);
+                        System.out.print(calendarYear);
                     } catch (ParseException e) {
                         e.printStackTrace();
                         System.out.println(e);
@@ -132,6 +132,15 @@ public class ProfileEditActivity extends AppCompatActivity {
                 datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Set", datePicker);
                 datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Cancel", datePicker);
                 datePicker.show();
+
+                SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Date convertedDate = dateForm.parse(birthday);
+                    System.out.println(convertedDate);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 

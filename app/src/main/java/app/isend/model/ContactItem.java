@@ -2,19 +2,19 @@ package app.isend.model;
 
 public class ContactItem {
 
-    private String ID;
+    private int ID;
     private String name;
     private String phoneNumber;
     private String contactPhoto;
-    private String whatsapp;
-    private String messenger;
+    private int whatsapp;
+    private int messenger;
     private String mail;
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String id) {
+    public void setID(int id) {
         this.ID = id;
     }
 
@@ -42,19 +42,19 @@ public class ContactItem {
         this.contactPhoto = contactPhoto;
     }
 
-    public String getWhatsapp() {
+    public int getWhatsapp() {
         return whatsapp;
     }
 
-    public void setWhastaspp(String whastaspp) {
+    public void setWhastaspp(int whastaspp) {
         this.whatsapp = whastaspp;
     }
 
-    public String getMessenger() {
+    public int getMessenger() {
         return messenger;
     }
 
-    public void setMessenger(String messenger) {
+    public void setMessenger(int messenger) {
         this.messenger = messenger;
     }
 

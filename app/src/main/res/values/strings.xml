@@ -115,7 +115,8 @@
     <!-- AboutActivity -->
     <string name="title_activity_about">About iSend</string>
     <string name="title_activity_profile_edit">ProfileEditActivity</string>
-    <string name="title_activity_single_event">SingleEvent</string>
+    <string name="title_activity_single_event">Edit an event</string>
+    <string name="single_activity_add_event">Add an event</string>
     <string name="title_activity_single_contact">SingleContact</string>
 
     <!-- TODO: Remove or change this placeholder text -->

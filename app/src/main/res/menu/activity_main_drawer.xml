@@ -57,10 +57,6 @@
                 android:icon="@drawable/ic_rate"
                 android:title="@string/extras_rate" />
             <item
-                android:id="@+id/nav_subscriptions"
-                android:icon="@drawable/ic_subscriptions"
-                android:title="@string/extras_subscriptions" />
-            <item
                 android:id="@+id/nav_feedback"
                 android:icon="@drawable/ic_feedback"
                 android:title="@string/extras_feedback" />

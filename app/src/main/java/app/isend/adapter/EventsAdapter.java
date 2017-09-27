@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         public void onClick(View view) {
             ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
-            long eventID = Long.parseLong(feedItemList.get(position).getID());
+            String eventID = feedItemList.get(position).getID();
 
             Intent intent = new Intent(mContext, SingleEvent.class);
             intent.putExtra("EVENT_ID", eventID);
@@ -61,6 +62,35 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         // Setting background
         viewHolder.background.setBackgroundColor(Integer.parseInt(feedItem.getBackground()));
 
+        // setSMSOption
+        viewHolder.sms.setAlpha(1.0f);
+        if (feedItem.getIsSMSActive() == 1) {
+            viewHolder.sms.setAlpha(1.0f);
+        } else {
+            viewHolder.sms.setAlpha(0.5f);
+        }
+
+        // setMailOption
+        if (feedItem.getIsMailActive() == 1) {
+            viewHolder.mail.setAlpha(1.0f);
+        } else {
+            viewHolder.mail.setAlpha(0.5f);
+        }
+
+        // setMessengerOption
+        if (feedItem.getIsMessengerActive() == 1) {
+            viewHolder.messenger.setAlpha(1.0f);
+        } else {
+            viewHolder.messenger.setAlpha(0.5f);
+        }
+
+        // setWhatsappOption
+        if (feedItem.getIsWhatsappActive() == 1) {
+            viewHolder.whatsapp.setAlpha(1.0f);
+        } else {
+            viewHolder.whatsapp.setAlpha(0.5f);
+        }
+
         // Handle click event on image click
         viewHolder.background.setOnClickListener(clickListener);
         viewHolder.background.setTag(viewHolder);
@@ -85,6 +115,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         TextView startTime;
         TextView location;
         RelativeLayout background;
+        ImageView sms;
+        ImageView mail;
+        ImageView messenger;
+        ImageView whatsapp;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -92,6 +126,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             startTime = itemView.findViewById(R.id.txt_startime);
             location = itemView.findViewById(R.id.txt_loc);
             background = itemView.findViewById(R.id.single_event);
+            sms = itemView.findViewById(R.id.options_sms);
+            mail = itemView.findViewById(R.id.options_mail);
+            messenger = itemView.findViewById(R.id.options_messenger);
+            whatsapp = itemView.findViewById(R.id.options_whatsapp);
         }
     }
 

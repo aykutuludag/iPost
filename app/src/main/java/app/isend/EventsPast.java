@@ -51,7 +51,7 @@ public class EventsPast extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    switch (i % 8) {
+                    switch (i % 13) {
                         case 0:
                             item = new EventItem();
                             item.setID(cur.getString(i));
@@ -60,22 +60,37 @@ public class EventsPast extends Fragment {
                             item.setTitle(cur.getString(i));
                             break;
                         case 2:
-                            item.setDescription(cur.getString(i));
+                            item.setPhoto(cur.getString(i));
                             break;
                         case 3:
-                            item.setStartTime(cur.getLong(i));
+                            item.setDescription(cur.getString(i));
                             break;
                         case 4:
-                            item.setEndTime(cur.getLong(i));
+                            item.setStartTime(cur.getLong(i));
                             break;
                         case 5:
-                            item.setLocation(cur.getString(i));
+                            item.setEndTime(cur.getLong(i));
                             break;
                         case 6:
-                            item.setOwner(cur.getString(i));
+                            item.setLocation(cur.getString(i));
                             break;
                         case 7:
+                            item.setOwner(cur.getString(i));
+                            break;
+                        case 8:
                             item.setBackground(cur.getString(i));
+                            break;
+                        case 9:
+                            item.setIsMailActive(cur.getInt(i));
+                            break;
+                        case 10:
+                            item.setIsSMSActive(cur.getInt(i));
+                            break;
+                        case 11:
+                            item.setIsMessengerActive(cur.getInt(i));
+                            break;
+                        case 12:
+                            item.setIsWhatsappActive(cur.getInt(i));
                             feedsList.add(item);
                             break;
                     }

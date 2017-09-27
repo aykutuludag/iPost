@@ -4,13 +4,17 @@ public class EventItem {
 
     private String ID;
     private String title;
+    private String photoURI;
     private String description;
     private long startTime;
     private long endTime;
     private String location;
     private String owner;
     private String background;
-    private String source;
+    private int isMailActive;
+    private int isSMSActive;
+    private int isMessengerActive;
+    private int isWhatsappActive;
 
     public String getID() {
         return ID;
@@ -26,6 +30,14 @@ public class EventItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPhoto() {
+        return photoURI;
+    }
+
+    public void setPhoto(String photoURI) {
+        this.photoURI = photoURI;
     }
 
     public String getDescription() {
@@ -76,11 +88,35 @@ public class EventItem {
         this.background = background;
     }
 
-    public String getSource() {
-        return source;
+    public int getIsMailActive() {
+        return isMailActive;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setIsMailActive(int isMailActive) {
+        this.isMailActive = isMailActive;
+    }
+
+    public int getIsSMSActive() {
+        return isSMSActive;
+    }
+
+    public void setIsSMSActive(int isSMSActive) {
+        this.isSMSActive = isSMSActive;
+    }
+
+    public int getIsMessengerActive() {
+        return isMessengerActive;
+    }
+
+    public void setIsMessengerActive(int isMessengerActive) {
+        this.isMessengerActive = isMessengerActive;
+    }
+
+    public int getIsWhatsappActive() {
+        return isWhatsappActive;
+    }
+
+    public void setIsWhatsappActive(int isWhatsappActivee) {
+        this.isWhatsappActive = isWhatsappActivee;
     }
 }

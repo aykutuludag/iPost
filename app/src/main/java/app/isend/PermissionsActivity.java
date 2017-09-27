@@ -124,6 +124,161 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @SuppressWarnings("MissingPermission")
+    private void getEvents() {
+        Cursor cur;
+        ContentResolver cr = this.getContentResolver();
+        ContentValues values = new ContentValues();
+
+        String[] mProjection =
+                {
+                        "_id",
+                        CalendarContract.Events.TITLE,
+                        CalendarContract.Events.DESCRIPTION,
+                        CalendarContract.Events.DTSTART,
+                        CalendarContract.Events.DTEND,
+                        CalendarContract.Events.EVENT_LOCATION,
+                        CalendarContract.Events.ORGANIZER,
+                        CalendarContract.Events.DISPLAY_COLOR
+                };
+
+        Uri uri = CalendarContract.Events.CONTENT_URI;
+        cur = cr.query(uri, mProjection, null, null, null);
+
+        if (cur != null) {
+            while (cur.moveToNext()) {
+                String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
+                String title = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
+                String desc = cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION));
+                String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
+                String end = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
+                String location = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
+                String color = cur.getString(cur.getColumnIndex(CalendarContract.Events.DISPLAY_COLOR));
+
+                System.out.println("ID: " + id + "Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "color:" + color);
+
+                values.put("ID", id);
+                values.put("photoURI", "");
+                values.put("title", title);
+                values.put("description", desc);
+                values.put("start", start);
+                values.put("end", end);
+                values.put("location", location);
+                values.put("owner", "");
+                values.put("color", color);
+                values.put("isMail", 0);
+                values.put("isSMS", 0);
+                values.put("isMessenger", 0);
+                values.put("isWhatsapp", 0);
+                database_account.insert("events", null, values);
+            }
+            cur.close();
+            prefs.edit().putBoolean("isCalendarSync", true).apply();
+            layoutCalendar.setVisibility(View.GONE);
+            layoutContacts.setVisibility(View.VISIBLE);
+            Toast.makeText(this, getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_calendar), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getContacts() {
+        ContentValues values = new ContentValues();
+        ContentResolver cr = getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                while (cur.moveToNext()) {
+                    contactID = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                    values.put("ID", contactID);
+
+                    contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                    values.put("displayName", contactName);
+
+                    values.put("userMail", getEmail(contactID));
+
+                    values.put("hasWhatsapp", hasWhatsApp(contactID));
+
+                    values.put("hasMessenger", hasMessenger(contactID));
+
+                    if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{contactID}, null);
+                        if (pCur != null) {
+                            while (pCur.moveToNext()) {
+                                contactPhone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                values.put("phoneNumber", contactPhone);
+
+                                values.put("contactPhoto", getContactPhoto(PermissionsActivity.this, contactPhone));
+                            }
+                            pCur.close();
+                        }
+                    }
+                    database_account.insert("contacts", null, values);
+                }
+            }
+            cur.close();
+
+            prefs.edit().putBoolean("isContactSync", true).apply();
+            layoutContacts.setVisibility(View.GONE);
+            layoutSMS.setVisibility(View.VISIBLE);
+            Toast.makeText(PermissionsActivity.this, getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String getEmail(String contactId) {
+        String emailStr = null;
+        final String[] projection = new String[]{ContactsContract.CommonDataKinds.Email.DATA,
+                ContactsContract.CommonDataKinds.Email.TYPE};
+
+        Cursor emailq = managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, ContactsContract.Data.CONTACT_ID + "=?", new String[]{contactId}, null);
+
+        if (emailq.moveToFirst()) {
+            final int contactEmailColumnIndex = emailq.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+
+            while (!emailq.isAfterLast()) {
+                emailStr = emailq.getString(contactEmailColumnIndex);
+                emailq.moveToNext();
+            }
+        }
+        return emailStr;
+    }
+
+    public int hasWhatsApp(String contactID) {
+        int whatsAppExists = 0;
+        boolean hasWhatsApp;
+
+        String[] projection = new String[]{ContactsContract.RawContacts._ID};
+        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
+        String[] selectionArgs = new String[]{contactID, "com.whatsapp"};
+        Cursor cursor = PermissionsActivity.this.getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (cursor != null) {
+            hasWhatsApp = cursor.moveToNext();
+            if (hasWhatsApp) {
+                whatsAppExists = 1;
+            }
+            cursor.close();
+        }
+        return whatsAppExists;
+    }
+
+    public int hasMessenger(String contactID) {
+        int messengerExists = 0;
+        boolean hasMessenger;
+
+        String[] projection = new String[]{ContactsContract.RawContacts._ID};
+        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
+        String[] selectionArgs = new String[]{contactID, "com.facebook.katana"};
+        Cursor cursor = PermissionsActivity.this.getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
+        if (cursor != null) {
+            hasMessenger = cursor.moveToNext();
+            if (hasMessenger) {
+                messengerExists = 1;
+            }
+            cursor.close();
+        }
+        return messengerExists;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -163,116 +318,5 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
-    }
-
-    @SuppressWarnings("MissingPermission")
-    private void getEvents() {
-        Cursor cur;
-        ContentResolver cr = this.getContentResolver();
-        ContentValues values = new ContentValues();
-
-        String[] mProjection =
-                {
-                        "_id",
-                        CalendarContract.Events.TITLE,
-                        CalendarContract.Events.DESCRIPTION,
-                        CalendarContract.Events.DTSTART,
-                        CalendarContract.Events.DTEND,
-                        CalendarContract.Events.EVENT_LOCATION,
-                        CalendarContract.Events.ORGANIZER,
-                        CalendarContract.Events.DISPLAY_COLOR
-                };
-
-        Uri uri = CalendarContract.Events.CONTENT_URI;
-        cur = cr.query(uri, mProjection, null, null, null);
-
-        if (cur != null) {
-            while (cur.moveToNext()) {
-                String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
-                String title = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
-                String desc = cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION));
-                String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
-                String end = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
-                String location = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
-                String owner = cur.getString(cur.getColumnIndex(CalendarContract.Events.ORGANIZER));
-                String color = cur.getString(cur.getColumnIndex(CalendarContract.Events.DISPLAY_COLOR));
-
-                System.out.println("ID: " + id + "Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "owner:" + owner + "color:" + color);
-
-                values.put("ID", id);
-                values.put("Title", title);
-                values.put("Description", desc);
-                values.put("Start", start);
-                values.put("End", end);
-                values.put("Location", location);
-                values.put("Owner", owner);
-                values.put("Color", color);
-                database_account.insert("events", null, values);
-            }
-            cur.close();
-            prefs.edit().putBoolean("isCalendarSync", true).apply();
-            layoutCalendar.setVisibility(View.GONE);
-            layoutContacts.setVisibility(View.VISIBLE);
-            Toast.makeText(this, getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getString(R.string.error_no_calendar), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void getContacts() {
-        ContentValues values = new ContentValues();
-        ContentResolver cr = getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-        if (cur != null) {
-            if (cur.getCount() > 0) {
-                while (cur.moveToNext()) {
-                    contactID = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                    String[] contactMails = getEmail(contactID).split(";");
-                    contactMail = contactMails[0];
-                    values.put("ID", contactID);
-                    values.put("UserMail", contactMail);
-                    contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    values.put("DisplayName", contactName);
-
-                    if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{contactID}, null);
-                        if (pCur != null) {
-                            while (pCur.moveToNext()) {
-                                contactPhone = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                values.put("PhoneNumber", contactPhone);
-                                contactPhoto = getContactPhoto(PermissionsActivity.this, contactPhone);
-                                values.put("ContactPhoto", contactPhoto);
-                            }
-                            pCur.close();
-                        }
-                    }
-                    database_account.insert("contacts", null, values);
-                }
-            }
-            cur.close();
-
-            prefs.edit().putBoolean("isContactSync", true).apply();
-            layoutContacts.setVisibility(View.GONE);
-            layoutSMS.setVisibility(View.VISIBLE);
-            Toast.makeText(PermissionsActivity.this, getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public String getEmail(String contactId) {
-        String emailStr = "";
-        final String[] projection = new String[]{ContactsContract.CommonDataKinds.Email.DATA,
-                ContactsContract.CommonDataKinds.Email.TYPE};
-
-        Cursor emailq = managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, ContactsContract.Data.CONTACT_ID + "=?", new String[]{contactId}, null);
-
-        if (emailq.moveToFirst()) {
-            final int contactEmailColumnIndex = emailq.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
-
-            while (!emailq.isAfterLast()) {
-                emailStr = emailStr + emailq.getString(contactEmailColumnIndex) + ";";
-                emailq.moveToNext();
-            }
-        }
-        return emailStr;
     }
 }

@@ -57,12 +57,10 @@ public class ProfileContacts extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    switch (i % 5) {
+                    switch (i % 7) {
                         case 0:
                             item = new ContactItem();
-                            item.setID(cur.getString(i));
-                            item.setWhastaspp(hasWhatsApp(cur.getString(i)));
-                            item.setMessenger(hasMessenger(cur.getString(i)));
+                            item.setID(cur.getInt(i));
                             break;
                         case 1:
                             item.setName(cur.getString(i));
@@ -74,6 +72,12 @@ public class ProfileContacts extends Fragment {
                             item.setMail(cur.getString(i));
                             break;
                         case 4:
+                            item.setWhastaspp(cur.getInt(i));
+                            break;
+                        case 5:
+                            item.setMessenger(cur.getInt(i));
+                            break;
+                        case 6:
                             item.setContactPhoto(cur.getString(i));
                             feedsList.add(item);
                             break;
@@ -95,42 +99,5 @@ public class ProfileContacts extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         return v;
-    }
-
-    public String hasWhatsApp(String contactID) {
-        String rowContactId = null;
-        boolean hasWhatsApp;
-
-        String[] projection = new String[]{ContactsContract.RawContacts._ID};
-        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.whatsapp"};
-        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
-        if (cursor != null) {
-            hasWhatsApp = cursor.moveToNext();
-            if (hasWhatsApp) {
-                rowContactId = cursor.getString(0);
-            }
-            cursor.close();
-        }
-        return rowContactId;
-    }
-
-    public String hasMessenger(String contactID) {
-        String rowContactId = null;
-        boolean hasMessenger;
-
-        String[] projection = new String[]{ContactsContract.RawContacts._ID};
-        String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.facebook.katana"};
-        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
-        if (cursor != null) {
-            hasMessenger = cursor.moveToNext();
-            if (hasMessenger) {
-                rowContactId = cursor.getString(0);
-                System.out.println(rowContactId);
-            }
-            cursor.close();
-        }
-        return rowContactId;
     }
 }

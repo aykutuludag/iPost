@@ -26,7 +26,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ImageView
-            android:id="@+id/profile_photo"
+            android:id="@+id/event_photo"
             android:layout_width="142dp"
             android:layout_height="142dp"
             android:layout_alignParentLeft="true"
@@ -37,26 +37,26 @@
             app:srcCompat="@drawable/ic_blank_photo" />
 
         <TextView
-            android:id="@+id/name_title"
+            android:id="@+id/event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/profile_photo"
+            android:layout_alignTop="@+id/event_photo"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/profile_photo"
-            android:layout_toRightOf="@+id/profile_photo"
+            android:layout_toEndOf="@+id/event_photo"
+            android:layout_toRightOf="@+id/event_photo"
             android:gravity="center"
             android:text="Display Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/editEventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name_title"
+            android:layout_alignLeft="@+id/event_name"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/name_title"
-            android:layout_below="@+id/name_title"
+            android:layout_alignStart="@+id/event_name"
+            android:layout_below="@+id/event_name"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:enabled="false"
@@ -70,12 +70,12 @@
 
 
         <ImageView
-            android:id="@+id/indicator_mail"
+            android:id="@+id/indicator_desc"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignLeft="@+id/editTextName"
-            android:layout_alignStart="@+id/editTextName"
-            android:layout_below="@+id/editTextName"
+            android:layout_alignLeft="@+id/editEventName"
+            android:layout_alignStart="@+id/editEventName"
+            android:layout_below="@+id/editEventName"
             android:layout_marginTop="8dp"
             app:srcCompat="@drawable/icon_email_dark" />
 
@@ -83,24 +83,24 @@
             android:id="@+id/mail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/indicator_mail"
-            android:layout_alignTop="@+id/indicator_mail"
+            android:layout_alignBottom="@+id/indicator_desc"
+            android:layout_alignTop="@+id/indicator_desc"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/indicator_mail"
-            android:layout_toRightOf="@+id/indicator_mail"
+            android:layout_toEndOf="@+id/indicator_desc"
+            android:layout_toRightOf="@+id/indicator_desc"
             android:gravity="center"
             android:text="E-mail"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
-            android:id="@+id/editTextMail"
+            android:id="@+id/editTextDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/profile_photo"
-            android:layout_alignLeft="@+id/indicator_mail"
-            android:layout_alignStart="@+id/indicator_mail"
-            android:layout_below="@+id/indicator_mail"
+            android:layout_alignBottom="@+id/event_photo"
+            android:layout_alignLeft="@+id/indicator_desc"
+            android:layout_alignStart="@+id/indicator_desc"
+            android:layout_below="@+id/indicator_desc"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:enabled="false"
@@ -116,11 +116,11 @@
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editTextMail"
-            android:layout_alignLeft="@+id/profile_photo"
-            android:layout_alignRight="@+id/editTextMail"
-            android:layout_alignStart="@+id/profile_photo"
-            android:layout_below="@+id/profile_photo"
+            android:layout_alignEnd="@+id/editTextDesc"
+            android:layout_alignLeft="@+id/event_photo"
+            android:layout_alignRight="@+id/editTextDesc"
+            android:layout_alignStart="@+id/event_photo"
+            android:layout_below="@+id/event_photo"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
@@ -139,7 +139,7 @@
             app:srcCompat="@drawable/ic_location_dark" />
 
         <TextView
-            android:id="@+id/location_title"
+            android:id="@+id/desc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/indicator_loc"
@@ -165,7 +165,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <ImageView
-            android:id="@+id/indicatorBirthday"
+            android:id="@+id/indicator_date"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignLeft="@+id/editTextLocation"
@@ -179,10 +179,10 @@
             android:id="@+id/birthday_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/indicatorBirthday"
-            android:layout_alignLeft="@+id/location_title"
-            android:layout_alignStart="@+id/location_title"
-            android:layout_alignTop="@+id/indicatorBirthday"
+            android:layout_alignBottom="@+id/indicator_date"
+            android:layout_alignLeft="@+id/desc_title"
+            android:layout_alignStart="@+id/desc_title"
+            android:layout_alignTop="@+id/indicator_date"
             android:gravity="center"
             android:text="Birthday"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
@@ -191,9 +191,9 @@
             android:id="@+id/editTextBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/indicatorBirthday"
-            android:layout_alignStart="@+id/indicatorBirthday"
-            android:layout_below="@+id/indicatorBirthday"
+            android:layout_alignLeft="@+id/indicator_date"
+            android:layout_alignStart="@+id/indicator_date"
+            android:layout_below="@+id/indicator_date"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:enabled="true"

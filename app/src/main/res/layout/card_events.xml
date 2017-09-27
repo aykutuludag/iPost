@@ -98,7 +98,7 @@
                     card_view:srcCompat="@drawable/sms_icon" />
 
                 <ImageView
-                    android:id="@+id/whatsapp"
+                    android:id="@+id/options_whatsapp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignTop="@+id/options_messenger"

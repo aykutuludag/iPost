@@ -38,7 +38,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
         <ImageView
-            android:id="@+id/indicator_mail"
+            android:id="@+id/indicator_desc"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_alignLeft="@+id/profile_name"
@@ -51,10 +51,10 @@
             android:id="@+id/profile_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/indicator_mail"
+            android:layout_alignBottom="@+id/indicator_desc"
             android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/indicator_mail"
-            android:layout_toRightOf="@+id/indicator_mail"
+            android:layout_toEndOf="@+id/indicator_desc"
+            android:layout_toRightOf="@+id/indicator_desc"
             android:text="sheldon.cooper@caltech.edu"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
@@ -62,9 +62,9 @@
             android:id="@+id/indicator_loc"
             android:layout_width="17dp"
             android:layout_height="17dp"
-            android:layout_alignLeft="@+id/indicator_mail"
-            android:layout_alignStart="@+id/indicator_mail"
-            android:layout_below="@+id/indicator_mail"
+            android:layout_alignLeft="@+id/indicator_desc"
+            android:layout_alignStart="@+id/indicator_desc"
+            android:layout_below="@+id/indicator_desc"
             android:layout_marginTop="7dp"
             android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_location" />

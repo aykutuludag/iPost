@@ -95,7 +95,6 @@ public class SignInActivity extends AppCompatActivity implements
         slogan.setInAnimation(SignInActivity.this, android.R.anim.slide_in_left);
         slogan.setOutAnimation(SignInActivity.this, android.R.anim.slide_out_right);
         slogan.setFactory(new ViewSwitcher.ViewFactory() {
-
             public View makeView() {
                 // TODO Auto-generated method stub
                 // create new textView and set the properties like clolr, size etc
@@ -170,9 +169,8 @@ public class SignInActivity extends AppCompatActivity implements
         } else {
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID TEXT, Title TEXT, Description VARCHAR, Start INTEGER, End INTEGER, Location VARCHAR, Owner VARCHAR, Color VARCHAR);");
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID TEXT, DisplayName TEXT, PhoneNumber VARCHAR, UserMail VARCHAR, ContactPhoto VARCHAR);");
-
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER, title TEXT, photoURI VARCHAR, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color VARCHAR, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID INTEGER, displayName TEXT, phoneNumber VARCHAR, userMail VARCHAR, hasWhatsapp INTEGER, hasMessenger INTEGER, contactPhoto VARCHAR);");
             signInButton.setVisibility(View.VISIBLE);
         }
     }
@@ -209,17 +207,16 @@ public class SignInActivity extends AppCompatActivity implements
                     if (acct.getPhotoUrl() != null) {
                         prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
                     } else {
-                        //BURAYA İLERİDE EL AT
-                        prefs.edit().putString("ProfilePhoto", "https://i.stack.imgur.com/34AD2.jpg").apply();
+                        prefs.edit().putString("ProfilePhoto", "android.resource://app.isend/R.drawable.ic_blank_photo").apply();
                     }
                     // G+
                     Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                     if (person.getGender() == 0) {
-                        prefs.edit().putString("Gender", "male").apply();
+                        prefs.edit().putString("Gender", "Male").apply();
                     } else if (person.getGender() == 1) {
-                        prefs.edit().putString("Gender", "female").apply();
+                        prefs.edit().putString("Gender", "Female").apply();
                     } else {
-                        prefs.edit().putString("Gender", "other").apply();
+                        prefs.edit().putString("Gender", "Other").apply();
                     }
 
 
