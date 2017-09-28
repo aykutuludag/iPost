@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class EventsUpcoming extends Fragment {
     EventItem item;
     SQLiteDatabase database_account;
     Cursor cur;
+    List<EventItem> feedsList;
+    SwipeRefreshLayout swipeContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,9 +46,30 @@ public class EventsUpcoming extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
+        swipeContainer = v.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pullEvents();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         mRecyclerView = v.findViewById(R.id.eventView);
-        List<EventItem> feedsList = new ArrayList<>();
+        feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        pullEvents();
+
+        return v;
+    }
+
+    public void pullEvents() {
+        feedsList.clear();
         cur = database_account.rawQuery("SELECT * FROM events WHERE Start >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
@@ -54,7 +78,8 @@ public class EventsUpcoming extends Fragment {
                     switch (i % 13) {
                         case 0:
                             item = new EventItem();
-                            item.setID(cur.getString(i));
+                            item.setID(cur.getInt(i));
+                            System.out.println(cur.getInt(i));
                             break;
                         case 1:
                             item.setTitle(cur.getString(i));
@@ -78,7 +103,7 @@ public class EventsUpcoming extends Fragment {
                             item.setOwner(cur.getString(i));
                             break;
                         case 8:
-                            item.setBackground(cur.getString(i));
+                            item.setBackground(cur.getInt(i));
                             break;
                         case 9:
                             item.setIsMailActive(cur.getInt(i));
@@ -104,12 +129,13 @@ public class EventsUpcoming extends Fragment {
 
         // Adapter
         mAdapter = new EventsAdapter(getActivity(), feedsList);
+        mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        return v;
+        swipeContainer.setRefreshing(false);
     }
 }

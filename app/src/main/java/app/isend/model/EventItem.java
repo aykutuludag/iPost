@@ -2,7 +2,7 @@ package app.isend.model;
 
 public class EventItem {
 
-    private String ID;
+    private int ID;
     private String title;
     private String photoURI;
     private String description;
@@ -10,17 +10,17 @@ public class EventItem {
     private long endTime;
     private String location;
     private String owner;
-    private String background;
+    private int background;
     private int isMailActive;
     private int isSMSActive;
     private int isMessengerActive;
     private int isWhatsappActive;
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String id) {
+    public void setID(int id) {
         this.ID = id;
     }
 
@@ -80,11 +80,11 @@ public class EventItem {
         this.owner = owner;
     }
 
-    public String getBackground() {
+    public int getBackground() {
         return background;
     }
 
-    public void setBackground(String background) {
+    public void setBackground(int background) {
         this.background = background;
     }
 

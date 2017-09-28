@@ -144,7 +144,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
 
         Uri uri = CalendarContract.Events.CONTENT_URI;
         cur = cr.query(uri, mProjection, null, null, null);
-
         if (cur != null) {
             while (cur.moveToNext()) {
                 String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
@@ -157,7 +156,6 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
 
                 System.out.println("ID: " + id + "Etkinlik adı:" + title + "Açıklama:" + desc + "saat:" + start + "-" + end + "konum:" + location + "color:" + color);
 
-                values.put("ID", id);
                 values.put("photoURI", "");
                 values.put("title", title);
                 values.put("description", desc);

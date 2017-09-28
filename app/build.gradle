@@ -7,7 +7,7 @@ android {
         applicationId "app.isend"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 3
+        versionCode 4
         versionName "1.0"
     }
     buildTypes {
@@ -33,5 +33,6 @@ dependencies {
     compile 'com.jaredrummler:colorpicker:1.0.1'
     compile 'com.github.esafirm.android-image-picker:imagepicker:1.8.0'
     compile 'com.github.yesidlazaro:GmailBackground:1.2.0'
+    compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.8'
 }
 apply plugin: 'com.google.gms.google-services'

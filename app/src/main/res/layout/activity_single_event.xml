@@ -42,8 +42,8 @@
                 android:layout_toEndOf="@+id/event_photo"
                 android:layout_toRightOf="@+id/event_photo"
                 android:gravity="center"
-                android:hint="Remin Saylam adlı kişinin doğum günü"
-                android:inputType="textPersonName"
+                android:hint="Event name"
+                android:inputType="textShortMessage"
                 android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
@@ -116,10 +116,8 @@
                 android:layout_below="@+id/indicator_desc"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:enabled="false"
-                android:gravity="bottom"
-                android:hint="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                android:inputType="textEmailAddress"
+                android:hint="Description about event"
+                android:inputType="textLongMessage"
                 android:paddingBottom="8dp"
                 android:paddingRight="8dp"
                 android:paddingTop="8dp"
@@ -159,7 +157,8 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:enabled="true"
-                android:hint="Çayyolu Mahallesi, 06810 Çankaya/Ankara"
+                android:hint="8719 Essex Ave.  Oceanside, CA 92056"
+                android:inputType="textPostalAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView

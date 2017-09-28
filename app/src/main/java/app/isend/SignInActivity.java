@@ -169,7 +169,7 @@ public class SignInActivity extends AppCompatActivity implements
         } else {
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER, title TEXT, photoURI VARCHAR, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color VARCHAR, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, photoURI VARCHAR, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID INTEGER, displayName TEXT, phoneNumber VARCHAR, userMail VARCHAR, hasWhatsapp INTEGER, hasMessenger INTEGER, contactPhoto VARCHAR);");
             signInButton.setVisibility(View.VISIBLE);
         }

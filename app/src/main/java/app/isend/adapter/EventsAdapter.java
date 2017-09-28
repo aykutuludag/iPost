@@ -11,8 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import app.isend.R;
@@ -27,7 +29,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         public void onClick(View view) {
             ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
-            String eventID = feedItemList.get(position).getID();
+            int eventID = feedItemList.get(position).getID();
 
             Intent intent = new Intent(mContext, SingleEvent.class);
             intent.putExtra("EVENT_ID", eventID);
@@ -60,7 +62,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         viewHolder.location.setText(feedItem.getLocation());
 
         // Setting background
-        viewHolder.background.setBackgroundColor(Integer.parseInt(feedItem.getBackground()));
+        viewHolder.background.setBackgroundColor(feedItem.getBackground());
 
         // setSMSOption
         viewHolder.sms.setAlpha(1.0f);
@@ -102,10 +104,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     private String getDate(long time) {
+        TimeZone tz = Calendar.getInstance().getTimeZone();
         Date date = new Date(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm",
-                java.util.Locale.getDefault());
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC+3"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
         return sdf.format(date);
     }
 
