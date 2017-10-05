@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.isend">
+    package="app.ipost">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -39,7 +39,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -47,7 +47,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
         <activity
             android:name=".HelpActivity"
@@ -55,7 +55,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
         <activity
             android:name=".PrivacyActivity"
@@ -63,7 +63,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -71,7 +71,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
         <activity
             android:name=".ProfileEditActivity"
@@ -80,7 +80,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.ProfileActivity" />
+                android:value="app.ipost.ProfileActivity" />
         </activity>
         <activity
             android:name=".SingleEvent"
@@ -89,7 +89,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.isend.MainActivity" />
+                android:value="app.ipost.MainActivity" />
         </activity>
     </application>
 
