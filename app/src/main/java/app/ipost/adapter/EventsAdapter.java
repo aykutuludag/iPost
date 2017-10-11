@@ -11,11 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import app.ipost.R;
 import app.ipost.SingleEvent;
@@ -104,7 +102,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     private String getDate(long time) {
-        TimeZone tz = Calendar.getInstance().getTimeZone();
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
         return sdf.format(date);

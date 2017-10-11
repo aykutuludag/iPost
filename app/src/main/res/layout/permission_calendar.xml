@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/permission_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/permission_calendar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Permission: Calendar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <TextView
+            android:id="@+id/permission_calendar_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/permission_calendar_title"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="iPost needs calendar permission to show, update, delete and schedule events for replying.\n\nAll events saved on only this device so you can be sure that no one see your informations."
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <ImageView
+            android:id="@+id/permission_calendar_image"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignEnd="@+id/permission_calendar_desc"
+            android:layout_alignLeft="@+id/permission_calendar_desc"
+            android:layout_alignRight="@+id/permission_calendar_desc"
+            android:layout_alignStart="@+id/permission_calendar_desc"
+            android:layout_below="@+id/permission_calendar_desc"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/permission_calendar" />
+
+        <Button
+            android:id="@+id/permission_calendar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/permission_calendar_desc"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/permission_calendar_desc"
+            android:layout_marginBottom="16dp"
+            android:background="#00ff00"
+            android:text="Continue"
+            android:textColor="#555555" />
+
+    </RelativeLayout>
+
+</LinearLayout>

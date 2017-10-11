@@ -20,32 +20,45 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.services.gmail.Gmail;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static String name, email, photo, gender, birthday, location;
+    static String ID, name, email, photo, gender, birthday, location;
     SharedPreferences prefs;
     NavigationView navigationView;
     Toolbar toolbar;
+
+    private Gmail mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+       /* AccountManager accountManager = AccountManager.get(MainActivity.this);
+        mService = new Gmail.Builder(accountManager);
+        SendEmail.sendMessage();*/
+
+        //SendSMS.sendSMS("+905356892154", "test");
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+        ID = prefs.getString("GoogleAccountID", "");
+        System.out.println(ID);
         name = prefs.getString("Name", "-");
         email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
         gender = prefs.getString("Gender", "Other");
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

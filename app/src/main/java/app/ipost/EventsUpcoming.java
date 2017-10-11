@@ -75,7 +75,7 @@ public class EventsUpcoming extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    switch (i % 13) {
+                    switch (i % 12) {
                         case 0:
                             item = new EventItem();
                             item.setID(cur.getInt(i));
@@ -85,36 +85,33 @@ public class EventsUpcoming extends Fragment {
                             item.setTitle(cur.getString(i));
                             break;
                         case 2:
-                            item.setPhoto(cur.getString(i));
-                            break;
-                        case 3:
                             item.setDescription(cur.getString(i));
                             break;
-                        case 4:
+                        case 3:
                             item.setStartTime(cur.getLong(i));
                             break;
-                        case 5:
+                        case 4:
                             item.setEndTime(cur.getLong(i));
                             break;
-                        case 6:
+                        case 5:
                             item.setLocation(cur.getString(i));
                             break;
-                        case 7:
+                        case 6:
                             item.setOwner(cur.getString(i));
                             break;
-                        case 8:
+                        case 7:
                             item.setBackground(cur.getInt(i));
                             break;
-                        case 9:
+                        case 8:
                             item.setIsMailActive(cur.getInt(i));
                             break;
-                        case 10:
+                        case 9:
                             item.setIsSMSActive(cur.getInt(i));
                             break;
-                        case 11:
+                        case 10:
                             item.setIsMessengerActive(cur.getInt(i));
                             break;
-                        case 12:
+                        case 11:
                             item.setIsWhatsappActive(cur.getInt(i));
                             feedsList.add(item);
                             break;

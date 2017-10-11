@@ -47,50 +47,15 @@
                 android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
+
             <ImageView
-                android:id="@+id/event_photo_indicator"
+                android:id="@+id/indicator_desc"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignLeft="@+id/editEventName"
                 android:layout_alignStart="@+id/editEventName"
                 android:layout_below="@+id/editEventName"
                 android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/ic_location_dark" />
-
-            <TextView
-                android:id="@+id/event_photo_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/event_photo_indicator"
-                android:layout_alignTop="@+id/event_photo_indicator"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/event_photo_indicator"
-                android:layout_toRightOf="@+id/event_photo_indicator"
-                android:gravity="center"
-                android:text="Event photo"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-
-            <ImageView
-                android:id="@+id/event_photo"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/event_photo_indicator"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/sample_event_blank" />
-
-            <ImageView
-                android:id="@+id/indicator_desc"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/event_photo"
-                android:layout_alignStart="@+id/event_photo"
-                android:layout_below="@+id/event_photo"
-                android:layout_marginTop="16dp"
                 app:srcCompat="@drawable/ic_location_dark" />
 
             <TextView
@@ -255,7 +220,7 @@
                 android:layout_alignLeft="@+id/indicator_color"
                 android:layout_alignStart="@+id/indicator_color"
                 android:layout_below="@+id/indicator_color"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="8dp"
                 android:background="#000" />
 
             <ImageView
@@ -282,109 +247,18 @@
                 android:text="Recipients"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            <RelativeLayout
-                android:id="@+id/single_contact"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/editTextLocation"
                 android:layout_alignLeft="@+id/recipient_indicator"
                 android:layout_alignRight="@+id/editTextLocation"
                 android:layout_alignStart="@+id/recipient_indicator"
-                android:layout_below="@+id/recipient_indicator"
-                android:layout_marginTop="7dp">
-
-                <TextView
-                    android:id="@+id/contact_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/contact_photo"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/contact_photo"
-                    android:layout_toRightOf="@+id/contact_photo"
-                    android:gravity="center"
-                    android:text="Aykut Uludağ"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <TextView
-                    android:id="@+id/contact_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/contact_name"
-                    android:layout_alignStart="@+id/contact_name"
-                    android:layout_below="@+id/contact_name"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="+905356892154"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <TextView
-                    android:id="@+id/contact_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/contact_number"
-                    android:layout_alignStart="@+id/contact_number"
-                    android:layout_below="@+id/contact_number"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="aykutuludag1@gmail.com"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                <ImageView
-                    android:id="@+id/contact_photo"
-                    android:layout_width="125dp"
-                    android:layout_height="125dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_blank_photo" />
-
-                <RelativeLayout
-                    android:id="@+id/ContactOptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/contact_photo"
-                    android:layout_alignLeft="@+id/contact_mail"
-                    android:layout_alignStart="@+id/contact_mail">
-
-                    <ImageView
-                        android:id="@+id/options_sms"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        app:srcCompat="@drawable/sms_icon" />
-
-                    <ImageView
-                        android:id="@+id/options_mail"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignTop="@+id/options_sms"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toEndOf="@+id/options_sms"
-                        android:layout_toRightOf="@+id/options_sms"
-                        app:srcCompat="@drawable/gmail_icon" />
-
-                    <ImageView
-                        android:id="@+id/options_messenger"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignTop="@+id/options_mail"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toEndOf="@+id/options_mail"
-                        android:layout_toRightOf="@+id/options_mail"
-                        app:srcCompat="@drawable/messenger_icon" />
-
-                    <ImageView
-                        android:id="@+id/options_whatsapp"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignTop="@+id/options_messenger"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toEndOf="@+id/options_messenger"
-                        android:layout_toRightOf="@+id/options_messenger"
-                        app:srcCompat="@drawable/whatsapp_icon" />
-                </RelativeLayout>
-
-            </RelativeLayout>
+                android:layout_below="@+id/recipient_title"
+                android:layout_marginTop="8dp"
+                android:drawSelectorOnTop="true"
+                android:spinnerMode="dialog" />
 
         </RelativeLayout>
     </ScrollView>

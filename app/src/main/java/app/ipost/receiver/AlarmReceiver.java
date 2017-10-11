@@ -16,6 +16,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
             scheduleAlarms(context);
         } else {
+            //GÜNLÜK RAPOR OLACAK ŞEKİLDE AYARLANACAK
             NotificationGenerator.generateNotification(context);
         }
     }
@@ -31,6 +32,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             Calendar calendar = Calendar.getInstance();
 
+
+            //BURADA DATABASE DEN POST LARI ÇEKİP TEKRAR ALARM KURACAĞIZ
             int alarmHour = prefs.getInt("alarmHour", 10);
             int alarmMinute = prefs.getInt("alarmMinute", 0);
 

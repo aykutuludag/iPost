@@ -1,7 +1,6 @@
 package app.ipost;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -12,22 +11,25 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.model.Image;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import app.ipost.adapter.RecipientAdapter;
+import app.ipost.model.ContactItem;
 
 
 public class SingleEvent extends AppCompatActivity implements ColorPickerDialogListener {
@@ -37,13 +39,14 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
     Cursor cur;
     TextView title, description, location, timeStart, timeEnd;
     ImageView colorPicker;
-    ImageView imagePicker;
 
     int id;
     String eventName, eventPhotoURI, eventDescription, eventLocation, eventOwner;
     int eventColor;
     long startTime, endTime;
     int hasMail, hasSMS, hasMessenger, hasWhatsapp;
+
+    ContactItem item;
 
     boolean newEvent;
 
@@ -139,16 +142,6 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
                         updateEvent();
                     }
                 }
-            }
-        });
-
-        imagePicker = findViewById(R.id.event_photo);
-        imagePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.create(SingleEvent.this)
-                        .single()
-                        .start(1);
             }
         });
 
@@ -318,20 +311,70 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
                 ColorPickerDialog.newBuilder().setColor(eventColor).setDialogId(1).show(SingleEvent.this);
             }
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            ArrayList<Image> images = (ArrayList<Image>) ImagePicker.getImages(data);
-            eventPhotoURI = images.get(0).getPath();
-            Picasso.with(this).load(eventPhotoURI).into(imagePicker);
-            if (newEvent) {
-                addEvent();
-            } else {
-                updateEvent();
-            }
+        // Choose contact
+        List<ContactItem> feedsList = new ArrayList<>();
+        database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY DisplayName ASC", null);
+        if (cur != null && cur.getCount() != 0) {
+            cur.moveToFirst();
+            do {
+                for (int i = 0; i < cur.getColumnCount(); i++) {
+                    switch (i % 7) {
+                        case 0:
+                            item = new ContactItem();
+                            item.setID(cur.getInt(i));
+                            break;
+                        case 1:
+                            item.setName(cur.getString(i));
+                            break;
+                        case 2:
+                            item.setPhoneNumber(cur.getString(i));
+                            break;
+                        case 3:
+                            item.setMail(cur.getString(i));
+                            break;
+                        case 4:
+                            item.setWhastaspp(cur.getInt(i));
+                            break;
+                        case 5:
+                            item.setMessenger(cur.getInt(i));
+                            break;
+                        case 6:
+                            item.setContactPhoto(cur.getString(i));
+                            feedsList.add(item);
+                            break;
+                    }
+                }
+            } while (cur.moveToNext());
+            cur.close();
+        } else {
+            // Error no contact found
+            Toast.makeText(SingleEvent.this, "No friends", Toast.LENGTH_LONG).show();
         }
+
+
+        Spinner mySpinner = findViewById(R.id.spinner);
+        mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View v,
+                                       int position, long arg3) {
+                // TODO Auto-generated method stub
+                String SpinerValue3 = parent.getItemAtPosition(position).toString();
+
+                Toast.makeText(getBaseContext(),
+                        "You have selected: " + SpinerValue3,
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
 
     @Override
@@ -376,7 +419,6 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
     public void addEvent() {
         ContentValues values = new ContentValues();
         values.put("title", eventName);
-        values.put("photoURI", eventPhotoURI);
         values.put("description", eventDescription);
         values.put("start", startTime);
         values.put("end", endTime);

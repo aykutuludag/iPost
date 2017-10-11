@@ -4,7 +4,6 @@ public class EventItem {
 
     private int ID;
     private String title;
-    private String photoURI;
     private String description;
     private long startTime;
     private long endTime;
@@ -30,14 +29,6 @@ public class EventItem {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getPhoto() {
-        return photoURI;
-    }
-
-    public void setPhoto(String photoURI) {
-        this.photoURI = photoURI;
     }
 
     public String getDescription() {

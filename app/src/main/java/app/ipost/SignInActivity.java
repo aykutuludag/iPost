@@ -1,6 +1,7 @@
 package app.ipost;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,11 +52,10 @@ public class SignInActivity extends AppCompatActivity implements
     String name, email, photo, gender, birthday, location;
     boolean isSigned;
     TextSwitcher slogan;
-
     ProgressBar pb;
 
+    Account mAuthorizedAccount;
     int googleSign = 9001;
-
     int element = 0;
     String slogans[] = {"This is the slogan area. We can write whatever we want!", "Totally we can do it!", "Yeah I'm doing it right now!"};
 
@@ -170,7 +170,7 @@ public class SignInActivity extends AppCompatActivity implements
         } else {
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, photoURI VARCHAR, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID INTEGER, displayName TEXT, phoneNumber VARCHAR, userMail VARCHAR, hasWhatsapp INTEGER, hasMessenger INTEGER, contactPhoto VARCHAR);");
             signInButton.setVisibility(View.VISIBLE);
         }
@@ -203,6 +203,8 @@ public class SignInActivity extends AppCompatActivity implements
                 GoogleSignInAccount acct = result.getSignInAccount();
                 if (acct != null) {
                     System.out.println(acct.getGrantedScopes());
+                    mAuthorizedAccount = acct.getAccount();
+                    prefs.edit().putString("GoogleAccountID", acct.getId()).apply();
                     prefs.edit().putString("Name", acct.getDisplayName()).apply();
                     prefs.edit().putString("Email", acct.getEmail()).apply();
                     if (acct.getPhotoUrl() != null) {

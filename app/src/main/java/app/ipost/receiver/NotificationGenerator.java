@@ -18,6 +18,8 @@ import app.ipost.SignInActivity;
 class NotificationGenerator {
 
     static void generateNotification(Context context) {
+        //BURADA GÜNLÜK RAPOR OLACAK
+
         Intent intent = new Intent(context, SignInActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);

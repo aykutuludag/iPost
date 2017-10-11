@@ -6,10 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-/**
- * Created by Aykut on 20.09.2017.
- */
-
 public class HelpActivity extends AppCompatActivity {
 
     @Override

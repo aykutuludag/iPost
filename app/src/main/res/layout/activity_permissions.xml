@@ -1,198 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.ipost.PermissionsActivity">
+    android:orientation="vertical"
+    tools:context="app.ipost.ProfileActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/permission_bottom_menu" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:id="@+id/permission_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/permission_calendar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Permission: Calendar"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/permission_calendar_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/permission_calendar_title"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="iPost needs calendar permission to show, update, delete and schedule events for replying.\n\nAll events saved on only this device so you can be sure that no one see your informations."
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-            <ImageView
-                android:id="@+id/permission_calendar_image"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_alignEnd="@+id/permission_calendar_desc"
-                android:layout_alignLeft="@+id/permission_calendar_desc"
-                android:layout_alignRight="@+id/permission_calendar_desc"
-                android:layout_alignStart="@+id/permission_calendar_desc"
-                android:layout_below="@+id/permission_calendar_desc"
-                android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/permission_calendar" />
-
-            <Button
-                android:id="@+id/permission_calendar_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/permission_calendar_desc"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/permission_calendar_desc"
-                android:layout_marginBottom="16dp"
-                android:background="#00ff00"
-                android:text="Continue"
-                android:textColor="#555555" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/permission_contacts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/permission_contacts_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Permission: Contacts"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <TextView
-                android:id="@+id/permission_contacts_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/permission_contacts_title"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="iPost needs to be synchroized with your contacts to create events or schedule post friends or collegues etc.\n\nYour information only saved on device so accept you no one can access your data."
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-            <ImageView
-                android:id="@+id/permission_contacts_image"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_alignEnd="@+id/permission_contacts_desc"
-                android:layout_alignLeft="@+id/permission_contacts_desc"
-                android:layout_alignRight="@+id/permission_contacts_desc"
-                android:layout_alignStart="@+id/permission_contacts_desc"
-                android:layout_below="@+id/permission_contacts_desc"
-                android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/permission_calendar" />
-
-            <Button
-                android:id="@+id/permission_contacts_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/permission_contacts_desc"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/permission_contacts_desc"
-                android:layout_marginBottom="16dp"
-                android:background="#00ff00"
-                android:text="Continue"
-                android:textColor="#555555" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/permission_sms"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/permission_sms_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Permission: SMS"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <TextView
-                android:id="@+id/permission_sms_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/permission_sms_title"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="iPost is personal planner. You can reply events via E-mail, Whastapp, Facebook Messenger or SMS. iSend needs SMS permission for any future usage of SMS channel to reply events"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-            <ImageView
-                android:id="@+id/permission_sms_image"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_alignEnd="@+id/permission_sms_desc"
-                android:layout_alignLeft="@+id/permission_sms_desc"
-                android:layout_alignRight="@+id/permission_sms_desc"
-                android:layout_alignStart="@+id/permission_sms_desc"
-                android:layout_below="@+id/permission_sms_desc"
-                android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/permission_calendar" />
-
-            <Button
-                android:id="@+id/permission_sms_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/permission_sms_desc"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/permission_sms_desc"
-                android:layout_marginBottom="16dp"
-                android:background="#00ff00"
-                android:text="Continue"
-                android:textColor="#555555" />
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
