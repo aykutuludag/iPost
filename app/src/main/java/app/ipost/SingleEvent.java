@@ -360,12 +360,7 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
             @Override
             public void onItemSelected(AdapterView<?> parent, View v,
                                        int position, long arg3) {
-                // TODO Auto-generated method stub
-                String SpinerValue3 = parent.getItemAtPosition(position).toString();
 
-                Toast.makeText(getBaseContext(),
-                        "You have selected: " + SpinerValue3,
-                        Toast.LENGTH_SHORT).show();
 
             }
 
@@ -399,8 +394,6 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
 
     public void updateEvent() {
         ContentValues values = new ContentValues();
-        values.put("title", eventName);
-        values.put("photoURI", eventPhotoURI);
         values.put("description", eventDescription);
         values.put("start", startTime);
         values.put("end", endTime);
