@@ -97,7 +97,7 @@ public class EventsUpcoming extends Fragment {
                             item.setLocation(cur.getString(i));
                             break;
                         case 6:
-                            item.setOwner(cur.getString(i));
+                            item.setOwner(cur.getInt(i));
                             break;
                         case 7:
                             item.setBackground(cur.getInt(i));

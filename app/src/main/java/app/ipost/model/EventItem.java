@@ -8,7 +8,7 @@ public class EventItem {
     private long startTime;
     private long endTime;
     private String location;
-    private String owner;
+    private int owner;
     private int background;
     private int isMailActive;
     private int isSMSActive;
@@ -63,11 +63,11 @@ public class EventItem {
         this.location = location;
     }
 
-    public String getOwner() {
+    public int getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(int owner) {
         this.owner = owner;
     }
 

@@ -1,5 +1,7 @@
 package app.ipost;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -43,28 +45,40 @@ import java.util.Locale;
 
 import app.ipost.adapter.RecipientAdapter;
 import app.ipost.model.ContactItem;
+import app.ipost.receiver.AlarmReceiver;
 
 
 public class SingleEvent extends AppCompatActivity implements ColorPickerDialogListener {
 
-
+    // Databese connection
     SQLiteDatabase database_account;
     Cursor cur;
-    TextView title, description, location, timeStart, timeEnd;
-    ImageView colorPicker;
 
-    int id;
-    String eventName, eventDescription, eventLocation, eventOwner;
-    int eventColor;
-    long startTime, endTime;
-    int isMail, isSMS, isMessenger, isWhatsapp;
-    ContentValues values;
-    ContactItem item;
+    // Some variables
     boolean newEvent;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     SharedPreferences prefs;
-    int selectedPosition;
-    EditText smsContent, mailContent, messengerContent, whatsappContent;
+    SharedPreferences.Editor editor;
+    int userChoice;
+
+    //Event settings
+    TextView title, description, location, timeStart, timeEnd;
+    ImageView colorPicker;
+
+    //tableEvent
+    int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
+    long startTime, endTime;
+    String eventName, eventDescription, eventLocation, eventOwner;
+
+    //tablePost
+    int postID, isDelivered;
+    long postTime;
+    String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
+
+    // User selection & Post channels
+    ContactItem item;
+    Spinner mySpinner;
+    EditText smsContentHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     private CheckBox cb1;
     private CheckBox cb2;
     private CheckBox cb3;
@@ -79,27 +93,25 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        prefs = this.getSharedPreferences("EventInfo", Context.MODE_PRIVATE);
-
-        id = getIntent().getIntExtra("EVENT_ID", 0);
-        if (id == 0) {
+        prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        eventID = getIntent().getIntExtra("EVENT_ID", 0);
+        if (eventID == 0) {
             eventColor = Color.BLACK;
             startTime = Calendar.getInstance().getTimeInMillis() + 600000;
             endTime = Calendar.getInstance().getTimeInMillis() + 3600000;
             newEvent = true;
         }
-
-        prefs = this.getSharedPreferences("EventInfo", Context.MODE_PRIVATE);
-        selectedPosition = prefs.getInt("SelectedPosition" + id, 0);
+        userChoice = prefs.getInt("userChoiceSpinner" + eventID, 0);
 
         database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("SELECT * FROM events WHERE ID=? ", new String[]{id + ""});
+        cur = database_account.rawQuery("SELECT * FROM events WHERE ID=? ", new String[]{eventID + ""});
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             for (int i = 0; i < cur.getColumnCount(); i++) {
                 switch (i % 13) {
                     case 0:
-                        id = cur.getInt(i);
+                        eventID = cur.getInt(i);
                         break;
                     case 1:
                         eventName = cur.getString(i);
@@ -141,8 +153,6 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
             Toast.makeText(SingleEvent.this, "You are creating a new event!", Toast.LENGTH_LONG).show();
             getSupportActionBar().setTitle("Add new event");
         }
-
-        values = new ContentValues();
 
         title = findViewById(R.id.editEventName);
         title.setText(eventName);
@@ -308,7 +318,17 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
             }
         });
 
-        // Choose contact
+
+        //Choose user and create post options based on user
+        cb1 = findViewById(R.id.checkBoxSMS);
+        cb2 = findViewById(R.id.checkBoxMail);
+        cb3 = findViewById(R.id.checkBoxMessenger);
+        cb4 = findViewById(R.id.checkBoxWhatsapp);
+        smsContentHolder = findViewById(R.id.sms_content);
+        mailContentHolder = findViewById(R.id.mail_content);
+        messengerContentHolder = findViewById(R.id.messenger_content);
+        whatsappContentHolder = findViewById(R.id.whatsapp_content);
+
         final List<ContactItem> feedsList = new ArrayList<>();
         database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY DisplayName ASC", null);
@@ -344,92 +364,70 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
                 }
             } while (cur.moveToNext());
             cur.close();
-        } else {
-            // Error no contact found
-            Toast.makeText(SingleEvent.this, "No friends", Toast.LENGTH_LONG).show();
         }
 
-
-        //KULLANICI SEÇİMİ VE ALAKALI İŞLER
-        //Tasarımdaki Checkbox'ları çekiyoruz.
-        cb1 = findViewById(R.id.checkBoxSMS);
-        cb2 = findViewById(R.id.checkBoxMail);
-        cb3 = findViewById(R.id.checkBoxMessenger);
-        cb4 = findViewById(R.id.checkBoxWhatsapp);
-
-        smsContent = findViewById(R.id.sms_content);
-        mailContent = findViewById(R.id.mail_content);
-        messengerContent = findViewById(R.id.messenger_content);
-        whatsappContent = findViewById(R.id.whatsapp_content);
-
-        Spinner mySpinner = findViewById(R.id.spinner);
-
-        mySpinner.setSelection(selectedPosition);
+        mySpinner = findViewById(R.id.spinner);
         mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
+        mySpinner.setSelection(userChoice);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v,
                                        int position, long arg3) {
-                selectedPosition = position;
-                prefs.edit().putInt("SelectedPosition" + id, selectedPosition);
 
                 //GET VALUES
-                ContactItem feedItem = feedsList.get(selectedPosition);
-                System.out.println(feedItem.getMail());
+                item = feedsList.get(position);
 
-                if (feedItem.getPhoneNumber() != null) {
+                if (item.getPhoneNumber() != null) {
                     isSMS = 1;
                 } else {
                     isSMS = 0;
                 }
 
-                if (feedItem.getMail() != null && !feedItem.getMail().contains("null")) {
+                if (item.getMail() != null && !item.getMail().contains("null")) {
                     isMail = 1;
                 } else {
                     isMail = 0;
                 }
 
-                isMessenger = feedItem.getMessenger();
-                isWhatsapp = feedItem.getWhatsapp();
+                isMessenger = item.getMessenger();
+                isWhatsapp = item.getWhatsapp();
 
                 //CREATE UI BASED ON VALUES
                 if (isSMS == 0) {
                     cb1.setEnabled(false);
-                    smsContent.setEnabled(false);
+                    smsContentHolder.setEnabled(false);
                 } else {
                     cb1.setEnabled(true);
-                    smsContent.setEnabled(true);
+                    smsContentHolder.setEnabled(true);
                 }
 
                 if (isMail == 0) {
                     cb2.setEnabled(false);
-                    mailContent.setEnabled(false);
+                    mailContentHolder.setEnabled(false);
                 } else {
                     cb2.setEnabled(true);
-                    mailContent.setEnabled(true);
+                    mailContentHolder.setEnabled(true);
                 }
 
                 if (isMessenger == 0) {
                     cb3.setEnabled(false);
-                    messengerContent.setEnabled(false);
+                    messengerContentHolder.setEnabled(false);
                 } else {
                     cb3.setEnabled(true);
-                    messengerContent.setEnabled(true);
+                    messengerContentHolder.setEnabled(true);
                 }
 
                 if (isWhatsapp == 0) {
                     cb4.setEnabled(false);
-                    whatsappContent.setEnabled(false);
+                    whatsappContentHolder.setEnabled(false);
                 } else {
                     cb4.setEnabled(true);
-                    whatsappContent.setEnabled(true);
+                    whatsappContentHolder.setEnabled(true);
                 }
 
-                //WRITE ON DATABASE
-                values.put("isMail", isMail);
-                values.put("isSMS", isSMS);
-                values.put("isMessenger", isMessenger);
-                values.put("isWhatsapp", isWhatsapp);
+                //SAVE ROW NUMBER
+                userChoice = mySpinner.getSelectedItemPosition();
+                editor.putInt("userChoiceSpinner" + eventID, userChoice);
             }
 
             @Override
@@ -438,16 +436,102 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
             }
         });
 
+        //BURADA POST ÇEKİYORUZ
+        cur = database_account.rawQuery("SELECT * FROM posts WHERE ID=? ", new String[]{eventID + ""});
+        if (cur != null && cur.getCount() != 0) {
+            cur.moveToFirst();
+            for (int i = 0; i < cur.getColumnCount(); i++) {
+                System.out.println(cur.getInt(i));
+                System.out.println(cur.getString(i));
+                switch (i % 14) {
+                    case 0:
+                        postID = cur.getInt(i);
+                        break;
+                    case 1:
+                        receiverMail = cur.getString(i);
+                        break;
+                    case 2:
+                        receiverPhone = cur.getString(i);
+                        break;
+                    case 3:
+                        postTime = cur.getLong(i);
+                        break;
+                    case 4:
+                        isDelivered = cur.getInt(i);
+                        break;
+                    case 5:
+                        mailTitle = cur.getString(i);
+                        break;
+                    case 6:
+                        mailContent = cur.getString(i);
+                        break;
+                    case 7:
+                        mailAttachment = cur.getString(i);
+                        break;
+                    case 8:
+                        smsContent = cur.getString(i);
+                        break;
+                    case 9:
+                        messengerContent = cur.getString(i);
+                        break;
+                    case 10:
+                        messengerAttachment = cur.getString(i);
+                        break;
+                    case 12:
+                        whatsappContent = cur.getString(i);
+                        break;
+                    case 13:
+                        whatsappAttachment = cur.getString(i);
+                        break;
+                }
+            }
+            cur.close();
+        }
+
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (cb1.isChecked()) {
-                    //CREATE MESSAGE DB
-                } else {
-                    // DELETE IT
+                    smsContentHolder.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            if (editable.length() > 0) {
+                                smsContent = editable.toString();
+                            }
+                        }
+                    });
+
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                    Intent myIntent = new Intent(SingleEvent.this, AlarmReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(SingleEvent.this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar2.setTimeInMillis(startTime);
+
+                    if (calendar.getTimeInMillis() < calendar2.getTimeInMillis()) {
+                        alarmManager.setInexactRepeating(AlarmManager.RTC, calendar2.getTimeInMillis(),
+                                AlarmManager.INTERVAL_DAY, pendingIntent);
+                    } else {
+                        // past event. Do nothing
+                    }
                 }
             }
         });
+        smsContentHolder.setText(smsContent);
+
         cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -481,6 +565,10 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
     }
 
     public void updateEvent() {
+        //ARIZALI
+        System.out.println("hey");
+        ContentValues values = new ContentValues();
+        values.put("title", eventName);
         values.put("description", eventDescription);
         values.put("start", startTime);
         values.put("end", endTime);
@@ -491,11 +579,13 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         values.put("isSMS", isSMS);
         values.put("isMessenger", isMessenger);
         values.put("isWhatsapp", isWhatsapp);
-        String[] selectionArgs = {String.valueOf(id)};
+        String[] selectionArgs = {String.valueOf(eventID)};
         database_account.update("events", values, "ID=?", selectionArgs);
     }
 
     public void addEvent() {
+        //SAĞLAM
+        ContentValues values = new ContentValues();
         values.put("title", eventName);
         values.put("description", eventDescription);
         values.put("start", startTime);
@@ -509,6 +599,45 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         values.put("isWhatsapp", isWhatsapp);
         database_account.insert("events", null, values);
         newEvent = false;
+    }
+
+    public void createPost() {
+        //TEST EDİLMEDİ
+        ContentValues values2 = new ContentValues();
+        values2.put("receiverName", "");
+        values2.put("receiverMail", "");
+        values2.put("receiverPhone", "");
+        values2.put("postTime", "");
+        values2.put("isDelivered", 0);
+        values2.put("mailTitle", "");
+        values2.put("mailContent", "");
+        values2.put("mailAttachment", "");
+        values2.put("smsContent", "");
+        values2.put("messengerContent", "");
+        values2.put("messengerAttachment", "");
+        values2.put("whatsappContent", "");
+        values2.put("whatsappAttachment", "");
+        database_account.insert("posts", null, values2);
+    }
+
+    public void updatePost() {
+        //TEST EDİLMEDİ
+        System.out.println("hey");
+        ContentValues values2 = new ContentValues();
+        values2.put("receiverName", item.getName());
+        values2.put("receiverMail", item.getMail());
+        values2.put("receiverPhone", item.getPhoneNumber());
+        values2.put("postTime", startTime);
+        values2.put("isDelivered", 0);
+        values2.put("mailTitle", "");
+        values2.put("mailContent", "");
+        values2.put("mailAttachment", "");
+        values2.put("smsContent", smsContent);
+        values2.put("messengerContent", "");
+        values2.put("messengerAttachment", "");
+        values2.put("whatsappContent", "");
+        values2.put("whatsappAttachment", "");
+        database_account.insert("posts", null, values2);
     }
 
     private String getDate(long time) {
@@ -545,10 +674,13 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         if (id == R.id.action_save) {
             if (newEvent) {
                 addEvent();
+                createPost();
             } else {
                 updateEvent();
+                updatePost();
             }
-            prefs.edit().apply();
+            editor.apply();
+            database_account.close();
             finish();
             return true;
         }
@@ -574,6 +706,7 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        database_account.close();
         finish();
     }
 }

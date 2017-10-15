@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.api.services.gmail.Gmail;
 import com.kobakei.ratethisapp.RateThisApp;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences prefs;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    boolean doubleBackToExitPressedOnce;
     private Gmail mService;
 
     @Override
@@ -51,14 +53,12 @@ public class MainActivity extends AppCompatActivity
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         ID = prefs.getString("GoogleAccountID", "");
-        System.out.println(ID);
         name = prefs.getString("Name", "-");
         email = prefs.getString("Email", "-");
         photo = prefs.getString("ProfilePhoto", "");
         gender = prefs.getString("Gender", "Other");
         birthday = prefs.getString("Birthday", "-");
         location = prefs.getString("Location", "-");
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -136,25 +136,25 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_eventupcoming:
                 fragment = new EventsUpcoming();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpComing").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
                 navigationView.setCheckedItem(R.id.nav_eventupcoming);
                 toolbar.setTitle(R.string.events_upcoming);
                 break;
             case R.id.nav_eventpast:
                 fragment = new EventsPast();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsPast").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Past").commit();
                 navigationView.setCheckedItem(R.id.nav_eventpast);
                 toolbar.setTitle(R.string.events_past);
                 break;
             case R.id.nav_postplanned:
                 fragment = new PostPlanned();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "PostPlanned").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Planned").commit();
                 navigationView.setCheckedItem(R.id.nav_postplanned);
                 toolbar.setTitle(R.string.posts_planned);
                 break;
             case R.id.nav_postsent:
                 fragment = new PostSent();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "PostSent").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Sent").commit();
                 navigationView.setCheckedItem(R.id.nav_postsent);
                 toolbar.setTitle(R.string.posts_sent);
                 break;
@@ -194,7 +194,61 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            navigationView.setCheckedItem(R.id.nav_eventupcoming);
+
+            // Fragments
+            EventsUpcoming fragment0 = (EventsUpcoming) getSupportFragmentManager().findFragmentByTag("Upcoming");
+            EventsPast fragment1 = (EventsPast) getSupportFragmentManager().findFragmentByTag("Past");
+            PostPlanned fragment2 = (PostPlanned) getSupportFragmentManager().findFragmentByTag("Planned");
+            PostSent fragment3 = (PostSent) getSupportFragmentManager().findFragmentByTag("Sent");
+
+            // FragmentHome OnBackPressed
+            if (fragment0 != null) {
+                if (fragment0.isVisible()) {
+                    if (doubleBackToExitPressedOnce) {
+                        super.onBackPressed();
+                        return;
+                    }
+
+                    this.doubleBackToExitPressedOnce = true;
+                    Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();
+
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false;
+                        }
+                    }, 2000);
+                }
+            }
+
+            // FragmentSecond OnBackPressed
+            if (fragment1 != null) {
+                if (fragment1.isVisible()) {
+                    Fragment fragment = new EventsUpcoming();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                    toolbar.setTitle(R.string.events_upcoming);
+                }
+            }
+
+            // FragmentThird OnBackPressed
+            if (fragment2 != null) {
+                if (fragment2.isVisible()) {
+                    Fragment fragment = new EventsUpcoming();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                    toolbar.setTitle(R.string.events_upcoming);
+                }
+            }
+
+            // FragmentFourth OnBackPressed
+            if (fragment3 != null) {
+                if (fragment3.isVisible()) {
+                    Fragment fragment = new EventsUpcoming();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                    toolbar.setTitle(R.string.events_upcoming);
+                }
+            }
         }
     }
 }

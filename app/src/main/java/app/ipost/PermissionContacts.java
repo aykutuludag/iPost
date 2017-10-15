@@ -105,11 +105,8 @@ public class PermissionContacts extends Fragment {
 
                     contactName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     values.put("displayName", contactName);
-
                     values.put("userMail", getEmail(contactID));
-
                     values.put("hasWhatsapp", hasWhatsApp(contactID));
-
                     values.put("hasMessenger", hasMessenger(contactID));
 
                     if (cur.getInt(cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
