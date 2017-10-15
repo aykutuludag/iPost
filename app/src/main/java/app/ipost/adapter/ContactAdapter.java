@@ -1,6 +1,9 @@
 package app.ipost.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,12 +22,6 @@ import app.ipost.model.ContactItem;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
     private List<ContactItem> feedItemList;
     private Context mContext;
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(mContext, "You can update contact info from Contacts. Changes will shown within an hour.", Toast.LENGTH_LONG).show();
-        }
-    };
 
     public ContactAdapter(Context context, List<ContactItem> feedItemList) {
         this.feedItemList = feedItemList;
@@ -82,10 +78,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         } else {
             viewHolder.messenger.setVisibility(View.GONE);
         }
-
-        // Handle click event on image click
-        viewHolder.background.setOnClickListener(clickListener);
-        viewHolder.background.setTag(viewHolder);
     }
 
     @Override
@@ -118,6 +110,17 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             mail = itemView.findViewById(R.id.options_mail);
 
             background = itemView.findViewById(R.id.single_contact);
+            background.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ContactItem feedItem = feedItemList.get(getAdapterPosition());
+                    String contactID = feedItem.getID();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactID);
+                    intent.setData(uri);
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

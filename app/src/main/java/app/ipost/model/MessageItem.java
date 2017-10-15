@@ -3,11 +3,10 @@ package app.ipost.model;
 public class MessageItem {
 
     private int ID;
-    private String senderMail;
     private String receiverName;
     private String receiverMail;
     private String receiverPhone;
-    private long sendingTime;
+    private long postTime;
     private boolean isSuccess;
 
     // Mail components
@@ -34,11 +33,107 @@ public class MessageItem {
         this.ID = id;
     }
 
-    public String senderMail() {
-        return senderMail;
+    public String getReceiverName() {
+        return receiverName;
     }
 
-    public void setsenderMail(String senderMail) {
-        this.senderMail = senderMail;
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverMail() {
+        return receiverMail;
+    }
+
+    public void setReceiverMail(String receiverMail) {
+        this.receiverMail = receiverMail;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
+    }
+
+    public long getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(long postTime) {
+        this.postTime = postTime;
+    }
+
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    public void setIsSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
+
+    public String getMailTitle() {
+        return mailTitle;
+    }
+
+    public void setMailTitle(String mailTitle) {
+        this.mailTitle = mailTitle;
+    }
+
+    public String getMailContent() {
+        return mailContent;
+    }
+
+    public void setMailContent(String mailContent) {
+        this.mailContent = mailContent;
+    }
+
+    public String getMailAttachment() {
+        return mailAttachment;
+    }
+
+    public void setMailAttachment(String mailAttachment) {
+        this.mailAttachment = mailAttachment;
+    }
+
+    public String getSmsContent() {
+        return smsContent;
+    }
+
+    public void setSmsContent(String smsContent) {
+        this.smsContent = smsContent;
+    }
+
+    public String getMessengerContent() {
+        return mailTitle;
+    }
+
+    public void setMessengerContent(String messengerContent) {
+        this.messengerContent = messengerContent;
+    }
+
+    public String getMessengerAttachment() {
+        return messengerAttachment;
+    }
+
+    public void setMessengerAttachment(String messengerAttachment) {
+        this.messengerAttachment = messengerAttachment;
+    }
+
+    public String getWhatsappContent() {
+        return whatsappContent;
+    }
+
+    public void setWhatsappContent(String whatsappContent) {
+        this.whatsappContent = whatsappContent;
+    }
+
+    public String getWhatsappAttachment() {
+        return whatsappAttachment;
+    }
+
+    public void setWhatsappAttachment(String whatsappAttachment) {
+        this.whatsappAttachment = whatsappAttachment;
     }
 }

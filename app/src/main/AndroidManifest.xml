@@ -91,6 +91,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAl87N36K6SkKdlnL-rasSM__HMSw18RIc" />
     </application>
 
 </manifest>

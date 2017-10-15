@@ -59,7 +59,7 @@ public class ProfileContacts extends Fragment {
                     switch (i % 7) {
                         case 0:
                             item = new ContactItem();
-                            item.setID(cur.getInt(i));
+                            item.setID(cur.getString(i));
                             break;
                         case 1:
                             item.setName(cur.getString(i));

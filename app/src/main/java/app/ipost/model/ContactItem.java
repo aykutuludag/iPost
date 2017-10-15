@@ -2,7 +2,7 @@ package app.ipost.model;
 
 public class ContactItem {
 
-    private int ID;
+    private String ID;
     private String name;
     private String phoneNumber;
     private String contactPhoto;
@@ -10,11 +10,11 @@ public class ContactItem {
     private int messenger;
     private String mail;
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int id) {
+    public void setID(String id) {
         this.ID = id;
     }
 

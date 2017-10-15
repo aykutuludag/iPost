@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.isend.SingleEvent">
+    tools:context="app.ipost.SingleEvent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +28,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/editEventName"
@@ -37,12 +38,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/event_name"
                 android:layout_margin="8dp"
-                android:layout_toEndOf="@+id/event_photo"
-                android:layout_toRightOf="@+id/event_photo"
                 android:gravity="center"
-                android:hint="Event name"
                 android:inputType="textShortMessage"
                 android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
@@ -122,6 +119,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:enabled="true"
+                android:focusableInTouchMode="false"
                 android:hint="8719 Essex Ave.  Oceanside, CA 92056"
                 android:inputType="textPostalAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
@@ -259,6 +257,122 @@
                 android:layout_marginTop="8dp"
                 android:drawSelectorOnTop="true"
                 android:spinnerMode="dialog" />
+
+            <ImageView
+                android:id="@+id/post_channel_indicator"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignLeft="@+id/colorPicker"
+                android:layout_alignStart="@+id/colorPicker"
+                android:layout_below="@+id/spinner"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/recipients" />
+
+            <TextView
+                android:id="@+id/post_channels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/post_channel_indicator"
+                android:layout_alignTop="@+id/post_channel_indicator"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@+id/post_channel_indicator"
+                android:layout_toRightOf="@+id/post_channel_indicator"
+                android:gravity="center"
+                android:text="Post channels"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_channel_indicator"
+                android:layout_alignStart="@+id/post_channel_indicator"
+                android:layout_below="@+id/post_channel_indicator"
+                android:layout_marginTop="8dp"
+                android:text="SMS" />
+
+            <CheckBox
+                android:id="@+id/checkBoxMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/checkBoxSMS"
+                android:layout_alignStart="@+id/checkBoxSMS"
+                android:layout_below="@+id/sms_content"
+                android:layout_marginTop="8dp"
+                android:text="E-mail" />
+
+            <CheckBox
+                android:id="@+id/checkBoxMessenger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mail_content"
+                android:layout_alignStart="@+id/mail_content"
+                android:layout_below="@+id/mail_content"
+                android:layout_marginTop="8dp"
+                android:text="Messenger" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWhatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/messenger_content"
+                android:layout_alignStart="@+id/messenger_content"
+                android:layout_below="@+id/messenger_content"
+                android:layout_marginTop="8dp"
+                android:text="Whatsapp" />
+
+            <EditText
+                android:id="@+id/sms_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/spinner"
+                android:layout_alignLeft="@+id/checkBoxMail"
+                android:layout_alignRight="@+id/spinner"
+                android:layout_alignStart="@+id/checkBoxMail"
+                android:layout_below="@+id/checkBoxSMS"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/mail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/sms_content"
+                android:layout_alignLeft="@+id/checkBoxMail"
+                android:layout_alignRight="@+id/sms_content"
+                android:layout_alignStart="@+id/checkBoxMail"
+                android:layout_below="@+id/checkBoxMail"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/messenger_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/mail_content"
+                android:layout_alignLeft="@+id/checkBoxMail"
+                android:layout_alignRight="@+id/mail_content"
+                android:layout_alignStart="@+id/checkBoxMail"
+                android:layout_below="@+id/checkBoxMessenger"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/whatsapp_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/messenger_content"
+                android:layout_alignLeft="@+id/checkBoxWhatsapp"
+                android:layout_alignRight="@+id/messenger_content"
+                android:layout_alignStart="@+id/checkBoxWhatsapp"
+                android:layout_below="@+id/checkBoxWhatsapp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textMultiLine" />
 
         </RelativeLayout>
     </ScrollView>
