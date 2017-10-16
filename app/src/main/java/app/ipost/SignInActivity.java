@@ -33,10 +33,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.google.api.services.gmail.GmailScopes;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -137,7 +135,6 @@ public class SignInActivity extends AppCompatActivity implements
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(Plus.SCOPE_PLUS_LOGIN)
-                .requestScopes(new Scope(GmailScopes.GMAIL_SEND)) // https://www.googleapis.com/auth/gmail.send
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)

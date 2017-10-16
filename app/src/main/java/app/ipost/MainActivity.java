@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.services.gmail.Gmail;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar;
     boolean doubleBackToExitPressedOnce;
-    private Gmail mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
