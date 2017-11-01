@@ -70,7 +70,7 @@ public class EventsUpcoming extends Fragment {
 
     public void pullEvents() {
         feedsList.clear();
-        cur = database_account.rawQuery("SELECT * FROM events WHERE Start >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE startTime >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

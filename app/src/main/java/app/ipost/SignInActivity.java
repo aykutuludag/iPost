@@ -7,22 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextSwitcher;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
-import android.widget.ViewSwitcher;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -36,8 +29,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Calendar;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -49,13 +41,12 @@ public class SignInActivity extends AppCompatActivity implements
     SharedPreferences prefs;
     String name, email, photo, gender, birthday, location;
     boolean isSigned;
-    TextSwitcher slogan;
-    ProgressBar pb;
 
     Account mAuthorizedAccount;
     int googleSign = 9001;
-    int element = 0;
-    String slogans[] = {"This is the slogan area. We can write whatever we want!", "Totally we can do it!", "Yeah I'm doing it right now!"};
+
+    RelativeLayout layoutLogin, layoutWelcome;
+    TextView welcomeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,77 +68,29 @@ public class SignInActivity extends AppCompatActivity implements
         location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);
 
-        String fileName = "android.resource://" + getPackageName() + "/raw/background_singin";
-        VideoView vv = this.findViewById(R.id.videoView);
-        vv.setVideoURI(Uri.parse(fileName));
-        vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-                mp.setLooping(true);
-
-            }
-        });
-        vv.start();
-
-        slogan = findViewById(R.id.textSwitcher);
-        slogan.setInAnimation(SignInActivity.this, android.R.anim.slide_in_left);
-        slogan.setOutAnimation(SignInActivity.this, android.R.anim.slide_out_right);
-        slogan.setFactory(new ViewSwitcher.ViewFactory() {
-            public View makeView() {
-                // TODO Auto-generated method stub
-                // create new textView and set the properties like clolr, size etc
-                TextView myText = new TextView(SignInActivity.this);
-                myText.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-                myText.setTextSize(36);
-                myText.setTextColor(Color.BLACK);
-                return myText;
-            }
-        });
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                SignInActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        element++;
-                        if ((element % 3) == 0) {
-                            slogan.setText(slogans[0]);
-                        } else if ((element % 3) == 1) {
-                            slogan.setText(slogans[1]);
-                        } else {
-                            slogan.setText(slogans[2]);
-                        }
-                    }
-                });
-            }
-        }, 0, 4000);
-
-        // ProgressBar
-        pb = findViewById(R.id.progressBar);
-
-        /* Google Sign-In */
-        signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_WIDE);
-        signInButton.setOnClickListener(this);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestScopes(Plus.SCOPE_PLUS_LOGIN)
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .addApi(Plus.API)
-                .build();
+        layoutLogin = findViewById(R.id.login_screen);
+        layoutWelcome = findViewById(R.id.welcome_Screen);
 
         // Check the user is signed or not
         if (isSigned) {
             //signed already
-            signInButton.setVisibility(View.INVISIBLE);
-            pb.setVisibility(View.VISIBLE);
+            layoutLogin.setVisibility(View.INVISIBLE);
+            layoutWelcome.setVisibility(View.VISIBLE);
+
+            welcomeText = findViewById(R.id.textView2);
+
+            Calendar rightNow = Calendar.getInstance();
+            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+            System.out.println("hour is:" + hour);
+            if (hour < 6) {
+                welcomeText.setText("Good nights" + name + ", welcome back!");
+            } else if (hour < 12) {
+                welcomeText.setText("Good morning" + name + ", welcome back!");
+            } else if (hour < 18) {
+                welcomeText.setText("Have a nice day" + name + ", welcome back!");
+            } else {
+                welcomeText.setText("Good afternoon" + name + ", welcome back!");
+            }
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -163,24 +106,37 @@ public class SignInActivity extends AppCompatActivity implements
                         finish();
                     }
                 }
-            }, 1250);
+            }, 3000);
         } else {
             // Create local database to save contacs
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description VARCHAR, start INTEGER, end INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description VARCHAR, startTime INTEGER, endTime INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID INTEGER, displayName TEXT, phoneNumber VARCHAR, userMail VARCHAR, hasWhatsapp INTEGER, hasMessenger INTEGER, contactPhoto VARCHAR);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS posts(ID INTEGER PRIMARY KEY AUTOINCREMENT, receiverName TEXT, receiverMail VARCHAR, receiverPhone VARCHAR, postTime INTEGER, isDelivered INTEGER, mailTitle VARCHAR, mailContent TEXT, mailAttachment VARCHAR, smsContent TEXT, messengerContent TEXT, messengerAttachment VARCHAR, whatsappContent TEXT, whatsappAttachment VARCHAR);");
-            signInButton.setVisibility(View.VISIBLE);
+
+            layoutLogin.setVisibility(View.VISIBLE);
+            layoutWelcome.setVisibility(View.INVISIBLE);
+
+            /* Google Sign-In */
+            signInButton = findViewById(R.id.sign_in_button);
+            signInButton.setSize(SignInButton.SIZE_WIDE);
+            signInButton.setOnClickListener(this);
+
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
+                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .addApi(Plus.API)
+                    .build();
         }
     }
 
     private void googleSignIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, googleSign);
-    }
-
-    private void facebookLogin() {
-        //Coming soon
     }
 
     @Override
@@ -232,7 +188,8 @@ public class SignInActivity extends AppCompatActivity implements
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();
                     Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
                     signInButton.setVisibility(View.INVISIBLE);
-                    pb.setVisibility(View.VISIBLE);
+                    layoutLogin.setVisibility(View.INVISIBLE);
+                    layoutWelcome.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -240,7 +197,7 @@ public class SignInActivity extends AppCompatActivity implements
                             startActivity(i);
                             finish();
                         }
-                    }, 1250);
+                    }, 2000);
                 } else {
                     Toast.makeText(this, getString(R.string.error_login_no_account), Toast.LENGTH_SHORT).show();
                 }

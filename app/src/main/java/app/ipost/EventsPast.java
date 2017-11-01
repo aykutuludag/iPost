@@ -69,7 +69,7 @@ public class EventsPast extends Fragment {
     }
 
     private void pullEvents() {
-        cur = database_account.rawQuery("SELECT * FROM events WHERE Start < " + System.currentTimeMillis() + " ORDER BY Start DESC", null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE startTime < " + System.currentTimeMillis() + " ORDER BY Start DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

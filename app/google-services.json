@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "802887467777-rcgddi8u340ddq9ocvgpe43m9nj7empl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.ipost",
+            "certificate_hash": "6613ad6368c7259844472e926dcebd17d96ee215"
+          }
+        },
+        {
           "client_id": "802887467777-td7c2bimthgf92be96t42km7el7co73o.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802887467777-td7c2bimthgf92be96t42km7el7co73o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

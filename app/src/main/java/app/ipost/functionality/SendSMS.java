@@ -1,22 +1,21 @@
-package app.ipost;
+package app.ipost.functionality;
 
 import android.app.Activity;
 import android.telephony.SmsManager;
-import android.widget.Toast;
 
 
 public class SendSMS extends Activity {
 
-    public void sendSMS(String phoneNo, String msg) {
+    public static boolean sendSMS(String phoneNo, String msg) {
+        boolean isSuccess;
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-            Toast.makeText(getApplicationContext(), "Message Sent",
-                    Toast.LENGTH_LONG).show();
+            isSuccess = true;
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), ex.getMessage(),
-                    Toast.LENGTH_LONG).show();
+            isSuccess = false;
             ex.printStackTrace();
         }
+        return isSuccess;
     }
 }

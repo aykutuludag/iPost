@@ -1,13 +1,13 @@
 package app.ipost.model;
 
-public class MessageItem {
+public class PostItem {
 
     private int ID;
     private String receiverName;
     private String receiverMail;
     private String receiverPhone;
     private long postTime;
-    private boolean isSuccess;
+    private int isSuccess;
 
     // Mail components
     private String mailTitle;
@@ -65,11 +65,11 @@ public class MessageItem {
         this.postTime = postTime;
     }
 
-    public boolean getIsSuccess() {
+    public int getIsSuccess() {
         return isSuccess;
     }
 
-    public void setIsSuccess(boolean isSuccess) {
+    public void setIsSuccess(int isSuccess) {
         this.isSuccess = isSuccess;
     }
 
