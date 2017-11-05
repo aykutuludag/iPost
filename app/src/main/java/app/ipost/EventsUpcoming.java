@@ -62,15 +62,17 @@ public class EventsUpcoming extends Fragment {
 
         mRecyclerView = v.findViewById(R.id.eventView);
         feedsList = new ArrayList<>();
-        database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         pullEvents();
 
         return v;
     }
 
     public void pullEvents() {
+        //Clear the list
         feedsList.clear();
-        cur = database_account.rawQuery("SELECT * FROM events WHERE startTime >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
+
+        database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE sTime >= " + System.currentTimeMillis() + " ORDER BY sTime ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
@@ -119,6 +121,7 @@ public class EventsUpcoming extends Fragment {
                 }
             } while (cur.moveToNext());
             cur.close();
+            database_account.close();
         } else {
             //First opening
             Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();

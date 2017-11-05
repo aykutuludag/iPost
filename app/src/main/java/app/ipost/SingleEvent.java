@@ -585,8 +585,8 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         ContentValues values = new ContentValues();
         values.put("title", eventName);
         values.put("description", eventDescription);
-        values.put("startTime", startTime);
-        values.put("endTime", endTime);
+        values.put("sTime", startTime);
+        values.put("eTime", endTime);
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);
@@ -622,8 +622,8 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         ContentValues values = new ContentValues();
         values.put("title", eventName);
         values.put("description", eventDescription);
-        values.put("startTime", startTime);
-        values.put("endTime", endTime);
+        values.put("sTime", startTime);
+        values.put("eTime", endTime);
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);

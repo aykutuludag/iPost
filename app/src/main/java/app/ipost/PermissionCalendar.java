@@ -92,8 +92,8 @@ public class PermissionCalendar extends Fragment {
 
                 values.put("title", title);
                 values.put("description", desc);
-                values.put("startTime", start);
-                values.put("endTime", end);
+                values.put("sTime", start);
+                values.put("eTime", end);
                 values.put("location", location);
                 values.put("owner", "");
                 values.put("color", color);

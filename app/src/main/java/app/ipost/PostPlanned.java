@@ -69,7 +69,7 @@ public class PostPlanned extends Fragment {
 
     public void pullPosts() {
         feedsList.clear();
-        cur = database_account.rawQuery("SELECT * FROM posts WHERE postTime >= " + System.currentTimeMillis() + " ORDER BY Start ASC", null);
+        cur = database_account.rawQuery("SELECT * FROM posts WHERE postTime >= " + System.currentTimeMillis() + " ORDER BY postTime ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {
@@ -123,7 +123,7 @@ public class PostPlanned extends Fragment {
             cur.close();
         } else {
             //First opening
-            Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "There is no post", Toast.LENGTH_LONG).show();
         }
 
 
