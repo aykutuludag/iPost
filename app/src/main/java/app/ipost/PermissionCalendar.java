@@ -82,7 +82,7 @@ public class PermissionCalendar extends Fragment {
         cur = cr.query(uri, mProjection, null, null, null);
         if (cur != null) {
             while (cur.moveToNext()) {
-                String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
+                // String id = cur.getString(cur.getColumnIndex(CalendarContract.Events._ID));
                 String title = cur.getString(cur.getColumnIndex(CalendarContract.Events.TITLE));
                 String desc = cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION));
                 String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));

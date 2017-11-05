@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             Fragment fragment = new EventsUpcoming();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "EventsUpcoming").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
             navigationView.setCheckedItem(R.id.nav_eventupcoming);
             toolbar.setTitle(R.string.events_upcoming);
         }
@@ -191,62 +191,62 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            navigationView.setCheckedItem(R.id.nav_eventupcoming);
+        }
+        navigationView.setCheckedItem(R.id.nav_eventupcoming);
 
-            // Fragments
-            EventsUpcoming fragment0 = (EventsUpcoming) getSupportFragmentManager().findFragmentByTag("Upcoming");
-            EventsPast fragment1 = (EventsPast) getSupportFragmentManager().findFragmentByTag("Past");
-            PostPlanned fragment2 = (PostPlanned) getSupportFragmentManager().findFragmentByTag("Planned");
-            PostSent fragment3 = (PostSent) getSupportFragmentManager().findFragmentByTag("Sent");
+        // Fragments
+        EventsUpcoming fragment0 = (EventsUpcoming) getSupportFragmentManager().findFragmentByTag("Upcoming");
+        EventsPast fragment1 = (EventsPast) getSupportFragmentManager().findFragmentByTag("Past");
+        PostPlanned fragment2 = (PostPlanned) getSupportFragmentManager().findFragmentByTag("Planned");
+        PostSent fragment3 = (PostSent) getSupportFragmentManager().findFragmentByTag("Sent");
 
-            // FragmentHome OnBackPressed
-            if (fragment0 != null) {
-                if (fragment0.isVisible()) {
-                    if (doubleBackToExitPressedOnce) {
-                        super.onBackPressed();
-                        return;
+        // FragmentHome OnBackPressed
+        if (fragment0 != null) {
+            if (fragment0.isVisible()) {
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
                     }
-
-                    this.doubleBackToExitPressedOnce = true;
-                    Toast.makeText(this, getString(R.string.exit), Toast.LENGTH_SHORT).show();
-
-                    new Handler().postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            doubleBackToExitPressedOnce = false;
-                        }
-                    }, 2000);
-                }
-            }
-
-            // FragmentSecond OnBackPressed
-            if (fragment1 != null) {
-                if (fragment1.isVisible()) {
-                    Fragment fragment = new EventsUpcoming();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
-                    toolbar.setTitle(R.string.events_upcoming);
-                }
-            }
-
-            // FragmentThird OnBackPressed
-            if (fragment2 != null) {
-                if (fragment2.isVisible()) {
-                    Fragment fragment = new EventsUpcoming();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
-                    toolbar.setTitle(R.string.events_upcoming);
-                }
-            }
-
-            // FragmentFourth OnBackPressed
-            if (fragment3 != null) {
-                if (fragment3.isVisible()) {
-                    Fragment fragment = new EventsUpcoming();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
-                    toolbar.setTitle(R.string.events_upcoming);
-                }
+                }, 2000);
             }
         }
+
+        // FragmentSecond OnBackPressed
+        if (fragment1 != null) {
+            if (fragment1.isVisible()) {
+                Fragment fragment = new EventsUpcoming();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                toolbar.setTitle(R.string.events_upcoming);
+            }
+        }
+
+        // FragmentThird OnBackPressed
+        if (fragment2 != null) {
+            if (fragment2.isVisible()) {
+                Fragment fragment = new EventsUpcoming();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                toolbar.setTitle(R.string.events_upcoming);
+            }
+        }
+
+        // FragmentFourth OnBackPressed
+        if (fragment3 != null) {
+            if (fragment3.isVisible()) {
+                Fragment fragment = new EventsUpcoming();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
+                toolbar.setTitle(R.string.events_upcoming);
+            }
+        }
+
     }
 }

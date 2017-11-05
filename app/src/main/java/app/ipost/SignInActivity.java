@@ -112,7 +112,7 @@ public class SignInActivity extends AppCompatActivity implements
             database_account = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             database_account.execSQL("CREATE TABLE IF NOT EXISTS events(ID INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description VARCHAR, sTime INTEGER, eTime INTEGER, location VARCHAR, owner VARCHAR, color INTEGER, isMail INTEGER, isSMS INTEGER, isMessenger INTEGER, isWhatsapp INTEGER);");
             database_account.execSQL("CREATE TABLE IF NOT EXISTS contacts(ID INTEGER, displayName TEXT, phoneNumber VARCHAR, userMail VARCHAR, hasWhatsapp INTEGER, hasMessenger INTEGER, contactPhoto VARCHAR);");
-            database_account.execSQL("CREATE TABLE IF NOT EXISTS posts(ID INTEGER PRIMARY KEY AUTOINCREMENT, receiverName TEXT, receiverMail VARCHAR, receiverPhone VARCHAR, postTime INTEGER, isDelivered INTEGER, mailTitle VARCHAR, mailContent TEXT, mailAttachment VARCHAR, smsContent TEXT, messengerContent TEXT, messengerAttachment VARCHAR, whatsappContent TEXT, whatsappAttachment VARCHAR);");
+            database_account.execSQL("CREATE TABLE IF NOT EXISTS posts(ID INTEGER, receiverName TEXT, receiverMail VARCHAR, receiverPhone VARCHAR, postTime INTEGER, isDelivered INTEGER, mailTitle VARCHAR, mailContent TEXT, mailAttachment VARCHAR, smsContent TEXT, messengerContent TEXT, messengerAttachment VARCHAR, whatsappContent TEXT, whatsappAttachment VARCHAR);");
 
             layoutLogin.setVisibility(View.VISIBLE);
             layoutWelcome.setVisibility(View.INVISIBLE);
