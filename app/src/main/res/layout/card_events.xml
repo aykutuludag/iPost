@@ -62,18 +62,18 @@
 
             <ImageView
                 android:id="@+id/iconTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_above="@+id/txt_startime"
                 android:layout_alignLeft="@+id/txt_startime"
                 android:layout_alignStart="@+id/txt_startime"
                 android:layout_marginBottom="8dp"
-                card_view:srcCompat="@drawable/ic_timelapse_white_24dp" />
+                card_view:srcCompat="@drawable/ic_eventime" />
 
             <ImageView
                 android:id="@+id/iconLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_above="@+id/txt_loc"
                 android:layout_alignEnd="@+id/txt_loc"
                 android:layout_alignRight="@+id/txt_loc"

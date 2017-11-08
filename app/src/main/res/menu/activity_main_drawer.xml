@@ -22,7 +22,7 @@
         <menu>
             <item
                 android:id="@+id/nav_postplanned"
-                android:icon="@drawable/ic_post_planned"
+                android:icon="@drawable/ic_eventime"
                 android:title="@string/posts_planned" />
             <item
                 android:id="@+id/nav_postsent"

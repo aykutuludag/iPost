@@ -13,83 +13,97 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            app:srcCompat="@drawable/brand_logo" />
+            android:layout_marginTop="80dp"
+            app:srcCompat="@drawable/logomain" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/imageView"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
             android:text="iPost is a personal assistant which replies your events for you! You can plan new event and responses to save your time"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="300dp"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/textView2"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:text="To get started, please sign-in with your Google account."
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/common_signin_button_text_long" />
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/welcome_Screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:visibility="invisible">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            app:srcCompat="@drawable/brand_logo" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_below="@+id/imageView"
-            android:layout_marginTop="25dp"
-            android:text="Good morning Aykut, welcome back!"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="109dp" />
-    </RelativeLayout>
+            android:layout_marginBottom="50dp" />
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            app:srcCompat="@drawable/logomain" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="WELCOME"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Good morning, Uğur Benli."
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+    </RelativeLayout>
 </RelativeLayout>
