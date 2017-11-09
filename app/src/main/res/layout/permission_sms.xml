@@ -16,9 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="Permission: SMS"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:layout_marginTop="60dp"
+            android:text="Permission: Calendar"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/permission_sms_desc"
@@ -29,34 +31,31 @@
             android:layout_below="@+id/permission_sms_title"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="iPost is personal planner. You can reply events via E-mail, Whastapp, Facebook Messenger or SMS. iSend needs SMS permission for any future usage of SMS channel to reply events"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView
             android:id="@+id/permission_sms_image"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_alignEnd="@+id/permission_sms_desc"
-            android:layout_alignLeft="@+id/permission_sms_desc"
-            android:layout_alignRight="@+id/permission_sms_desc"
-            android:layout_alignStart="@+id/permission_sms_desc"
+            android:layout_width="225dp"
+            android:layout_height="225dp"
             android:layout_below="@+id/permission_sms_desc"
-            android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/permission_calendar" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            app:srcCompat="@drawable/permission_sms" />
 
         <Button
             android:id="@+id/permission_sms_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/permission_sms_desc"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/permission_sms_desc"
-            android:layout_marginBottom="16dp"
-            android:background="#00ff00"
-            android:text="Continue"
-            android:textColor="#555555" />
+            android:layout_below="@+id/permission_sms_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="#181818"
+            android:text="Authorize"
+            android:textColor="#fff" />
 
     </RelativeLayout>
 

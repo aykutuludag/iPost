@@ -77,19 +77,19 @@ public class SignInActivity extends AppCompatActivity implements
             layoutLogin.setVisibility(View.INVISIBLE);
             layoutWelcome.setVisibility(View.VISIBLE);
 
-            welcomeText = findViewById(R.id.textView2);
+            welcomeText = findViewById(R.id.textView5);
 
             Calendar rightNow = Calendar.getInstance();
             int hour = rightNow.get(Calendar.HOUR_OF_DAY);
             System.out.println("hour is:" + hour);
             if (hour < 6) {
-                welcomeText.setText("Good nights" + name + ", welcome back!");
+                welcomeText.setText("Good nights " + name);
             } else if (hour < 12) {
-                welcomeText.setText("Good morning" + name + ", welcome back!");
+                welcomeText.setText("Good morning " + name);
             } else if (hour < 18) {
-                welcomeText.setText("Have a nice day" + name + ", welcome back!");
+                welcomeText.setText("Have a nice day " + name);
             } else {
-                welcomeText.setText("Good afternoon" + name + ", welcome back!");
+                welcomeText.setText("Good afternoon " + name);
             }
 
             new Handler().postDelayed(new Runnable() {

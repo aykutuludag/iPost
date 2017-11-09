@@ -22,7 +22,8 @@ public class ProfileAccounts extends Fragment {
     SQLiteDatabase database_account;
     Tracker t;
 
-    ImageView facebook, google, outlook, iCalendar;
+    ImageView facebook, google, outlook, apple;
+    ImageView facebookI, googleI, outlookI, appleI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,27 +37,38 @@ public class ProfileAccounts extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        facebook = v.findViewById(R.id.facebookCalendar);
-        google = v.findViewById(R.id.googleCalendar);
-        outlook = v.findViewById(R.id.outlookCalendar);
-        iCalendar = v.findViewById(R.id.iCalendar);
+        facebook = v.findViewById(R.id.facebook);
+        google = v.findViewById(R.id.google);
+        outlook = v.findViewById(R.id.outlook);
+        apple = v.findViewById(R.id.apple);
+
+        facebookI = v.findViewById(R.id.facebookIndicator);
+        googleI = v.findViewById(R.id.googleIndicator);
+        outlookI = v.findViewById(R.id.outlookIndicator);
+        appleI = v.findViewById(R.id.appleIndicator);
+
+        if (appInstalledOrNot("com.facebook.katana")) {
+            facebookI.setBackgroundResource(R.drawable.actie);
+        } else {
+            facebookI.setBackgroundResource(R.drawable.dis);
+        }
 
         if (appInstalledOrNot("com.google.android.calendar")) {
-            google.setAlpha(1.0f);
+            googleI.setBackgroundResource(R.drawable.actie);
         } else {
-            google.setAlpha(0.5f);
+            googleI.setBackgroundResource(R.drawable.dis);
         }
 
         if (appInstalledOrNot("com.microsoft.office.outlook")) {
-            outlook.setAlpha(1.0f);
+            outlookI.setBackgroundResource(R.drawable.actie);
         } else {
-            outlook.setAlpha(0.5f);
+            outlookI.setBackgroundResource(R.drawable.dis);
         }
 
         if (appInstalledOrNot("com.mike.cal.sync")) {
-            iCalendar.setAlpha(1.0f);
+            appleI.setBackgroundResource(R.drawable.actie);
         } else {
-            iCalendar.setAlpha(0.5f);
+            appleI.setBackgroundResource(R.drawable.dis);
         }
 
         // Create local database to save events
@@ -65,25 +77,26 @@ public class ProfileAccounts extends Fragment {
         View.OnClickListener buttonListener = new View.OnClickListener() {
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.facebookCalendar:
+                    case R.id.facebook:
                         facebookCalendar();
                         break;
-                    case R.id.googleCalendar:
+                    case R.id.google:
                         googleCalendar();
                         break;
-                    case R.id.outlookCalendar:
+                    case R.id.outlook:
                         outlookCalendar();
                         break;
-                    case R.id.iCalendar:
+                    case R.id.apple:
                         iCalendar();
                         break;
                 }
             }
         };
+
         facebook.setOnClickListener(buttonListener);
         google.setOnClickListener(buttonListener);
         outlook.setOnClickListener(buttonListener);
-        iCalendar.setOnClickListener(buttonListener);
+        apple.setOnClickListener(buttonListener);
 
         return v;
     }
@@ -95,10 +108,10 @@ public class ProfileAccounts extends Fragment {
     void googleCalendar() {
         if (appInstalledOrNot("com.google.android.calendar")) {
             //Start resync local calendar
-            google.setAlpha(1.0f);
+            googleI.setBackgroundResource(R.drawable.actie);
             Toast.makeText(getActivity(), "Sync completed.", Toast.LENGTH_LONG).show();
         } else {
-            google.setAlpha(0.5f);
+            googleI.setBackgroundResource(R.drawable.dis);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.calendar")));
             Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }
@@ -107,10 +120,10 @@ public class ProfileAccounts extends Fragment {
     void outlookCalendar() {
         if (appInstalledOrNot("com.microsoft.office.outlook")) {
             //Start resync local calendar
-            outlook.setAlpha(1.0f);
+            outlookI.setBackgroundResource(R.drawable.actie);
             Toast.makeText(getActivity(), "Sync completed.", Toast.LENGTH_LONG).show();
         } else {
-            outlook.setAlpha(0.5f);
+            outlookI.setBackgroundResource(R.drawable.dis);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.microsoft.office.outlook")));
             Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }
@@ -119,10 +132,10 @@ public class ProfileAccounts extends Fragment {
     void iCalendar() {
         if (appInstalledOrNot("com.mike.cal.sync")) {
             //Start resync local calendar
-            iCalendar.setAlpha(1.0f);
+            appleI.setBackgroundResource(R.drawable.actie);
             Toast.makeText(getActivity(), "Sync completed.", Toast.LENGTH_LONG).show();
         } else {
-            iCalendar.setAlpha(0.5f);
+            appleI.setBackgroundResource(R.drawable.dis);
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.mike.cal.sync")));
             Toast.makeText(getActivity(), "After installing the app, your events will be imported to iSend within an hour.", Toast.LENGTH_LONG).show();
         }

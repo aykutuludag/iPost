@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
+        android:visibility="gone"
         app:menu="@menu/permission_bottom_menu" />
 
 </LinearLayout>

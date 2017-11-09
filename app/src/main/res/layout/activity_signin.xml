@@ -27,8 +27,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imageView"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="50dp"
             android:gravity="center"
             android:text="iPost is a personal assistant which replies your events for you! You can plan new event and responses to save your time"
@@ -36,14 +36,13 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignEnd="@+id/textView2"
+            android:layout_alignRight="@+id/textView2"
             android:layout_below="@+id/textView2"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="To get started, please sign-in with your Google account."
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
@@ -57,7 +56,6 @@
             android:layout_marginBottom="30dp"
             android:text="@string/common_signin_button_text_long" />
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/welcome_Screen"
