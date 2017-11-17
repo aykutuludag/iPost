@@ -48,7 +48,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         viewHolder.textMail.setText(feedItem.getMail());
 
         // Setting profilephoto
-        Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.ic_blank_photo).placeholder(R.drawable.ic_blank_photo)
+        Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                 .into(viewHolder.profilePhoto);
 
         //  Setting SMS

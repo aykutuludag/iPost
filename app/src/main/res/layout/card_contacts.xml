@@ -62,7 +62,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                card_view:srcCompat="@drawable/ic_blank_photo" />
+                card_view:srcCompat="@drawable/siyahprofil" />
 
             <RelativeLayout
                 android:id="@+id/ContactOptions"
