@@ -17,8 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -54,10 +52,10 @@ public class SignInActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_signin);
 
         // Analytics
-        Tracker t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+      /*  Tracker t = this.getApplication()).getDefaultTracker();
         t.setScreenName("Sign-In");
         t.enableAdvertisingIdCollection(true);
-        t.send(new HitBuilders.ScreenViewBuilder().build());
+        t.send(new HitBuilders.ScreenViewBuilder().build());*/
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         name = prefs.getString("Name", "-");

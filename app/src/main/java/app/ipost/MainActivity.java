@@ -18,12 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kobakei.ratethisapp.RateThisApp;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //NavigationView
-        navigationView = findViewById(R.id.nav_view);
+       /* navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //HeaderView
@@ -100,12 +97,12 @@ public class MainActivity extends AppCompatActivity
         //ProfilePicture
         ImageView profilePic = headerView.findViewById(R.id.nav_picture);
         Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
-                .into(profilePic);
+                .into(profilePic);*/
 
         if (savedInstanceState == null) {
             Fragment fragment = new EventsUpcoming();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
-            navigationView.setCheckedItem(R.id.nav_eventupcoming);
+            //navigationView.setCheckedItem(R.id.nav_eventupcoming);
             toolbar.setTitle(R.string.events_upcoming);
         }
 

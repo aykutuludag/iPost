@@ -28,14 +28,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.jaredrummler.android.colorpicker.ColorPickerDialog;
-import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
-import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ import app.ipost.model.ContactItem;
 import app.ipost.receiver.AlarmReceiver;
 
 
-public class SingleEvent extends AppCompatActivity implements ColorPickerDialogListener {
+public class SingleEvent extends AppCompatActivity {
 
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
@@ -62,29 +61,62 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     int userChoice;
-
     //Event settings
     TextView title, description, location, timeStart, timeEnd;
     ImageView colorPicker;
-
     //tableEvent
     int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
     long startTime, endTime;
     String eventName, eventDescription, eventLocation, eventOwner;
-
     //tablePost
     int postID, isDelivered;
     long postTime;
     String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
-
     // User selection & Post channels
     ContactItem item;
     Spinner mySpinner;
     EditText smsContentHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private CheckBox cb1;
     private CheckBox cb2;
     private CheckBox cb3;
     private CheckBox cb4;
+    //Listener for startTime
+    private SlideDateTimeListener listener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            Toast.makeText(SingleEvent.this,
+                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
+            timeStart.setText(mFormatter.format(date));
+            startTime = date.getTime();
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+            Toast.makeText(SingleEvent.this,
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+    //Listener for endTime
+    private SlideDateTimeListener listener2 = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            Toast.makeText(SingleEvent.this,
+                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
+            timeEnd.setText(mFormatter.format(date));
+            endTime = date.getTime();
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+            Toast.makeText(SingleEvent.this,
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -101,8 +133,8 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
         if (eventID == 0) {
             eventColor = Color.BLACK;
-            startTime = Calendar.getInstance().getTimeInMillis() + 600000;
-            endTime = Calendar.getInstance().getTimeInMillis() + 3600000;
+            startTime = Calendar.getInstance().getTimeInMillis() + 60000 * 60;
+            endTime = Calendar.getInstance().getTimeInMillis() + 60000 * 60 * 2;
             newEvent = true;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
@@ -337,46 +369,15 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         timeStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Initialize
-                SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
-                        "Choose start time",
-                        "OK",
-                        "Cancel"
-                );
-
-                Date start = new Date(startTime);
-
-                dateTimeDialogFragment.startAtCalendarView();
-                dateTimeDialogFragment.set24HoursMode(true);
-                dateTimeDialogFragment.setMinimumDateTime(start);
-                dateTimeDialogFragment.setDefaultDateTime(start);
-
-                // Define new day and month format
-                try {
-                    dateTimeDialogFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
-                } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
-                    Log.e("Error", e.getMessage());
-                }
-
-                // Set listener
-                dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Date date) {
-                        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-                        timeStart.setText(myDateFormat.format(date));
-                        startTime = date.getTime();
-                    }
-
-                    @Override
-                    public void onNegativeButtonClick(Date date) {
-                        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-                        timeStart.setText(myDateFormat.format(date));
-                        startTime = date.getTime();
-                    }
-                });
-
-                // Show
-                dateTimeDialogFragment.show(getSupportFragmentManager(), "dialog_time");
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(listener)
+                        .setInitialDate(new Date(startTime))
+                        .setMinDate(new Date(startTime))
+                        .setIs24HourTime(true)
+                        .setTheme(SlideDateTimePicker.HOLO_DARK)
+                        .setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
             }
         });
 
@@ -385,58 +386,17 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         timeEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Initialize
-                SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
-                        "Choose start time",
-                        "OK",
-                        "Cancel"
-                );
-
-                Date end = new Date(endTime);
-
-                dateTimeDialogFragment.startAtCalendarView();
-                dateTimeDialogFragment.set24HoursMode(true);
-                dateTimeDialogFragment.setMinimumDateTime(end);
-                dateTimeDialogFragment.setDefaultDateTime(end);
-
-                // Define new day and month format
-                try {
-                    dateTimeDialogFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
-                } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
-                    Log.e("Error", e.getMessage());
-                }
-
-                // Set listener
-                dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Date date) {
-                        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-                        timeEnd.setText(myDateFormat.format(date));
-                        endTime = date.getTime();
-                    }
-
-                    @Override
-                    public void onNegativeButtonClick(Date date) {
-                        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-                        timeEnd.setText(myDateFormat.format(date));
-                        endTime = date.getTime();
-                    }
-                });
-
-                // Show
-                dateTimeDialogFragment.show(getSupportFragmentManager(), "dialog_time");
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(listener2)
+                        .setInitialDate(new Date(endTime))
+                        .setMinDate(new Date(endTime))
+                        .setIs24HourTime(true)
+                        .setTheme(SlideDateTimePicker.HOLO_DARK)
+                        .setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
             }
         });
-
-        colorPicker = findViewById(R.id.colorPicker);
-        colorPicker.setBackgroundColor(eventColor);
-        colorPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ColorPickerDialog.newBuilder().setColor(eventColor).setDialogId(1).show(SingleEvent.this);
-            }
-        });
-
 
         //Choose user and create post options based on user
         cb1 = findViewById(R.id.checkBoxSMS);
@@ -713,22 +673,6 @@ public class SingleEvent extends AppCompatActivity implements ColorPickerDialogL
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
         return sdf.format(date);
     }
-
-    @Override
-    public void onColorSelected(int dialogId, int color) {
-        switch (dialogId) {
-            case 1:
-                colorPicker.setBackgroundColor(color);
-                eventColor = color;
-                break;
-        }
-    }
-
-    @Override
-    public void onDialogDismissed(int i) {
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

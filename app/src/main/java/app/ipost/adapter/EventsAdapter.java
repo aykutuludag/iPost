@@ -2,7 +2,6 @@ package app.ipost.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         // Setting background
         //UNUTMA BURAYI
-        viewHolder.background.setBackgroundColor(Color.parseColor("#757575"));
+        viewHolder.background.setBackgroundColor(feedItem.getBackground());
 
         // setSMSOption
         viewHolder.sms.setAlpha(1.0f);

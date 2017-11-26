@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 public class PermissionsActivity extends AppCompatActivity {
@@ -37,10 +36,10 @@ public class PermissionsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Analytics
-        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+/*        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
         t.setScreenName("Permissions");
         t.enableAdvertisingIdCollection(true);
-        t.send(new HitBuilders.ScreenViewBuilder().build());
+        t.send(new HitBuilders.ScreenViewBuilder().build());*/
 
         //FrameLayout
         frame = findViewById(R.id.content);

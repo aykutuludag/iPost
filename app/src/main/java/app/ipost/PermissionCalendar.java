@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -98,7 +99,7 @@ public class PermissionCalendar extends Fragment {
                 values.put("eTime", end);
                 values.put("location", location);
                 values.put("owner", "");
-                values.put("color", color);
+                values.put("color", Color.parseColor("#777777"));
                 values.put("isMail", 0);
                 values.put("isSMS", 0);
                 values.put("isMessenger", 0);
