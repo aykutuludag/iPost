@@ -89,9 +89,7 @@ public class PermissionCalendar extends Fragment {
                 String start = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTSTART));
                 String end = cur.getString(cur.getColumnIndex(CalendarContract.Events.DTEND));
                 String location = cur.getString(cur.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
-                String color = cur.getString(cur.getColumnIndex(CalendarContract.Events.DISPLAY_COLOR));
-
-                System.out.println("RENK KODU:" + color);
+                // String color = cur.getString(cur.getColumnIndex(CalendarContract.Events.DISPLAY_COLOR));
 
                 values.put("title", title);
                 values.put("description", desc);

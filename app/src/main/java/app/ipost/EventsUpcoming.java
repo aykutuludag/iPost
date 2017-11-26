@@ -1,5 +1,6 @@
 package app.ipost;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,10 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +27,14 @@ import app.ipost.adapter.EventsAdapter;
 import app.ipost.model.EventItem;
 
 import static android.content.Context.MODE_PRIVATE;
+import static app.ipost.MainActivity.email;
+import static app.ipost.MainActivity.name;
+import static app.ipost.MainActivity.photo;
 
 public class EventsUpcoming extends Fragment {
 
     RecyclerView mRecyclerView;
+    RelativeLayout headerProfile;
     GridLayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
     Tracker t;
@@ -45,6 +54,26 @@ public class EventsUpcoming extends Fragment {
         t.setScreenName("Events - Upcoming");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
+
+        headerProfile = v.findViewById(R.id.header_profile);
+        headerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Name
+        TextView navUsername = v.findViewById(R.id.nav_name);
+        navUsername.setText(name);
+        //E-mail
+        TextView navEmail = v.findViewById(R.id.nav_email);
+        navEmail.setText(email);
+        //ProfilePicture
+        ImageView profilePic = v.findViewById(R.id.nav_picture);
+        Picasso.with(getActivity()).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+                .into(profilePic);
 
         swipeContainer = v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading

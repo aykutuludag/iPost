@@ -58,12 +58,6 @@ public class SignInActivity extends AppCompatActivity implements
         t.send(new HitBuilders.ScreenViewBuilder().build());*/
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        name = prefs.getString("Name", "-");
-        email = prefs.getString("Email", "-");
-        photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "Other");
-        birthday = prefs.getString("Birthday", "-");
-        location = prefs.getString("Location", "-");
         isSigned = prefs.getBoolean("isSigned", false);
 
         layoutLogin = findViewById(R.id.login_screen);
@@ -71,6 +65,13 @@ public class SignInActivity extends AppCompatActivity implements
 
         // Check the user is signed or not
         if (isSigned) {
+            name = prefs.getString("Name", "-");
+            email = prefs.getString("Email", "-");
+            photo = prefs.getString("ProfilePhoto", "");
+            gender = prefs.getString("Gender", "Other");
+            birthday = prefs.getString("Birthday", "-");
+            location = prefs.getString("Location", "-");
+
             //signed already
             layoutLogin.setVisibility(View.INVISIBLE);
             layoutWelcome.setVisibility(View.VISIBLE);
@@ -162,25 +163,28 @@ public class SignInActivity extends AppCompatActivity implements
                     if (acct.getPhotoUrl() != null) {
                         prefs.edit().putString("ProfilePhoto", acct.getPhotoUrl().toString()).apply();
                     } else {
-                        prefs.edit().putString("ProfilePhoto", "android.resource://app.isend/R.drawable.ic_blank_photo").apply();
+                        prefs.edit().putString("ProfilePhoto", "android.resource://app.isend/R.drawable.siyahprofil").apply();
                     }
                     // G+
                     Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-                    if (person.getGender() == 0) {
-                        prefs.edit().putString("Gender", "Male").apply();
-                    } else if (person.getGender() == 1) {
-                        prefs.edit().putString("Gender", "Female").apply();
+                    if (person != null) {
+                        if (person.getGender() == 0) {
+                            prefs.edit().putString("Gender", "Male").apply();
+                        } else if (person.getGender() == 1) {
+                            prefs.edit().putString("Gender", "Female").apply();
+                        } else {
+                            prefs.edit().putString("Gender", "Other").apply();
+                        }
+                        if (person.getBirthday() != null) {
+                            prefs.edit().putString("Birthday", person.getBirthday()).apply();
+                        }
+                        if (person.getCurrentLocation() != null) {
+                            prefs.edit().putString("Location", person.getCurrentLocation()).apply();
+                        }
                     } else {
-                        prefs.edit().putString("Gender", "Other").apply();
-                    }
-
-
-                    if (person.getBirthday() != null) {
-                        prefs.edit().putString("Birthday", person.getBirthday()).apply();
-                    }
-
-                    if (person.getCurrentLocation() != null) {
-                        prefs.edit().putString("Location", person.getCurrentLocation()).apply();
+                        prefs.edit().putString("Gender", "Male").apply();
+                        prefs.edit().putString("Birthday", null).apply();
+                        prefs.edit().putString("Location", null).apply();
                     }
 
                     prefs.edit().putBoolean("isSigned", result.isSuccess()).apply();

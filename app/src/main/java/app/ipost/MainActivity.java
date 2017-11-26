@@ -74,30 +74,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //NavigationView
-       /* navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //HeaderView
-        View headerView = navigationView.getHeaderView(0);
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                i.putExtra("EVENT_ID", 0);
-                startActivity(i);
-            }
-        });
-
-        //Name
-        TextView navUsername = headerView.findViewById(R.id.nav_name);
-        navUsername.setText(name);
-        //E-mail
-        TextView navEmail = headerView.findViewById(R.id.nav_email);
-        navEmail.setText(email);
-        //ProfilePicture
-        ImageView profilePic = headerView.findViewById(R.id.nav_picture);
-        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
-                .into(profilePic);*/
 
         if (savedInstanceState == null) {
             Fragment fragment = new EventsUpcoming();
