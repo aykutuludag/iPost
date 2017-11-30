@@ -72,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         navEmail.setText(email);
         //ProfilePicture
         ImageView profilePic = findViewById(R.id.profile_pic);
-        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
                 .into(profilePic);
         //Age
         TextView birthtext = findViewById(R.id.profile_birthday);

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 public class PermissionsActivity extends AppCompatActivity {
@@ -36,10 +37,10 @@ public class PermissionsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Analytics
-/*        t = ((AnalyticsApplication) this.getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Permissions");
         t.enableAdvertisingIdCollection(true);
-        t.send(new HitBuilders.ScreenViewBuilder().build());*/
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         //FrameLayout
         frame = findViewById(R.id.content);
@@ -64,7 +65,7 @@ public class PermissionsActivity extends AppCompatActivity {
             transaction.commit();
         } else {
             navigation.setSelectedItemId(R.id.perm_sms);
-            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -100,7 +101,7 @@ public class PermissionsActivity extends AppCompatActivity {
             case REQUEST_SMS_SEND:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {

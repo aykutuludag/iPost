@@ -32,7 +32,7 @@ public class ProfileAccounts extends Fragment {
         View v = inflater.inflate(R.layout.profile_accounts, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Profile - Accounts");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

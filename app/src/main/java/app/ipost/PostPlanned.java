@@ -40,7 +40,7 @@ public class PostPlanned extends Fragment {
         View v = inflater.inflate(R.layout.posts_general, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Post - Planned");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

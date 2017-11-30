@@ -7,7 +7,7 @@ android {
         applicationId "app.ipost"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 4
+        versionCode 5
         versionName "1.0"
     }
     buildTypes {
@@ -25,10 +25,10 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:percent:26.1.0'
     compile 'com.android.support:customtabs:26.1.0'
-    compile 'com.google.android.gms:play-services-analytics:11.6.0'
-    compile 'com.google.android.gms:play-services-auth:11.6.0'
-    compile 'com.google.android.gms:play-services-plus:11.6.0'
-    compile 'com.google.android.gms:play-services-places:11.6.0'
+    compile 'com.google.android.gms:play-services-analytics:11.6.2'
+    compile 'com.google.android.gms:play-services-auth:11.6.2'
+    compile 'com.google.android.gms:play-services-plus:11.6.2'
+    compile 'com.google.android.gms:play-services-places:11.6.2'
     compile 'io.github.kobakei:ratethisapp:1.2.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'

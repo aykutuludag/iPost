@@ -64,7 +64,7 @@ public class PermissionContacts extends Fragment {
         View v = inflater.inflate(R.layout.permission_contacts, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Permissions - Contacts");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

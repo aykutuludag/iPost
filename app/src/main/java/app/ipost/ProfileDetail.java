@@ -25,7 +25,7 @@ public class ProfileDetail extends Fragment {
         View v = inflater.inflate(R.layout.profile_detail, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Profile - Detail");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

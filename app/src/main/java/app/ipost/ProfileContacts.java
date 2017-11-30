@@ -40,7 +40,7 @@ public class ProfileContacts extends Fragment {
         View v = inflater.inflate(R.layout.profile_contacts, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Profile - Contacts");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

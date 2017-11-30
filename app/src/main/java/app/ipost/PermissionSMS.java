@@ -43,7 +43,7 @@ public class PermissionSMS extends Fragment {
                             startActivity(i);
                             getActivity().finish();
                         }
-                    }, 1250);
+                    }, 1500);
                 }
             }
         });

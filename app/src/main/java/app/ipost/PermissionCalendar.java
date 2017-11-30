@@ -37,7 +37,7 @@ public class PermissionCalendar extends Fragment {
         View v = inflater.inflate(R.layout.permission_calendar, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Permissions - Calendar");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());

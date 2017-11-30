@@ -76,6 +76,7 @@ public class SingleEvent extends AppCompatActivity {
     ContactItem item;
     Spinner mySpinner;
     EditText smsContentHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private CheckBox cb1;
     private CheckBox cb2;

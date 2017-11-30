@@ -53,6 +53,10 @@
     <item android:title="@string/extras">
         <menu>
             <item
+                android:id="@+id/nav_themes"
+                android:icon="@drawable/ic_themes"
+                android:title="@string/extras_themes" />
+            <item
                 android:id="@+id/nav_rate"
                 android:icon="@drawable/ic_rate"
                 android:title="@string/extras_rate" />

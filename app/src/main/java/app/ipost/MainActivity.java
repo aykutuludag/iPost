@@ -146,6 +146,10 @@ public class MainActivity extends AppCompatActivity
                 Intent i3 = new Intent(MainActivity.this, PrivacyActivity.class);
                 startActivity(i3);
                 break;
+            case R.id.nav_themes:
+                Intent i4 = new Intent(MainActivity.this, ThemesActivity.class);
+                startActivity(i4);
+                break;
             case R.id.nav_rate:
                 Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=app.isend"));
                 startActivity(intent4);

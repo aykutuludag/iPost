@@ -70,7 +70,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         // Setting photo
         ImageView profilePic = findViewById(R.id.event_photo);
-        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
                 .into(profilePic);
 
         //  Setting location and retrieving changes

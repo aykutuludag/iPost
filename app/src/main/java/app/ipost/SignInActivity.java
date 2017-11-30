@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -52,10 +54,10 @@ public class SignInActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_signin);
 
         // Analytics
-      /*  Tracker t = this.getApplication()).getDefaultTracker();
+        Tracker t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Sign-In");
         t.enableAdvertisingIdCollection(true);
-        t.send(new HitBuilders.ScreenViewBuilder().build());*/
+        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         isSigned = prefs.getBoolean("isSigned", false);
@@ -65,7 +67,7 @@ public class SignInActivity extends AppCompatActivity implements
 
         // Check the user is signed or not
         if (isSigned) {
-            name = prefs.getString("Name", "-");
+            name = prefs.getString("Name", "Mr. X");
             email = prefs.getString("Email", "-");
             photo = prefs.getString("ProfilePhoto", "");
             gender = prefs.getString("Gender", "Other");

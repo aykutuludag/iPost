@@ -50,7 +50,7 @@ public class EventsUpcoming extends Fragment {
         View v = inflater.inflate(R.layout.events_general, container, false);
 
         // Analytics
-        t = ((AnalyticsApplication) getActivity().getApplication()).getDefaultTracker();
+        t = AnalyticsApplication.getDefaultTracker();
         t.setScreenName("Events - Upcoming");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
@@ -72,7 +72,7 @@ public class EventsUpcoming extends Fragment {
         navEmail.setText(email);
         //ProfilePicture
         ImageView profilePic = v.findViewById(R.id.nav_picture);
-        Picasso.with(getActivity()).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_placeholder)
+        Picasso.with(getActivity()).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
                 .into(profilePic);
 
         swipeContainer = v.findViewById(R.id.swipeContainer);

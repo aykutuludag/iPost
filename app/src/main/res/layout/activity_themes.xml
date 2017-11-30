@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/myViewFlipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header_profile_siyah"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/siyah_background"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            app:srcCompat="@drawable/siyah" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/siyah_profile"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/siyahprofil"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/siyah_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siyah_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingTop="5dp"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/siyah_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siyah_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="android.studio@android.com"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/siyah_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Theme: BLACK"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_profile_turuncu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/turuncu_background"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            app:srcCompat="@drawable/turuncu" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/turuncu_picture"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/turuncuprofil"
+            app:civ_border_color="#C87527"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/turuncu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/turuncu_picture"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingTop="5dp"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/turuncu_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/turuncu_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="android.studio@android.com"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/turuncu_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Theme: Orange"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/turuncu_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/turuncu_theme"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:background="#00801E"
+            android:text="0.99 $"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_profile_mor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/mor_background"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            app:srcCompat="@drawable/mor" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mor_picture"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/morprofil"
+            app:civ_border_color="#6F489B"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/mor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mor_picture"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingTop="5dp"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/mor_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mor_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="android.studio@android.com"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/mor_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Theme: Purple"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/mor_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mor_theme"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:background="#00801E"
+            android:text="0.99 $"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_profile_yesil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/yesil_background"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            app:srcCompat="@drawable/yesil" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/yesil_picture"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/yesilprofil"
+            app:civ_border_color="#629E46"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/yesil_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yesil_picture"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingTop="5dp"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/yesil_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yesil_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="android.studio@android.com"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/yesil_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Theme: Orange"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/yesil_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yesil_theme"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:background="#00801E"
+            android:text="0.99 $"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_profile_kirmizi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/kirmizi_background"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            app:srcCompat="@drawable/kirmizi" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/kirmizi_picture"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/kirmiziprofil"
+            app:civ_border_color="#BC2D2F"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/kirmizi_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/kirmizi_picture"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:paddingTop="5dp"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/kirmizi_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/kirmizi_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="android.studio@android.com"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/kirmizi_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Theme: Red"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/kirmizi_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/kirmizi_theme"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:background="#00801E"
+            android:text="0.99 $"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+</ViewFlipper>
