@@ -48,6 +48,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         viewHolder.textMail.setText(feedItem.getMail());
 
         // Setting profilephoto
+        //BURAYI TEMAYA GÖRE AYARLIYORUZ
         Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                 .into(viewHolder.profilePhoto);
 
@@ -99,7 +100,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.contact_name);
+            name = itemView.findViewById(R.id.post_name);
             textMail = itemView.findViewById(R.id.contact_mail);
             number = itemView.findViewById(R.id.contact_number);
             profilePhoto = itemView.findViewById(R.id.contact_photo);

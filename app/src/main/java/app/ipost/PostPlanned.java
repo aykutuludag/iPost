@@ -18,6 +18,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.ipost.adapter.PostAdapter;
 import app.ipost.model.PostItem;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -128,13 +129,13 @@ public class PostPlanned extends Fragment {
 
 
         // Adapter
-        /*mAdapter = new EventsAdapter(getActivity(), feedsList);
+        mAdapter = new PostAdapter(getActivity(), feedsList);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);*/
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         swipeContainer.setRefreshing(false);
     }

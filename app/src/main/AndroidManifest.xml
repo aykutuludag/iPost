@@ -92,6 +92,15 @@
                 android:value="app.ipost.ProfileActivity" />
         </activity>
         <activity
+            android:name=".Test2"
+            android:label="@string/title_activity_single_event"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.ipost.MainActivity" />
+        </activity>
+        <activity
             android:name=".SingleEvent"
             android:label="@string/title_activity_single_event"
             android:parentActivityName=".MainActivity"
@@ -101,14 +110,14 @@
                 android:value="app.ipost.MainActivity" />
         </activity>
 
-        <!--Receiver-->
+        <!-- Receiver -->
         <receiver android:name=".receiver.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <!--GoogleLocationServices-->
+        <!-- GoogleLocationServices -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAl87N36K6SkKdlnL-rasSM__HMSw18RIc" />

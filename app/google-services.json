@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "802887467777-pe62f9s2a345qkhuh9on35e4ss68u0tq.apps.googleusercontent.com",
+          "client_id": "802887467777-k21u8ps1fh1hub9pfp9pnintm06labed.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.ipost",
-            "certificate_hash": "06eb0aed782e5c131a6736b85c9758181a247651"
+            "certificate_hash": "4481a8c51390115f2b611ee093446afff1ee73dd"
           }
         },
         {

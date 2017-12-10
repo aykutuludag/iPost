@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             Fragment fragment = new EventsUpcoming();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
-            //navigationView.setCheckedItem(R.id.nav_eventupcoming);
+            navigationView.setCheckedItem(R.id.nav_eventupcoming);
             toolbar.setTitle(R.string.events_upcoming);
         }
 

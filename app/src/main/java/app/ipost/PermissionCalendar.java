@@ -64,6 +64,7 @@ public class PermissionCalendar extends Fragment {
         Cursor cur;
         ContentResolver cr = getActivity().getContentResolver();
         ContentValues values = new ContentValues();
+        ContentValues values2 = new ContentValues();
 
         SQLiteDatabase database_account = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null);
 
@@ -103,8 +104,24 @@ public class PermissionCalendar extends Fragment {
                 values.put("isMessenger", 0);
                 values.put("isWhatsapp", 0);
                 database_account.insert("events", null, values);
+
+                values2.put("receiverName", "");
+                values2.put("receiverMail", "");
+                values2.put("receiverPhone", "");
+                values2.put("postTime", "");
+                values2.put("isDelivered", 0);
+                values2.put("mailTitle", "");
+                values2.put("mailContent", "");
+                values2.put("mailAttachment", "");
+                values2.put("smsContent", "");
+                values2.put("messengerContent", "");
+                values2.put("messengerAttachment", "");
+                values2.put("whatsappContent", "");
+                values2.put("whatsappAttachment", "");
+                database_account.insert("posts", null, values2);
             }
             cur.close();
+            database_account.close();
             prefs.edit().putBoolean("isCalendarSync", true).apply();
             Toast.makeText(getActivity(), getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
         } else {

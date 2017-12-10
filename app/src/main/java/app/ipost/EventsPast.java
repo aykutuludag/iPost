@@ -18,7 +18,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.ipost.adapter.EventsAdapter;
+import app.ipost.adapter.EventAdapter;
 import app.ipost.model.EventItem;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -128,7 +128,7 @@ public class EventsPast extends Fragment {
         }
 
         // Adapter
-        mAdapter = new EventsAdapter(getActivity(), feedsList);
+        mAdapter = new EventAdapter(getActivity(), feedsList);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 

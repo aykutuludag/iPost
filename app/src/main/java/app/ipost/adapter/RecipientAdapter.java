@@ -38,7 +38,7 @@ public class RecipientAdapter extends ArrayAdapter {
             convertView = li.inflate(R.layout.card_contacts, parent, false);
             viewHolder = new ViewHolder(convertView);
 
-            viewHolder.name = convertView.findViewById(R.id.contact_name);
+            viewHolder.name = convertView.findViewById(R.id.post_name);
             viewHolder.textMail = convertView.findViewById(R.id.contact_mail);
             viewHolder.number = convertView.findViewById(R.id.contact_number);
             viewHolder.profilePhoto = convertView.findViewById(R.id.contact_photo);
@@ -96,7 +96,7 @@ public class RecipientAdapter extends ArrayAdapter {
             convertView = li.inflate(R.layout.card_contacts, parent, false);
             viewHolder = new ViewHolder(convertView);
 
-            viewHolder.name = convertView.findViewById(R.id.contact_name);
+            viewHolder.name = convertView.findViewById(R.id.post_name);
             viewHolder.textMail = convertView.findViewById(R.id.contact_mail);
             viewHolder.number = convertView.findViewById(R.id.contact_number);
             viewHolder.profilePhoto = convertView.findViewById(R.id.contact_photo);
@@ -189,7 +189,7 @@ public class RecipientAdapter extends ArrayAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.contact_name);
+            name = itemView.findViewById(R.id.post_name);
             textMail = itemView.findViewById(R.id.contact_mail);
             number = itemView.findViewById(R.id.contact_number);
             profilePhoto = itemView.findViewById(R.id.contact_photo);

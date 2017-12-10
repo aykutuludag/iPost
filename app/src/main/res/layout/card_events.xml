@@ -19,7 +19,7 @@
             android:background="#212121">
 
             <TextView
-                android:id="@+id/contact_name"
+                android:id="@+id/post_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -33,12 +33,12 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
             <TextView
-                android:id="@+id/txt_startime"
+                android:id="@+id/post_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/contact_name"
+                android:layout_alignLeft="@+id/post_name"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/contact_name"
+                android:layout_alignStart="@+id/post_name"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="30 Eylül 2017 00:00"
@@ -49,9 +49,9 @@
                 android:id="@+id/iconTime"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_above="@+id/txt_startime"
-                android:layout_alignLeft="@+id/txt_startime"
-                android:layout_alignStart="@+id/txt_startime"
+                android:layout_above="@+id/post_time"
+                android:layout_alignLeft="@+id/post_time"
+                android:layout_alignStart="@+id/post_time"
                 android:layout_marginBottom="4dp"
                 card_view:srcCompat="@drawable/ic_eventime" />
 
@@ -60,8 +60,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignBottom="@+id/iconTime"
-                android:layout_alignEnd="@+id/EventOptions"
-                android:layout_alignRight="@+id/EventOptions"
+                android:layout_alignEnd="@+id/Channels"
+                android:layout_alignRight="@+id/Channels"
                 android:layout_marginBottom="4dp"
                 card_view:srcCompat="@drawable/ic_location" />
 
@@ -69,8 +69,8 @@
                 android:id="@+id/txt_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/txt_startime"
-                android:layout_alignBottom="@+id/txt_startime"
+                android:layout_alignBaseline="@+id/post_time"
+                android:layout_alignBottom="@+id/post_time"
                 android:layout_alignEnd="@+id/iconLocation"
                 android:layout_alignRight="@+id/iconLocation"
                 android:text="Ankara, Türkiye"
@@ -78,7 +78,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/EventOptions"
+                android:id="@+id/Channels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

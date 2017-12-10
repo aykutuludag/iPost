@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.ipost.adapter.EventsAdapter;
+import app.ipost.adapter.EventAdapter;
 import app.ipost.model.EventItem;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -74,6 +74,9 @@ public class EventsUpcoming extends Fragment {
         ImageView profilePic = v.findViewById(R.id.nav_picture);
         Picasso.with(getActivity()).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
                 .into(profilePic);
+        //Background
+
+        //Bunları temaya göre ayarla
 
         swipeContainer = v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -157,7 +160,7 @@ public class EventsUpcoming extends Fragment {
         }
 
         // Adapter
-        mAdapter = new EventsAdapter(getActivity(), feedsList);
+        mAdapter = new EventAdapter(getActivity(), feedsList);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
