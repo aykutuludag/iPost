@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 import app.ipost.R;
-import app.ipost.Test2;
+import app.ipost.SingleEvent;
 import app.ipost.model.PostItem;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -29,7 +29,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             int position = holder.getAdapterPosition();
             int eventID = feedItemList.get(position).getID();
 
-            Intent intent = new Intent(mContext, Test2.class);
+            Intent intent = new Intent(mContext, SingleEvent.class);
             intent.putExtra("EVENT_ID", eventID);
             mContext.startActivity(intent);
         }

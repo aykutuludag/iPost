@@ -1,22 +1,18 @@
 package app.ipost;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.widget.ViewFlipper;
+import android.view.View;
 
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import app.ipost.adapter.OnSwipeTouchListener;
 
 public class ThemesActivity extends AppCompatActivity {
 
-    ViewFlipper mViewFlipper;
-    private float initialX;
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,50 +24,50 @@ public class ThemesActivity extends AppCompatActivity {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        mViewFlipper = findViewById(R.id.myViewFlipper);
-        mViewFlipper.setOnTouchListener(new OnSwipeTouchListener(ThemesActivity.this) {
-            public void onSwipeTop() {
-
-            }
-
-            public void onSwipeRight() {
-                if (mViewFlipper.getDisplayedChild() != 0) {
-                    mViewFlipper.showPrevious();
-                }
-            }
-
-            public void onSwipeLeft() {
-                if (mViewFlipper.getDisplayedChild() != 4) {
-                    mViewFlipper.showNext();
-                }
-            }
-
-            public void onSwipeBottom() {
-
-            }
-
-        });
+        expandableLayout1 = findViewById(R.id.expandableLayout1);
+        expandableLayout2 = findViewById(R.id.expandableLayout2);
+        expandableLayout3 = findViewById(R.id.expandableLayout3);
+        expandableLayout4 = findViewById(R.id.expandableLayout4);
+        expandableLayout5 = findViewById(R.id.expandableLayout5);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent touchevent) {
-        switch (touchevent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                initialX = touchevent.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                float finalX = touchevent.getX();
-                if (initialX > finalX) {
-                    if (mViewFlipper.getDisplayedChild() != 4) {
-                        mViewFlipper.showNext();
-                    }
-                } else {
-                    if (mViewFlipper.getDisplayedChild() != 4) {
-                        mViewFlipper.showPrevious();
-                    }
-                }
-                break;
-        }
-        return false;
+    public void expandableButton1(View view) {
+        expandableLayout1.toggle(); // toggle expand and collapse
+        expandableLayout2.collapse();
+        expandableLayout3.collapse();
+        expandableLayout4.collapse();
+        expandableLayout5.collapse();
+    }
+
+    public void expandableButton2(View view) {
+        expandableLayout2.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout3.collapse();
+        expandableLayout4.collapse();
+        expandableLayout5.collapse();
+    }
+
+    public void expandableButton3(View view) {
+        expandableLayout3.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout2.collapse();
+        expandableLayout4.collapse();
+        expandableLayout5.collapse();
+    }
+
+    public void expandableButton4(View view) {
+        expandableLayout4.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout2.collapse();
+        expandableLayout3.collapse();
+        expandableLayout5.collapse();
+    }
+
+    public void expandableButton5(View view) {
+        expandableLayout5.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout2.collapse();
+        expandableLayout3.collapse();
+        expandableLayout4.collapse();
     }
 }

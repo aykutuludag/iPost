@@ -78,8 +78,6 @@ public class SingleEvent extends AppCompatActivity {
 
         @Override
         public void onDateTimeSet(Date date) {
-            Toast.makeText(SingleEvent.this,
-                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
             timeStart.setText(mFormatter.format(date));
             startTime = date.getTime();
         }
@@ -87,8 +85,7 @@ public class SingleEvent extends AppCompatActivity {
         // Optional cancel listener
         @Override
         public void onDateTimeCancel() {
-            Toast.makeText(SingleEvent.this,
-                    "Canceled", Toast.LENGTH_SHORT).show();
+
         }
     };
     //Listener for endTime
@@ -96,8 +93,6 @@ public class SingleEvent extends AppCompatActivity {
 
         @Override
         public void onDateTimeSet(Date date) {
-            Toast.makeText(SingleEvent.this,
-                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
             timeEnd.setText(mFormatter.format(date));
             endTime = date.getTime();
         }
@@ -105,8 +100,7 @@ public class SingleEvent extends AppCompatActivity {
         // Optional cancel listener
         @Override
         public void onDateTimeCancel() {
-            Toast.makeText(SingleEvent.this,
-                    "Canceled", Toast.LENGTH_SHORT).show();
+
         }
     };
 

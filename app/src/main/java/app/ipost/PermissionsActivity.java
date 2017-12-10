@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -45,26 +44,19 @@ public class PermissionsActivity extends AppCompatActivity {
         //FrameLayout
         frame = findViewById(R.id.content);
 
-        //ButtomNavigation
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-
         if (ActivityCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            navigation.setSelectedItemId(R.id.perm_calendar);
             transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionCalendar());
             transaction.commit();
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            navigation.setSelectedItemId(R.id.perm_contacts);
             transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionContacts());
             transaction.commit();
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            navigation.setSelectedItemId(R.id.perm_sms);
             transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionSMS());
             transaction.commit();
         } else {
-            navigation.setSelectedItemId(R.id.perm_sms);
             Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
