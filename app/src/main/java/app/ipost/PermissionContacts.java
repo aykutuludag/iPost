@@ -79,8 +79,12 @@ public class PermissionContacts extends Fragment {
         buttonContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CONTACTS}, REQUEST_CONTACTS_READ);
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CONTACTS}, REQUEST_CONTACTS_READ);
+                    } else {
+                        getContacts();
+                    }
                 } else {
                     getContacts();
                 }

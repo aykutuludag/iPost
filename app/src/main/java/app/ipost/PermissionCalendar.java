@@ -48,8 +48,12 @@ public class PermissionCalendar extends Fragment {
         buttonCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_CALENDAR}, REQUEST_CALENDAR_READ);
+                    } else {
+                        getEvents();
+                    }
                 } else {
                     getEvents();
                 }

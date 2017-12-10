@@ -32,8 +32,20 @@ public class PermissionSMS extends Fragment {
         buttonSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
+                    } else {
+                        Toast.makeText(getActivity(), "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent i = new Intent(getActivity(), MainActivity.class);
+                                startActivity(i);
+                                getActivity().finish();
+                            }
+                        }, 1500);
+                    }
                 } else {
                     Toast.makeText(getActivity(), "SMS permission granted. Moving on...", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
