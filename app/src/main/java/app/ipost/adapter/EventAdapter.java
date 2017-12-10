@@ -2,6 +2,8 @@ package app.ipost.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import app.ipost.SingleEvent;
 import app.ipost.model.EventItem;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
+    SharedPreferences prefs;
     private List<EventItem> feedItemList;
     private Context mContext;
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -48,6 +51,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        prefs = mContext.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+
         EventItem feedItem = feedItemList.get(i);
 
         // Setting title
@@ -60,8 +65,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         viewHolder.location.setText(feedItem.getLocation());
 
         // Setting background
-        /// BURAYI TEMYA GÖRE AYARLIYORUZ
-        viewHolder.background.setBackgroundColor(feedItem.getBackground());
+        String currentTheme = prefs.getString("DefaultTheme", "Black");
+        int backgroundColor = Color.BLACK;
+        switch (currentTheme) {
+            case "Black":
+                backgroundColor = Color.parseColor("#777777");
+                break;
+            case "Red":
+                backgroundColor = Color.parseColor("#E45454");
+                break;
+            case "Green":
+                backgroundColor = Color.parseColor("#7BC355");
+                break;
+            case "Orange":
+                backgroundColor = Color.parseColor("#F3A249");
+                break;
+            case "Purple":
+                backgroundColor = Color.parseColor("#8A6BAF");
+                break;
+        }
+        viewHolder.background.setBackgroundColor(backgroundColor);
 
         // setSMSOption
         if (feedItem.getIsSMSActive() == 1) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
@@ -14,13 +15,13 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/header_background"
             android:layout_width="match_parent"
             android:layout_height="215dp"
             app:srcCompat="@drawable/siyah" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nav_picture"
+            android:id="@+id/header_picture"
             android:layout_width="135dp"
             android:layout_height="135dp"
             android:layout_alignParentTop="true"
@@ -32,10 +33,10 @@
             app:civ_border_width="2dp" />
 
         <TextView
-            android:id="@+id/nav_name"
+            android:id="@+id/header_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nav_picture"
+            android:layout_below="@+id/header_picture"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
@@ -45,10 +46,10 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/nav_email"
+            android:id="@+id/header_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nav_name"
+            android:layout_below="@+id/header_name"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="2dp"

@@ -1,8 +1,11 @@
 package app.ipost;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import app.ipost.adapter.EventAdapter;
 import app.ipost.model.EventItem;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 import static app.ipost.MainActivity.email;
@@ -43,6 +48,7 @@ public class EventsUpcoming extends Fragment {
     Cursor cur;
     List<EventItem> feedsList;
     SwipeRefreshLayout swipeContainer;
+    SharedPreferences prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +61,8 @@ public class EventsUpcoming extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+
         headerProfile = v.findViewById(R.id.header_profile);
         headerProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,18 +73,57 @@ public class EventsUpcoming extends Fragment {
         });
 
         //Name
-        TextView navUsername = v.findViewById(R.id.nav_name);
+        LinearLayout mainBackground = v.findViewById(R.id.mainBackground);
+        TextView navUsername = v.findViewById(R.id.header_name);
         navUsername.setText(name);
         //E-mail
-        TextView navEmail = v.findViewById(R.id.nav_email);
+        TextView navEmail = v.findViewById(R.id.header_email);
         navEmail.setText(email);
         //ProfilePicture
-        ImageView profilePic = v.findViewById(R.id.nav_picture);
-        Picasso.with(getActivity()).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
-                .into(profilePic);
-        //Background
+        CircleImageView profilePic = v.findViewById(R.id.header_picture);
+        ImageView background = v.findViewById(R.id.header_background);
 
-        //Bunları temaya göre ayarla
+        String currentTheme = prefs.getString("DefaultTheme", "Black");
+        int backgroundColor = Color.argb(30, 0, 0, 0);
+
+        switch (currentTheme) {
+            case "Black":
+                background.setBackgroundResource(R.drawable.siyah);
+                backgroundColor = Color.argb(30, 0, 0, 0);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#232323"));
+                break;
+            case "Red":
+                background.setBackgroundResource(R.drawable.kirmizi);
+                backgroundColor = Color.argb(30, 255, 0, 0);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.kirmiziprofil).placeholder(R.drawable.kirmiziprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#B92D2C"));
+                break;
+            case "Green":
+                background.setBackgroundResource(R.drawable.yesil);
+                backgroundColor = Color.argb(30, 0, 255, 0);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.yesilprofil).placeholder(R.drawable.yesilprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#619D43"));
+                break;
+            case "Orange":
+                background.setBackgroundResource(R.drawable.turuncu);
+                backgroundColor = Color.argb(30, 255, 255, 0);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.turuncuprofil).placeholder(R.drawable.turuncuprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#C47229"));
+                break;
+            case "Purple":
+                background.setBackgroundResource(R.drawable.mor);
+                backgroundColor = Color.argb(30, 255, 0, 255);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.morprofil).placeholder(R.drawable.morprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#70469C"));
+                break;
+        }
+        mainBackground.setBackgroundColor(backgroundColor);
 
         swipeContainer = v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
