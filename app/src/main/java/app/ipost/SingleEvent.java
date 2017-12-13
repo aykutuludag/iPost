@@ -72,7 +72,7 @@ public class SingleEvent extends AppCompatActivity {
     Spinner mySpinner;
     EditText smsContentHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat mFormatter = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
+    SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
     //Listener for startTime
     SlideDateTimeListener listener = new SlideDateTimeListener() {
 
@@ -667,7 +667,7 @@ public class SingleEvent extends AppCompatActivity {
 
     private String getDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy HH:mm", Locale.getDefault());
         return sdf.format(date);
     }
 
