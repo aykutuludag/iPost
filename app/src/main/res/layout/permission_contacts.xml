@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:text="Permission: Contacts"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -39,8 +39,8 @@
 
         <ImageView
             android:id="@+id/permission_contacts_image"
-            android:layout_width="225dp"
-            android:layout_height="225dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/permission_contacts_desc"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"

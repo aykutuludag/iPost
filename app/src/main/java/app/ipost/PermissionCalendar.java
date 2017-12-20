@@ -42,7 +42,6 @@ public class PermissionCalendar extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-
         prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         buttonCalendar = v.findViewById(R.id.permission_calendar_button);
         buttonCalendar.setOnClickListener(new View.OnClickListener() {

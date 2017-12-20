@@ -25,16 +25,10 @@
         app:ael_interpolator="bounce"
         app:ael_orientation="vertical">
 
-        <ImageView
-            android:id="@+id/siyah_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/siyah" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/siyah_profile"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -105,16 +99,10 @@
         app:ael_interpolator="bounce"
         app:ael_orientation="vertical">
 
-        <ImageView
-            android:id="@+id/turuncu_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/turuncu" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/turuncu_picture"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -186,16 +174,10 @@
         app:ael_interpolator="bounce"
         app:ael_orientation="vertical">
 
-        <ImageView
-            android:id="@+id/mor_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/mor" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mor_picture"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -267,16 +249,10 @@
         app:ael_interpolator="bounce"
         app:ael_orientation="vertical">
 
-        <ImageView
-            android:id="@+id/yesil_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/yesil" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/yesil_picture"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -348,16 +324,10 @@
         app:ael_interpolator="bounce"
         app:ael_orientation="vertical">
 
-        <ImageView
-            android:id="@+id/kirmizi_background"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/kirmizi" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/kirmizi_picture"
-            android:layout_width="135dp"
-            android:layout_height="135dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"

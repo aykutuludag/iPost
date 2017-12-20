@@ -1,6 +1,8 @@
 package app.ipost;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,7 @@ import java.util.Locale;
 
 import app.ipost.adapter.RecipientAdapter;
 import app.ipost.model.ContactItem;
+import app.ipost.receiver.AlarmReceiver;
 
 public class SingleEvent extends AppCompatActivity {
 
@@ -70,7 +73,7 @@ public class SingleEvent extends AppCompatActivity {
     // User selection & Post channels
     ContactItem item;
     Spinner mySpinner;
-    EditText smsContentHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
+    EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
     //Listener for startTime
@@ -124,6 +127,7 @@ public class SingleEvent extends AppCompatActivity {
         prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
         editor = prefs.edit();
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
+
         if (eventID == 0) {
             eventColor = Color.BLACK;
             startTime = Calendar.getInstance().getTimeInMillis() + 60000 * 10;
@@ -294,40 +298,41 @@ public class SingleEvent extends AppCompatActivity {
         if (cur2 != null && cur2.getCount() != 0) {
             cur2.moveToFirst();
             for (int i = 0; i < cur2.getColumnCount(); i++) {
-                System.out.println(cur2.getInt(i));
-                System.out.println(cur2.getString(i));
                 switch (i % 14) {
                     case 0:
                         eventID = cur2.getInt(i);
                         break;
                     case 1:
-                        receiverMail = cur2.getString(i);
+                        receiverName = cur2.getString(i);
                         break;
                     case 2:
-                        receiverPhone = cur2.getString(i);
+                        receiverMail = cur2.getString(i);
                         break;
                     case 3:
-                        postTime = cur2.getLong(i);
+                        receiverPhone = cur2.getString(i);
                         break;
                     case 4:
-                        isDelivered = cur2.getInt(i);
+                        postTime = cur2.getLong(i);
                         break;
                     case 5:
-                        mailTitle = cur2.getString(i);
+                        isDelivered = cur2.getInt(i);
                         break;
                     case 6:
-                        mailContent = cur2.getString(i);
+                        mailTitle = cur2.getString(i);
                         break;
                     case 7:
-                        mailAttachment = cur2.getString(i);
+                        mailContent = cur2.getString(i);
                         break;
                     case 8:
-                        smsContent = cur2.getString(i);
+                        mailAttachment = cur2.getString(i);
                         break;
                     case 9:
-                        messengerContent = cur2.getString(i);
+                        smsContent = cur2.getString(i);
                         break;
                     case 10:
+                        messengerContent = cur2.getString(i);
+                        break;
+                    case 11:
                         messengerAttachment = cur2.getString(i);
                         break;
                     case 12:
@@ -430,6 +435,7 @@ public class SingleEvent extends AppCompatActivity {
 
         //Choose user and create post options based on user
         smsContentHolder = findViewById(R.id.sms_content);
+        mailTitleHolder = findViewById(R.id.mail_title);
         mailContentHolder = findViewById(R.id.mail_content);
         messengerContentHolder = findViewById(R.id.messenger_content);
         whatsappContentHolder = findViewById(R.id.whatsapp_content);
@@ -524,6 +530,26 @@ public class SingleEvent extends AppCompatActivity {
 
 
         //MAİL
+        mailTitleHolder.setText(mailTitle);
+        mailTitleHolder.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() > 0) {
+                    mailTitle = editable.toString();
+                }
+            }
+        });
+
         mailContentHolder.setText(mailContent);
         mailContentHolder.addTextChangedListener(new TextWatcher() {
             @Override
@@ -619,6 +645,20 @@ public class SingleEvent extends AppCompatActivity {
         values2.put("messengerAttachment", messengerAttachment);
         values2.put("whatsappContent", whatsappContent);
         values2.put("whatsappAttachment", whatsappAttachment);
+
+        values2.put("receiverName", item.getName());
+        values2.put("receiverMail", item.getMail());
+        values2.put("receiverPhone", item.getPhoneNumber());
+        values2.put("postTime", startTime);
+        values2.put("isDelivered", 0);
+        values2.put("mailTitle", mailTitle);
+        values2.put("mailContent", mailContent);
+        values2.put("mailAttachment", mailAttachment);
+        values2.put("smsContent", smsContent);
+        values2.put("messengerContent", messengerContent);
+        values2.put("messengerAttachment", messengerAttachment);
+        values2.put("whatsappContent", whatsappContent);
+        values2.put("whatsappAttachment", whatsappAttachment);
         database_account2.insert("posts", null, values2);
         database_account2.close();
 
@@ -655,7 +695,7 @@ public class SingleEvent extends AppCompatActivity {
         values2.put("smsContent", smsContent);
         values2.put("messengerContent", messengerContent);
         values2.put("messengerAttachment", messengerAttachment);
-        values2.put("whatsappContent", whatsappAttachment);
+        values2.put("whatsappContent", whatsappContent);
         values2.put("whatsappAttachment", whatsappAttachment);
         String[] selectionArgs2 = {String.valueOf(eventID)};
         database_account2.update("posts", values2, "ID=?", selectionArgs2);
@@ -663,6 +703,15 @@ public class SingleEvent extends AppCompatActivity {
 
         Toast.makeText(SingleEvent.this,
                 "Event updated", Toast.LENGTH_SHORT).show();
+    }
+
+    public void createPost() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        Intent myIntent = new Intent(SingleEvent.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(SingleEvent.this, eventID, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        alarmManager.set(AlarmManager.RTC, postTime, pendingIntent);
     }
 
     private String getDate(long time) {
@@ -685,6 +734,9 @@ public class SingleEvent extends AppCompatActivity {
                 addEvent();
             } else {
                 updateEvent();
+            }
+            if (postTime >= System.currentTimeMillis()) {
+                createPost();
             }
             editor.apply();
             finish();

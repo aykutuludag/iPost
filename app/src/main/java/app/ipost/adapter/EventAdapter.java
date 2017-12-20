@@ -3,7 +3,6 @@ package app.ipost.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +50,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        prefs = mContext.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        prefs = mContext.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         EventItem feedItem = feedItemList.get(i);
 
@@ -66,25 +65,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         // Setting background
         String currentTheme = prefs.getString("DefaultTheme", "Black");
-        int backgroundColor = Color.BLACK;
         switch (currentTheme) {
             case "Black":
-                backgroundColor = Color.parseColor("#777777");
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.siyahbutton));
                 break;
             case "Red":
-                backgroundColor = Color.parseColor("#E45454");
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.kirmizibutton));
                 break;
             case "Green":
-                backgroundColor = Color.parseColor("#7BC355");
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.yesilbutton));
                 break;
             case "Orange":
-                backgroundColor = Color.parseColor("#F3A249");
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.turuncubutton));
                 break;
             case "Purple":
-                backgroundColor = Color.parseColor("#8A6BAF");
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.morbutton));
                 break;
         }
-        viewHolder.background.setBackgroundColor(backgroundColor);
 
         // setSMSOption
         if (feedItem.getIsSMSActive() == 1) {

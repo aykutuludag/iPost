@@ -9,6 +9,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:name=".AnalyticsApplication"
@@ -20,6 +21,7 @@
         <activity
             android:name=".SignInActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,15 +32,18 @@
         <activity
             android:name=".PermissionsActivity"
             android:label="@string/title_activity_permissions"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -46,7 +51,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -54,7 +60,8 @@
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -62,7 +69,8 @@
         <activity
             android:name=".ThemesActivity"
             android:label="@string/title_activity_themes"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -70,7 +78,8 @@
         <activity
             android:name=".PrivacyActivity"
             android:label="@string/title_activity_privacy"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -78,7 +87,8 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -87,6 +97,7 @@
             android:name=".ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
             android:parentActivityName=".ProfileActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -96,6 +107,7 @@
             android:name=".SingleEvent"
             android:label="@string/title_activity_single_event"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

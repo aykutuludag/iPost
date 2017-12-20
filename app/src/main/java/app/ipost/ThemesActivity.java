@@ -51,18 +51,22 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         siyahSet = findViewById(R.id.siyah_set);
         siyahSet.setOnClickListener(this);
-        buyRed = findViewById(R.id.kirmizi_buy);
-        buyRed.setOnClickListener(this);
-        buyGreen = findViewById(R.id.yesil_buy);
-        buyGreen.setOnClickListener(this);
-        buyPurple = findViewById(R.id.mor_buy);
-        buyPurple.setOnClickListener(this);
+
         buyOrange = findViewById(R.id.turuncu_buy);
         buyOrange.setOnClickListener(this);
 
+        buyPurple = findViewById(R.id.mor_buy);
+        buyPurple.setOnClickListener(this);
+
+        buyGreen = findViewById(R.id.yesil_buy);
+        buyGreen.setOnClickListener(this);
+
+        buyRed = findViewById(R.id.kirmizi_buy);
+        buyRed.setOnClickListener(this);
+
         //Learn the current state. Does user has theme xx?
         InAppBilling();
-        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        prefs = getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
         hasRed = prefs.getBoolean("Red", false);
         hasGreen = prefs.getBoolean("Green", false);
         hasPurple = prefs.getBoolean("Purple", false);
@@ -199,10 +203,169 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.siyah_set:
+                prefs.edit().putString("DefaultTheme", "Black").apply();
+                Toast.makeText(ThemesActivity.this, "New theme: BLACK. All things setting up and will be ready soon!",
+                        Toast.LENGTH_LONG).show();
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+                break;
+            case R.id.turuncu_buy:
+                if (hasOrange) {
+                    prefs.edit().putString("DefaultTheme", "Orange").apply();
+                    Toast.makeText(ThemesActivity.this, "New theme: ORANGE. All things setting up and will be ready soon!",
+                            Toast.LENGTH_LONG).show();
+                    Intent i5 = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i5);
+                    finish();
+                } else {
+                    try {
+                        buyTheme("orange", 1001);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.mor_buy:
+                if (hasPurple) {
+                    prefs.edit().putString("DefaultTheme", "Purple").apply();
+                    Toast.makeText(ThemesActivity.this, "New theme: PURPLE. All things setting up and will be ready soon!",
+                            Toast.LENGTH_LONG).show();
+                    Intent i4 = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i4);
+                    finish();
+                } else {
+                    try {
+                        buyTheme("purple", 1002);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.yesil_buy:
+                if (hasGreen) {
+                    prefs.edit().putString("DefaultTheme", "Green").apply();
+                    Toast.makeText(ThemesActivity.this, "New theme: GREEN. All things setting up and will be ready soon!",
+                            Toast.LENGTH_LONG).show();
+
+                    Intent i3 = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i3);
+                    finish();
+                } else {
+                    try {
+                        buyTheme("green", 1003);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.kirmizi_buy:
+                if (hasRed) {
+                    prefs.edit().putString("DefaultTheme", "Red").apply();
+                    Toast.makeText(ThemesActivity.this, "New theme: RED",
+                            Toast.LENGTH_LONG).show();
+                    Intent i2 = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i2);
+                    finish();
+                } else {
+                    try {
+                        buyTheme("red", 1004);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1001) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "You bougth Theme: Red. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "You bought Theme: ORANGE. All things setting up and will be ready soon!",
+                        Toast.LENGTH_LONG).show();
+
+                prefs.edit().putBoolean("Orange", true).apply();
+                prefs.edit().putString("DefaultTheme", "Orange").apply();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            } else {
+                Toast.makeText(ThemesActivity.this, "Error in purchasing process. Try again later...",
+                        Toast.LENGTH_LONG).show();
+                prefs.edit().putBoolean("Orange", false).apply();
+            }
+        }
+
+        if (requestCode == 1002) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(ThemesActivity.this, "You bought Theme: PURPLE. All things setting up and will be ready soon!",
+                        Toast.LENGTH_LONG).show();
+
+                prefs.edit().putBoolean("Purple", true).apply();
+                prefs.edit().putString("DefaultTheme", "Purple").apply();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            } else {
+                Toast.makeText(ThemesActivity.this, "Error in purchasing process. Try again later...",
+                        Toast.LENGTH_LONG).show();
+                prefs.edit().putBoolean("Purple", false).apply();
+            }
+        }
+
+        if (requestCode == 1003) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(ThemesActivity.this, "You bought Theme: RED. All things setting up and will be ready soon!",
+                        Toast.LENGTH_LONG).show();
+
+                prefs.edit().putBoolean("Green", true).apply();
+                prefs.edit().putString("DefaultTheme", "Green").apply();
+
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            } else {
+                Toast.makeText(ThemesActivity.this, "Error in purchasing process. Try again later...",
+                        Toast.LENGTH_LONG).show();
+                prefs.edit().putBoolean("Green", false).apply();
+            }
+        }
+
+        if (requestCode == 1004) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(ThemesActivity.this, "You bought Theme: RED. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Red", true).apply();
@@ -218,78 +381,6 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.LENGTH_LONG).show();
                 prefs.edit().putBoolean("Red", false).apply();
             }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.siyah_set:
-                Toast.makeText(ThemesActivity.this, "New theme: BLACK",
-                        Toast.LENGTH_LONG).show();
-                break;
-            case R.id.kirmizi_buy:
-                if (hasRed) {
-                    prefs.edit().putString("DefaultTheme", "Red").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: RED",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    try {
-                        buyTheme("red", 1001);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case R.id.yesil_buy:
-                if (hasGreen) {
-                    prefs.edit().putString("DefaultTheme", "Green").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: GREEN",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    try {
-                        buyTheme("green", 1002);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case R.id.mor_buy:
-                if (hasPurple) {
-                    prefs.edit().putString("DefaultTheme", "Purple").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: PURPLE",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    try {
-                        buyTheme("purple", 1003);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            case R.id.turuncu_buy:
-                if (hasOrange) {
-                    prefs.edit().putString("DefaultTheme", "Orange").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: ORANGE",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    try {
-                        buyTheme("orange", 1004);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            default:
-                break;
         }
     }
 

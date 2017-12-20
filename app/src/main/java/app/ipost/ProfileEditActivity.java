@@ -3,13 +3,13 @@ package app.ipost;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,6 +18,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -70,30 +75,25 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         // Setting photo
         ImageView profilePic = findViewById(R.id.event_photo);
-        Picasso.with(this).load(photo).error(R.drawable.ic_error).placeholder(R.drawable.ic_error)
+        Picasso.with(this).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                 .into(profilePic);
 
         //  Setting location and retrieving changes
         editLocation.setText(location);
-        editLocation.addTextChangedListener(new TextWatcher() {
+        editLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
-                    prefs.edit().putString("Location", editable.toString()).apply();
+            public void onClick(View view) {
+                Intent intent =
+                        null;
+                try {
+                    intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(ProfileEditActivity.this);
+                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
                 }
+                startActivityForResult(intent, 1320);
             }
         });
-
 
         //  Setting birthday and retrieving changes
         editBirthday.setText(birthday);
@@ -164,6 +164,24 @@ public class ProfileEditActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1320) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                editLocation.setText(place.getName().toString());
+                prefs.edit().putString("Location", place.getName().toString()).apply();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.i("Error", status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            } else {
+
+            }
+        }
     }
 }
 

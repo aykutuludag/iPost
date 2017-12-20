@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -81,49 +80,43 @@ public class EventsUpcoming extends Fragment {
         navEmail.setText(email);
         //ProfilePicture
         CircleImageView profilePic = v.findViewById(R.id.header_picture);
-        ImageView background = v.findViewById(R.id.header_background);
 
         String currentTheme = prefs.getString("DefaultTheme", "Black");
-        int backgroundColor = Color.argb(30, 0, 0, 0);
+
+        System.out.print(currentTheme);
 
         switch (currentTheme) {
             case "Black":
-                background.setBackgroundResource(R.drawable.siyah);
-                backgroundColor = Color.argb(30, 0, 0, 0);
+                mainBackground.setBackgroundResource(R.drawable.siyah);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#232323"));
                 break;
             case "Red":
-                background.setBackgroundResource(R.drawable.kirmizi);
-                backgroundColor = Color.argb(30, 255, 0, 0);
+                mainBackground.setBackgroundResource(R.drawable.kirmizi);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.kirmiziprofil).placeholder(R.drawable.kirmiziprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#B92D2C"));
                 break;
             case "Green":
-                background.setBackgroundResource(R.drawable.yesil);
-                backgroundColor = Color.argb(30, 0, 255, 0);
+                mainBackground.setBackgroundResource(R.drawable.yesil);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.yesilprofil).placeholder(R.drawable.yesilprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#619D43"));
                 break;
             case "Orange":
-                background.setBackgroundResource(R.drawable.turuncu);
-                backgroundColor = Color.argb(30, 255, 255, 0);
+                mainBackground.setBackgroundResource(R.drawable.turuncu);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.turuncuprofil).placeholder(R.drawable.turuncuprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#C47229"));
                 break;
             case "Purple":
-                background.setBackgroundResource(R.drawable.mor);
-                backgroundColor = Color.argb(30, 255, 0, 255);
+                mainBackground.setBackgroundResource(R.drawable.mor);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.morprofil).placeholder(R.drawable.morprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#70469C"));
                 break;
         }
-        mainBackground.setBackgroundColor(backgroundColor);
 
         swipeContainer = v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
