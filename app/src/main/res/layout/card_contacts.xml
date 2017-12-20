@@ -76,7 +76,7 @@
                     android:id="@+id/options_sms"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    card_view:srcCompat="@drawable/sms_icon" />
+                    card_view:srcCompat="@drawable/icon_sms" />
 
                 <ImageView
                     android:id="@+id/options_mail"
@@ -86,7 +86,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_sms"
                     android:layout_toRightOf="@+id/options_sms"
-                    card_view:srcCompat="@drawable/gmail_icon" />
+                    card_view:srcCompat="@drawable/icon_gmail" />
 
                 <ImageView
                     android:id="@+id/options_messenger"
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_mail"
                     android:layout_toRightOf="@+id/options_mail"
-                    card_view:srcCompat="@drawable/messenger_icon" />
+                    card_view:srcCompat="@drawable/icon_messenger" />
 
                 <ImageView
                     android:id="@+id/options_whatsapp"
@@ -106,7 +106,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_messenger"
                     android:layout_toRightOf="@+id/options_messenger"
-                    card_view:srcCompat="@drawable/whatsapp_icon" />
+                    card_view:srcCompat="@drawable/icon_whatsapp" />
             </RelativeLayout>
 
         </RelativeLayout>

@@ -1,11 +1,19 @@
 package app.ipost.receiver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+
+import app.ipost.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -22,25 +30,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             reScheduleAlarms(context);
         } else {
             eventID = intent.getIntExtra("EVENT_ID", 0);
-            getPostInfo(context);
-
-            //BURASI BİLDİRİM İÇİN
-           /* PendingIntent pIntent = PendingIntent.getActivity(context, eventID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-            Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-            SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy EEEE", Locale.getDefault());
-
-            Notification noti = new NotificationCompat.Builder(context)
-                    .setContentTitle("Günlük Burçlar")
-                    .setContentText(sdf.format(new Date()) + ": " + "Günlük burç yorumunuz")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setAutoCancel(true)
-                    .setContentIntent(pIntent)
-                    .setLargeIcon(bm)
-                    .setDefaults(Notification.DEFAULT_ALL).build();
-
-            NotificationManager notificationManager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, noti);*/
+            getPostInfo(context, intent);
         }
     }
 
@@ -48,8 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //DATABESE DEN ÇEK ALARMLARI KUR
     }
 
-    public void getPostInfo(Context context) {
-        System.out.println("aqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+    public void getPostInfo(Context context, Intent intent) {
         SQLiteDatabase database_account2 = context.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         Cursor cur2 = database_account2.rawQuery("SELECT * FROM posts WHERE ID=? ", new String[]{eventID + ""});
         if (cur2 != null && cur2.getCount() != 0) {
@@ -67,7 +56,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                         break;
                     case 3:
                         receiverPhone = cur2.getString(i);
-                        System.out.println("TELEFON NO: " + receiverPhone);
                         break;
                     case 4:
                         startTime = cur2.getLong(i);
@@ -89,7 +77,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                         break;
                     case 9:
                         smsContent = cur2.getString(i);
-                        System.out.println("TELEFON NO: " + smsContent);
                         if (smsContent != null && !smsContent.contains("null")) {
                             sendSMS();
                         }
@@ -123,11 +110,9 @@ public class AlarmReceiver extends BroadcastReceiver {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(receiverPhone, null, smsContent, null, null);
             isDelivered = 1;
-            System.out.println("SMS OKEY");
         } catch (Exception ex) {
             isDelivered = 0;
             ex.printStackTrace();
-            System.out.println("SMS GÖNDERİLEMEDİ");
         }
     }
 
@@ -136,16 +121,29 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void sendWhatsapp(Context context) {
-
-       /* String toNumber = "+905395251665"; // contains spaces.
-        toNumber = toNumber.replace("+", "").replace(" ", "");
         Intent sendIntent = new Intent("android.intent.action.MAIN");
+        String toNumber = receiverPhone; // contains spaces.
+        toNumber = toNumber.replace("+", "").replace(" ", "");
         sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "testtttttttttt");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setPackage("com.whatsapp");
         sendIntent.setType("text/plain");
-        startActivity(sendIntent);*/
+
+        PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        Notification noti = new NotificationCompat.Builder(context)
+                .setContentTitle("iPost")
+                .setContentText("Action requiered: Click here to send Whatsapp message.")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
+                .setContentIntent(pIntent)
+                .setLargeIcon(bm)
+                .setDefaults(Notification.DEFAULT_ALL).build();
+
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, noti);
     }
 
     public void sendMessenger(Context context) {

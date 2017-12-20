@@ -279,7 +279,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.kirmizi_buy:
                 if (hasRed) {
                     prefs.edit().putString("DefaultTheme", "Red").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: RED",
+                    Toast.makeText(ThemesActivity.this, "New theme: RED. All things setting up and will be ready soon!",
                             Toast.LENGTH_LONG).show();
                     Intent i2 = getBaseContext().getPackageManager()
                             .getLaunchIntentForPackage(getBaseContext().getPackageName());
@@ -305,7 +305,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1001) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "You bought Theme: ORANGE. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: ORANGE. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Orange", true).apply();
@@ -325,7 +325,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         if (requestCode == 1002) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "You bought Theme: PURPLE. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: PURPLE. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Purple", true).apply();
@@ -345,7 +345,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         if (requestCode == 1003) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "You bought Theme: RED. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: RED. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Green", true).apply();
@@ -365,7 +365,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         if (requestCode == 1004) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "You bought Theme: RED. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: RED. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Red", true).apply();

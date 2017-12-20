@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -73,6 +76,10 @@ public class SingleEvent extends AppCompatActivity {
     Spinner mySpinner;
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
 
+    String currentTheme;
+    Toolbar toolbar;
+    Window window;
+
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
     //Listener for startTime
@@ -111,9 +118,35 @@ public class SingleEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_event);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        // Initializing Toolbar and setting it as the actionbar
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //ColoredBars
+        window = this.getWindow();
+
+        prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        eventID = getIntent().getIntExtra("EVENT_ID", 0);
+        currentTheme = MainActivity.currentTheme;
+        switch (currentTheme) {
+            case "Black":
+                coloredBars(Color.parseColor("#000000"), Color.parseColor("#212121"));
+                break;
+            case "Red":
+                coloredBars(Color.parseColor("#D32F2F"), Color.parseColor("#F44336"));
+                break;
+            case "Green":
+                coloredBars(Color.parseColor("#388E3C"), Color.parseColor("#4CAF50"));
+                break;
+            case "Orange":
+                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
+                break;
+            case "Purple":
+                coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));
+                break;
+        }
 
         expandableLayout1 = findViewById(R.id.expandableLayout1);
         expandableLayout2 = findViewById(R.id.expandableLayout2);
@@ -122,10 +155,6 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout5 = findViewById(R.id.expandableLayout5);
         expandableLayout6 = findViewById(R.id.expandableLayout6);
         expandableLayout7 = findViewById(R.id.expandableLayout7);
-
-        prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
-        editor = prefs.edit();
-        eventID = getIntent().getIntExtra("EVENT_ID", 0);
 
         if (eventID == 0) {
             newEvent = true;
@@ -725,6 +754,17 @@ public class SingleEvent extends AppCompatActivity {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy HH:mm", Locale.getDefault());
         return sdf.format(date);
+    }
+
+    public void coloredBars(int color1, int color2) {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(color1);
+            toolbar.setBackgroundColor(color2);
+        } else {
+            toolbar.setBackgroundColor(color2);
+        }
     }
 
     @Override

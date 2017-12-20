@@ -81,9 +81,7 @@ public class EventsUpcoming extends Fragment {
         //ProfilePicture
         CircleImageView profilePic = v.findViewById(R.id.header_picture);
 
-        String currentTheme = prefs.getString("DefaultTheme", "Black");
-
-        System.out.print(currentTheme);
+        String currentTheme = MainActivity.currentTheme;
 
         switch (currentTheme) {
             case "Black":
