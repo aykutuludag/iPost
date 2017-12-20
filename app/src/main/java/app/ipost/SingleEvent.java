@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -68,12 +67,12 @@ public class SingleEvent extends AppCompatActivity {
     String eventName, eventDescription, eventLocation, eventOwner;
     //tablePost
     int isDelivered;
-    long postTime;
     String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
     // User selection & Post channels
     ContactItem item;
     Spinner mySpinner;
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
+
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
     //Listener for startTime
@@ -129,16 +128,12 @@ public class SingleEvent extends AppCompatActivity {
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
 
         if (eventID == 0) {
-            eventColor = Color.BLACK;
-            startTime = Calendar.getInstance().getTimeInMillis() + 60000 * 10;
-            endTime = Calendar.getInstance().getTimeInMillis() + 60000 * 60;
             newEvent = true;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
             if (cur0 != null) {
                 if (cur0.moveToFirst()) {
                     eventID = cur0.getInt(0) + 1;
-                    System.out.println("Yeni ID:" + eventID);
                 }
                 cur0.close();
             }
@@ -300,7 +295,7 @@ public class SingleEvent extends AppCompatActivity {
             for (int i = 0; i < cur2.getColumnCount(); i++) {
                 switch (i % 14) {
                     case 0:
-                        eventID = cur2.getInt(i);
+                        //eventID fetched already
                         break;
                     case 1:
                         receiverName = cur2.getString(i);
@@ -312,7 +307,7 @@ public class SingleEvent extends AppCompatActivity {
                         receiverPhone = cur2.getString(i);
                         break;
                     case 4:
-                        postTime = cur2.getLong(i);
+                        //startTime fetched already
                         break;
                     case 5:
                         isDelivered = cur2.getInt(i);
@@ -415,6 +410,7 @@ public class SingleEvent extends AppCompatActivity {
                 new SlideDateTimePicker.Builder(getSupportFragmentManager())
                         .setListener(listener)
                         .setIs24HourTime(true)
+                        .setInitialDate(new Date((startTime)))
                         .build()
                         .show();
             }
@@ -428,6 +424,7 @@ public class SingleEvent extends AppCompatActivity {
                 new SlideDateTimePicker.Builder(getSupportFragmentManager())
                         .setListener(listener2)
                         .setIs24HourTime(true)
+                        .setInitialDate(new Date((endTime)))
                         .build()
                         .show();
             }
@@ -635,7 +632,7 @@ public class SingleEvent extends AppCompatActivity {
         values2.put("receiverName", receiverName);
         values2.put("receiverMail", receiverMail);
         values2.put("receiverPhone", receiverPhone);
-        values2.put("postTime", postTime);
+        values2.put("postTime", startTime);
         values2.put("isDelivered", 0);
         values2.put("mailTitle", mailTitle);
         values2.put("mailContent", mailContent);
@@ -709,9 +706,19 @@ public class SingleEvent extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         Intent myIntent = new Intent(SingleEvent.this, AlarmReceiver.class);
+        myIntent.putExtra("EVENT_ID", eventID);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(SingleEvent.this, eventID, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        alarmManager.set(AlarmManager.RTC, postTime, pendingIntent);
+
+        System.out.println("PostTime" + startTime);
+
+        System.out.println("Şimdiki zaman: " + Calendar.getInstance().getTimeInMillis());
+
+        if (Calendar.getInstance().getTimeInMillis() < startTime) {
+            alarmManager.set(AlarmManager.RTC, startTime, pendingIntent);
+        } else {
+            Toast.makeText(SingleEvent.this, "You chose past time. Post will not be triggered.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private String getDate(long time) {
@@ -735,9 +742,8 @@ public class SingleEvent extends AppCompatActivity {
             } else {
                 updateEvent();
             }
-            if (postTime >= System.currentTimeMillis()) {
-                createPost();
-            }
+
+            createPost();
             editor.apply();
             finish();
             return true;

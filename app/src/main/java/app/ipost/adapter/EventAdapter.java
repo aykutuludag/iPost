@@ -85,30 +85,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         // setSMSOption
         if (feedItem.getIsSMSActive() == 1) {
-            viewHolder.sms.setAlpha(1.0f);
+            viewHolder.sms.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.sms.setAlpha(0.5f);
+            viewHolder.sms.setVisibility(View.INVISIBLE);
         }
 
         // setMailOption
         if (feedItem.getIsMailActive() == 1) {
-            viewHolder.mail.setAlpha(1.0f);
+            viewHolder.mail.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.mail.setAlpha(0.5f);
+            viewHolder.mail.setVisibility(View.INVISIBLE);
         }
 
         // setMessengerOption
         if (feedItem.getIsMessengerActive() == 1) {
-            viewHolder.messenger.setAlpha(1.0f);
+            viewHolder.messenger.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.messenger.setAlpha(0.5f);
+            viewHolder.messenger.setVisibility(View.INVISIBLE);
         }
 
         // setWhatsappOption
         if (feedItem.getIsWhatsappActive() == 1) {
-            viewHolder.whatsapp.setAlpha(1.0f);
+            viewHolder.whatsapp.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.whatsapp.setAlpha(0.5f);
+            viewHolder.whatsapp.setVisibility(View.INVISIBLE);
         }
 
         // Handle click event on image click

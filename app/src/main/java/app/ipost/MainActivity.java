@@ -36,16 +36,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       /* String toNumber = "+905395251665"; // contains spaces.
-        toNumber = toNumber.replace("+", "").replace(" ", "");
-        Intent sendIntent = new Intent("android.intent.action.MAIN");
-        sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "testtttttttttt");
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setPackage("com.whatsapp");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);*/
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -142,7 +142,7 @@ public class EventsPast extends Fragment {
         feedsList.clear();
 
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("SELECT * FROM events WHERE sTime < " + System.currentTimeMillis() + " ORDER BY sTime ASC", null);
+        cur = database_account.rawQuery("SELECT * FROM events WHERE sTime < " + System.currentTimeMillis() + " ORDER BY sTime DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

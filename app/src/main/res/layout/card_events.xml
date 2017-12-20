@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="144dp"
         android:layout_centerHorizontal="true"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardUseCompatPadding="true">
@@ -16,8 +16,7 @@
             android:id="@+id/single_event"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/siyahbutton"
-            android:foreground="@android:color/transparent">
+            android:background="@drawable/siyahbutton">
 
             <TextView
                 android:id="@+id/post_name"
