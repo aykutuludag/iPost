@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -51,10 +50,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         PostItem feedItem = feedItemList.get(i);
 
         // Receiver name
-        viewHolder.title.setText(feedItem.getReceiverName());
+        if (feedItem.getReceiverName() != null && !feedItem.getReceiverName().isEmpty()) {
+            viewHolder.title.setText(feedItem.getReceiverName());
+        } else {
+            viewHolder.title.setText("-");
+        }
 
         // Post time
-        viewHolder.startTime.setText(getDate(feedItem.getPostTime()));
+        if (feedItem.getPostTime() != 0) {
+            viewHolder.startTime.setText(getDate(feedItem.getPostTime()));
+        } else {
+            viewHolder.startTime.setText("-");
+        }
 
         // setSMSOption
         if (feedItem.getSmsContent() != null) {
@@ -104,8 +111,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         TextView title;
         TextView startTime;
-        TextView location;
-        RelativeLayout background;
+        ImageView background;
         ImageView sms;
         ImageView mail;
         ImageView messenger;
@@ -115,8 +121,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             super(itemView);
             title = itemView.findViewById(R.id.post_name);
             startTime = itemView.findViewById(R.id.post_time);
-            //location = itemView.findViewById(R.id.txt_loc);
-            // background = itemView.findViewById(R.id.single_event);
+            background = itemView.findViewById(R.id.post_background);
             sms = itemView.findViewById(R.id.options_sms);
             mail = itemView.findViewById(R.id.options_mail);
             messenger = itemView.findViewById(R.id.options_messenger);

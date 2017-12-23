@@ -106,7 +106,7 @@ public class PostItem {
     }
 
     public String getMessengerContent() {
-        return mailTitle;
+        return messengerContent;
     }
 
     public void setMessengerContent(String messengerContent) {

@@ -65,8 +65,8 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
         buyRed.setOnClickListener(this);
 
         //Learn the current state. Does user has theme xx?
-        InAppBilling();
         prefs = getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+        InAppBilling();
         hasRed = prefs.getBoolean("Red", false);
         hasGreen = prefs.getBoolean("Green", false);
         hasPurple = prefs.getBoolean("Purple", false);

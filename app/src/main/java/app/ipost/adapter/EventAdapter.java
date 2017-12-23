@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -58,12 +57,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         viewHolder.title.setText(feedItem.getTitle());
 
         // Setting startTime
-        viewHolder.startTime.setText(getDate(feedItem.getStartTime()));
+        if (feedItem.getStartTime() != 0) {
+            viewHolder.startTime.setText(getDate(feedItem.getStartTime()));
+        } else {
+            viewHolder.dateIndicator.setVisibility(View.INVISIBLE);
+        }
 
         // Setting location
-        viewHolder.location.setText(feedItem.getLocation());
+        if (feedItem.getLocation() != null & !feedItem.getLocation().isEmpty()) {
+            viewHolder.location.setText(feedItem.getLocation());
+        } else {
+            viewHolder.placeIndicator.setVisibility(View.INVISIBLE);
+        }
 
-        // Setting background
+
+        // Setting background_splash
         String currentTheme = prefs.getString("DefaultTheme", "Black");
         switch (currentTheme) {
             case "Black":
@@ -87,28 +95,28 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         if (feedItem.getIsSMSActive() == 1) {
             viewHolder.sms.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.sms.setVisibility(View.INVISIBLE);
+            viewHolder.sms.setVisibility(View.GONE);
         }
 
         // setMailOption
         if (feedItem.getIsMailActive() == 1) {
             viewHolder.mail.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.mail.setVisibility(View.INVISIBLE);
+            viewHolder.mail.setVisibility(View.GONE);
         }
 
         // setMessengerOption
         if (feedItem.getIsMessengerActive() == 1) {
             viewHolder.messenger.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.messenger.setVisibility(View.INVISIBLE);
+            viewHolder.messenger.setVisibility(View.GONE);
         }
 
         // setWhatsappOption
         if (feedItem.getIsWhatsappActive() == 1) {
             viewHolder.whatsapp.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.whatsapp.setVisibility(View.INVISIBLE);
+            viewHolder.whatsapp.setVisibility(View.GONE);
         }
 
         // Handle click event on image click
@@ -132,22 +140,25 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         TextView title;
         TextView startTime;
         TextView location;
-        RelativeLayout background;
+        ImageView background;
         ImageView sms;
         ImageView mail;
         ImageView messenger;
         ImageView whatsapp;
+        ImageView dateIndicator, placeIndicator;
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.post_name);
-            startTime = itemView.findViewById(R.id.post_time);
+            title = itemView.findViewById(R.id.event_name);
+            startTime = itemView.findViewById(R.id.event_time);
             location = itemView.findViewById(R.id.txt_loc);
-            background = itemView.findViewById(R.id.single_event);
+            background = itemView.findViewById(R.id.event_background);
             sms = itemView.findViewById(R.id.options_sms);
             mail = itemView.findViewById(R.id.options_mail);
             messenger = itemView.findViewById(R.id.options_messenger);
             whatsapp = itemView.findViewById(R.id.options_whatsapp);
+            dateIndicator = itemView.findViewById(R.id.iconTime);
+            placeIndicator = itemView.findViewById(R.id.iconLocation);
         }
     }
 

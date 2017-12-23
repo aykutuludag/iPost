@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity implements
 
         // Check the user is signed or not
         if (isSigned) {
-            name = prefs.getString("Name", "Mr. X");
+            name = prefs.getString("Name", "Mr/Mrs. X");
             email = prefs.getString("Email", "-");
             photo = prefs.getString("ProfilePhoto", "");
             gender = prefs.getString("Gender", "Other");
@@ -124,14 +124,15 @@ public class SignInActivity extends AppCompatActivity implements
             signInButton.setOnClickListener(this);
 
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .requestEmail()
+                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
 
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .enableAutoManage(this, this)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .addApi(Plus.API)
+                    //  .addApi(Gmail)
                     .build();
         }
     }

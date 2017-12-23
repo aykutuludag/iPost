@@ -343,7 +343,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/post_channel_indicator"
                 android:layout_marginTop="8dp"
-                android:background="#000"
+                android:background="@drawable/sms"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton4"
                 android:paddingRight="10dp"
@@ -377,7 +377,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableLayout4"
-                android:background="#F14336"
+                android:background="@drawable/gmail"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton5"
                 android:paddingRight="10dp"
@@ -436,6 +436,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/mail_addfile"
                     android:layout_toRightOf="@+id/mail_addfile"
+                    android:maxLength="35"
                     android:text="-" />
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
@@ -445,7 +446,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableLayout5"
-                android:background="#3C5A99"
+                android:background="@drawable/messenger"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton6"
                 android:paddingRight="10dp"
@@ -492,6 +493,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/messenger_addfile"
                     android:layout_toRightOf="@+id/messenger_addfile"
+                    android:maxLength="35"
                     android:text="-" />
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
@@ -501,7 +503,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableLayout6"
-                android:background="#10a106"
+                android:background="@drawable/whatsapp"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton7"
                 android:paddingRight="10dp"
@@ -548,6 +550,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/whatsapp_addfile"
                     android:layout_toRightOf="@+id/whatsapp_addfile"
+                    android:maxLength="35"
                     android:text="-" />
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>

@@ -7,21 +7,24 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +36,7 @@ import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
@@ -46,8 +50,14 @@ import java.util.Locale;
 import app.ipost.adapter.RecipientAdapter;
 import app.ipost.model.ContactItem;
 import app.ipost.receiver.AlarmReceiver;
+import droidninja.filepicker.FilePickerBuilder;
+import droidninja.filepicker.FilePickerConst;
 
 public class SingleEvent extends AppCompatActivity {
+
+    public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    public static final int REQUEST_EXTERNAL_STORAGE = 2;
+    private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7;
 
@@ -58,7 +68,7 @@ public class SingleEvent extends AppCompatActivity {
 
     // Some variables
     boolean newEvent;
-    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     int userChoice;
@@ -75,6 +85,9 @@ public class SingleEvent extends AppCompatActivity {
     ContactItem item;
     Spinner mySpinner;
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
+    Button emailFileChooser, messengerFileChooser, whatsappFileChooser;
+    TextView emailFileHolder, messengerFileHolder, whatsappFileHolder;
+    boolean mailIsChoosing, messengerIsChoosing, whatsappIsChoosing;
 
     String currentTheme;
     Toolbar toolbar;
@@ -419,15 +432,17 @@ public class SingleEvent extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =
-                        null;
                 try {
-                    intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                            .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                            .build();
+
+                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(typeFilter)
                             .build(SingleEvent.this);
+                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
                 } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
-                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
             }
         });
 
@@ -463,8 +478,14 @@ public class SingleEvent extends AppCompatActivity {
         smsContentHolder = findViewById(R.id.sms_content);
         mailTitleHolder = findViewById(R.id.mail_title);
         mailContentHolder = findViewById(R.id.mail_content);
+        emailFileChooser = findViewById(R.id.mail_addfile);
+        messengerFileChooser = findViewById(R.id.messenger_addfile);
+        whatsappFileChooser = findViewById(R.id.whatsapp_addfile);
         messengerContentHolder = findViewById(R.id.messenger_content);
         whatsappContentHolder = findViewById(R.id.whatsapp_content);
+        emailFileHolder = findViewById(R.id.mail_filename);
+        messengerFileHolder = findViewById(R.id.messenger_filename);
+        whatsappFileHolder = findViewById(R.id.whatsapp_filename);
 
         mySpinner = findViewById(R.id.spinner);
         mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
@@ -505,21 +526,29 @@ public class SingleEvent extends AppCompatActivity {
                 }
 
                 if (isMail == 0) {
+                    mailTitleHolder.setEnabled(false);
                     mailContentHolder.setEnabled(false);
+                    emailFileChooser.setEnabled(false);
                 } else {
+                    mailTitleHolder.setEnabled(true);
                     mailContentHolder.setEnabled(true);
+                    emailFileChooser.setEnabled(true);
                 }
 
                 if (isMessenger == 0) {
                     messengerContentHolder.setEnabled(false);
+                    messengerFileChooser.setEnabled(false);
                 } else {
-                    messengerContentHolder.setEnabled(true);
+                    messengerContentHolder.setEnabled(false);
+                    messengerFileChooser.setEnabled(false);
                 }
 
                 if (isWhatsapp == 0) {
                     whatsappContentHolder.setEnabled(false);
+                    whatsappFileChooser.setEnabled(false);
                 } else {
                     whatsappContentHolder.setEnabled(true);
+                    whatsappFileChooser.setEnabled(true);
                 }
 
                 //SAVE ROW NUMBER
@@ -596,6 +625,23 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
+
+        emailFileChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (verifyStoragePermissions()) {
+                    FilePickerBuilder.getInstance().setMaxCount(1)
+                            .setActivityTheme(R.style.AppTheme)
+                            .addFileSupport("ZIP", new String[]{".zip", ".rar"})
+                            .pickFile(SingleEvent.this);
+                    mailIsChoosing = true;
+                } else {
+                    ActivityCompat.requestPermissions(SingleEvent.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+                }
+            }
+        });
+        emailFileHolder.setText(mailAttachment);
+
         //MESSENGER
         messengerContentHolder.setText(messengerContent);
         messengerContentHolder.addTextChangedListener(new TextWatcher() {
@@ -616,6 +662,21 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
+
+        messengerFileChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (verifyStoragePermissions()) {
+                    FilePickerBuilder.getInstance().setMaxCount(1)
+                            .setActivityTheme(R.style.AppTheme)
+                            .pickPhoto(SingleEvent.this);
+                    messengerIsChoosing = true;
+                } else {
+                    ActivityCompat.requestPermissions(SingleEvent.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+                }
+            }
+        });
+        messengerFileHolder.setText(messengerAttachment);
 
 
         //WHATSAPP
@@ -638,6 +699,33 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
+
+        whatsappFileChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (verifyStoragePermissions()) {
+                    FilePickerBuilder.getInstance().setMaxCount(1)
+                            .setActivityTheme(R.style.AppTheme)
+                            .pickPhoto(SingleEvent.this);
+                    whatsappIsChoosing = true;
+                } else {
+                    ActivityCompat.requestPermissions(SingleEvent.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+                }
+            }
+        });
+
+        whatsappFileHolder.setText(whatsappAttachment);
+    }
+
+    public boolean verifyStoragePermissions() {
+        boolean hasStorage;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            int permission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            hasStorage = permission == PackageManager.PERMISSION_GRANTED;
+        } else {
+            hasStorage = true;
+        }
+        return hasStorage;
     }
 
     public void addEvent() {
@@ -782,7 +870,6 @@ public class SingleEvent extends AppCompatActivity {
             } else {
                 updateEvent();
             }
-
             createPost();
             editor.apply();
             finish();
@@ -792,7 +879,25 @@ public class SingleEvent extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_EXTERNAL_STORAGE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "Settings saved...", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Error 001: Permission request rejected by user...", Toast.LENGTH_LONG)
+                            .show();
+                }
+                break;
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
@@ -800,9 +905,50 @@ public class SingleEvent extends AppCompatActivity {
                 location.setText(eventLocation);
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
-                Log.i("Error", status.getStatusMessage());
+                Toast.makeText(SingleEvent.this, status.toString(), Toast.LENGTH_LONG).show();
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+                Toast.makeText(SingleEvent.this, R.string.error_aborted, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (requestCode == FilePickerConst.REQUEST_CODE_PHOTO) {
+            if (resultCode == RESULT_OK && data != null) {
+                if (mailIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
+                    mailAttachment = aq.get(0);
+                    emailFileHolder.setText(mailAttachment);
+                    mailIsChoosing = false;
+                } else if (messengerIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
+                    messengerAttachment = aq.get(0);
+                    messengerFileHolder.setText(messengerAttachment);
+                    messengerIsChoosing = false;
+                } else if (whatsappIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
+                    whatsappAttachment = aq.get(0);
+                    whatsappFileHolder.setText(whatsappAttachment);
+                    whatsappIsChoosing = false;
+                }
+            }
+        }
+        if (requestCode == FilePickerConst.REQUEST_CODE_DOC) {
+            if (resultCode == RESULT_OK && data != null) {
+                if (mailIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
+                    mailAttachment = aq.get(0);
+                    emailFileHolder.setText(mailAttachment);
+                    mailIsChoosing = false;
+                } else if (messengerIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
+                    messengerAttachment = aq.get(0);
+                    messengerFileHolder.setText(messengerAttachment);
+                    messengerIsChoosing = false;
+                } else if (whatsappIsChoosing) {
+                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
+                    whatsappAttachment = aq.get(0);
+                    whatsappFileHolder.setText(whatsappAttachment);
+                    whatsappIsChoosing = false;
+                }
             }
         }
     }

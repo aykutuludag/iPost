@@ -60,7 +60,7 @@ public class PostPlanned extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        mRecyclerView = v.findViewById(R.id.eventView);
+        mRecyclerView = v.findViewById(R.id.postView);
         feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         pullPosts();
@@ -75,14 +75,10 @@ public class PostPlanned extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-
-                    System.out.print(cur.getInt(i));
-                    System.out.print(cur.getString(i));
                     switch (i % 12) {
                         case 0:
                             item = new PostItem();
                             item.setID(cur.getInt(i));
-                            System.out.println(cur.getInt(i));
                             break;
                         case 1:
                             item.setReceiverName(cur.getString(i));
@@ -116,7 +112,9 @@ public class PostPlanned extends Fragment {
                             break;
                         case 11:
                             item.setMessengerAttachment(cur.getString(i));
-                            feedsList.add(item);
+                            if (item.getPostTime() != 0) {
+                                feedsList.add(item);
+                            }
                             break;
                     }
                 }

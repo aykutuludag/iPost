@@ -2,6 +2,8 @@
 
     <!-- General -->
     <string name="app_name">iPost</string>
+    <string name="facebook_app_id">883953245105670</string>
+    <string name="fb_login_protocol_scheme">fb883953245105670</string>
     <string name="exit">Çıkmak için tekrar dokunun</string>
 
     <!-- ErrorTypes -->
@@ -15,11 +17,11 @@
 
     <!-- NavigationDrawer -->
     <string name="events">Events</string>
-    <string name="events_upcoming">Upcoming</string>
-    <string name="events_past">Past</string>
+    <string name="events_upcoming">Upcoming events</string>
+    <string name="events_past">Past events</string>
     <string name="posts">Posts</string>
-    <string name="posts_planned">Planned</string>
-    <string name="posts_sent">Sent</string>
+    <string name="posts_planned">Planned posts</string>
+    <string name="posts_sent">Sent posts</string>
     <string name="other">Other</string>
     <string name="other_settings">Settings</string>
     <string name="other_help">Help</string>

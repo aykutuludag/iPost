@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "802887467777-9apfknem7h63p4lt4hn6nhnstb8dscn5.apps.googleusercontent.com",
+          "client_id": "802887467777-7umhch4plk5ej75e62na8b87cbp7p0vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.ipost",
+            "certificate_hash": "8a4a6e6a3aa10c22101b3e6bdfa852ac4e63b0bc"
+          }
+        },
+        {
+          "client_id": "802887467777-a8bu4h1iv6pgmg5aa55g9j8ekccpe9u5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.ipost",
@@ -23,13 +31,13 @@
           }
         },
         {
-          "client_id": "802887467777-td7c2bimthgf92be96t42km7el7co73o.apps.googleusercontent.com",
+          "client_id": "802887467777-ehc3hvbn9vo84ulcugnh1kofir7nbs48.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAl87N36K6SkKdlnL-rasSM__HMSw18RIc"
+          "current_key": "AIzaSyD8E2jGsHfq_B7FzAFhmPZSR1ex9AYCeHw"
         }
       ],
       "services": {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "802887467777-td7c2bimthgf92be96t42km7el7co73o.apps.googleusercontent.com",
+              "client_id": "802887467777-ehc3hvbn9vo84ulcugnh1kofir7nbs48.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

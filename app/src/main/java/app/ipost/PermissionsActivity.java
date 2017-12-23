@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -51,6 +52,10 @@ public class PermissionsActivity extends AppCompatActivity {
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionContacts());
+            transaction.commit();
+        } else if (AccessToken.getCurrentAccessToken() == null) {
+            transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionMessenger());
             transaction.commit();
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             transaction = getSupportFragmentManager().beginTransaction();
