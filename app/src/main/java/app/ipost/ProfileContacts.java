@@ -51,7 +51,7 @@ public class ProfileContacts extends Fragment {
 
         List<ContactItem> feedsList = new ArrayList<>();
         database_account = getActivity().openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY DisplayName ASC", null);
+        cur = database_account.rawQuery("SELECT * FROM contacts ORDER BY displayName ASC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

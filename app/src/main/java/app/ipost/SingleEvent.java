@@ -28,7 +28,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,12 +61,13 @@ public class SingleEvent extends AppCompatActivity {
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7;
-    RecyclerView mRecyclerView;
+    Button expandableButton1, expandableButton2, expandableButton3;
 
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
     Cursor cur0, cur, cur2, cur3;
-    List<ContactItem> feedsList = new ArrayList<>();
+
+    ContactItem item;
 
     // Some variables
     boolean newEvent;
@@ -84,9 +84,7 @@ public class SingleEvent extends AppCompatActivity {
     //tablePost
     int isDelivered;
     String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
-    // User selection & Post channels
-    ContactItem item;
-    Spinner mySpinner;
+    // Post channels
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     Button emailFileChooser, messengerFileChooser, whatsappFileChooser;
     TextView emailFileHolder, messengerFileHolder, whatsappFileHolder;
@@ -145,35 +143,6 @@ public class SingleEvent extends AppCompatActivity {
         prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
         editor = prefs.edit();
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
-        currentTheme = MainActivity.currentTheme;
-        switch (currentTheme) {
-            case "Black":
-                coloredBars(Color.parseColor("#000000"), Color.parseColor("#212121"));
-                break;
-            case "Red":
-                coloredBars(Color.parseColor("#D32F2F"), Color.parseColor("#F44336"));
-                break;
-            case "Green":
-                coloredBars(Color.parseColor("#388E3C"), Color.parseColor("#4CAF50"));
-                break;
-            case "Orange":
-                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
-                break;
-            case "Purple":
-                coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));
-                break;
-        }
-
-        expandableLayout1 = findViewById(R.id.expandableLayout1);
-        expandableLayout2 = findViewById(R.id.expandableLayout2);
-        expandableLayout3 = findViewById(R.id.expandableLayout3);
-        expandableLayout4 = findViewById(R.id.expandableLayout4);
-        expandableLayout5 = findViewById(R.id.expandableLayout5);
-        expandableLayout6 = findViewById(R.id.expandableLayout6);
-        expandableLayout7 = findViewById(R.id.expandableLayout7);
-
-        mRecyclerView = findViewById(R.id.search_result);
-
         if (eventID == 0) {
             newEvent = true;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
@@ -188,8 +157,55 @@ public class SingleEvent extends AppCompatActivity {
         }
         userChoice = prefs.getInt("userChoiceSpinner" + eventID, 0);
 
+        expandableLayout1 = findViewById(R.id.expandableLayout1);
+        expandableLayout2 = findViewById(R.id.expandableLayout2);
+        expandableLayout3 = findViewById(R.id.expandableLayout3);
+        expandableLayout4 = findViewById(R.id.expandableLayout4);
+        expandableLayout5 = findViewById(R.id.expandableLayout5);
+        expandableLayout6 = findViewById(R.id.expandableLayout6);
+        expandableLayout7 = findViewById(R.id.expandableLayout7);
+
+        expandableButton1 = findViewById(R.id.expandableButton1);
+        expandableButton2 = findViewById(R.id.expandableButton2);
+        expandableButton3 = findViewById(R.id.expandableButton3);
+
+        currentTheme = MainActivity.currentTheme;
+        switch (currentTheme) {
+            case "Black":
+                coloredBars(Color.parseColor("#000000"), Color.parseColor("#212121"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#212121"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#212121"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#212121"));
+                break;
+            case "Red":
+                coloredBars(Color.parseColor("#D32F2F"), Color.parseColor("#F44336"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#F44336"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#F44336"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#F44336"));
+                break;
+            case "Green":
+                coloredBars(Color.parseColor("#388E3C"), Color.parseColor("#4CAF50"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#4CAF50"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#4CAF50"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#4CAF50"));
+                break;
+            case "Orange":
+                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#FF9800"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#FF9800"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#FF9800"));
+                break;
+            case "Purple":
+                coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#9C27B0"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#9C27B0"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#9C27B0"));
+                break;
+        }
+
         // Database connection
         getEventInfo();
+        getContactInfo("");
         getPostInfo();
 
         //update UserInterface
@@ -290,14 +306,15 @@ public class SingleEvent extends AppCompatActivity {
             cur.close();
         } else {
             Toast.makeText(SingleEvent.this, "You are creating a new event!", Toast.LENGTH_LONG).show();
-            getSupportActionBar().setTitle("Add new event");
+            getSupportActionBar().setTitle("New event");
         }
     }
 
     public void getContactInfo(String parameter) {
+        List<ContactItem> feedsList = new ArrayList<>();
         database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE displayName LIKE '" + parameter + "%'", null);
-        System.out.println(cur3);
+        String[] selectionArgs = {parameter + "%"};
+        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE DisplayName LIKE ? ORDER BY displayName ASC", selectionArgs);
         if (cur3 != null && cur3.getCount() != 0) {
             cur3.moveToFirst();
             do {
@@ -332,13 +349,18 @@ public class SingleEvent extends AppCompatActivity {
             cur3.close();
             database_account3.close();
         }
+
         // Adapter
+        RecyclerView mRecyclerView = findViewById(R.id.search_result);
         RecyclerView.Adapter mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
+        mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns
         GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        System.out.println(feedsList);
     }
 
     public void getPostInfo() {
@@ -514,7 +536,6 @@ public class SingleEvent extends AppCompatActivity {
                 getContactInfo(s);
                 return false;
             }
-
         });
 
         /*mySpinner = findViewById(R.id.spinner);

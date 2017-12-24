@@ -2,6 +2,7 @@ package app.ipost.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import app.ipost.MainActivity;
 import app.ipost.R;
 import app.ipost.model.ContactItem;
 
@@ -47,8 +49,28 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         //  Setting mail
         viewHolder.textMail.setText(feedItem.getMail());
 
+        // Setting background
+        String currentTheme = MainActivity.currentTheme;
+        switch (currentTheme) {
+            case "Black":
+                viewHolder.background.setBackgroundColor(Color.parseColor("#424242"));
+                break;
+            case "Red":
+                viewHolder.background.setBackgroundColor(Color.parseColor("#BB2026"));
+                break;
+            case "Green":
+                viewHolder.background.setBackgroundColor(Color.parseColor("#5EB546"));
+                break;
+            case "Orange":
+                viewHolder.background.setBackgroundColor(Color.parseColor("#80472A"));
+                break;
+            case "Purple":
+                viewHolder.background.setBackgroundColor(Color.parseColor("#855BA5"));
+                break;
+        }
+
+
         // Setting profilephoto
-        //BURAYI TEMAYA GÖRE AYARLIYORUZ
         Picasso.with(mContext).load(feedItem.getContactPhoto()).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                 .into(viewHolder.profilePhoto);
 
@@ -100,7 +122,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.post_name);
+            name = itemView.findViewById(R.id.contact_name);
             textMail = itemView.findViewById(R.id.contact_mail);
             number = itemView.findViewById(R.id.contact_number);
             profilePhoto = itemView.findViewById(R.id.contact_photo);

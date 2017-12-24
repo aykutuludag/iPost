@@ -28,7 +28,14 @@ import com.kobakei.ratethisapp.RateThisApp;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static String ID, name, email, photo, gender, birthday, location, currentTheme;
+    public static String currentTheme;
+    static String ID;
+    static String name;
+    static String email;
+    static String photo;
+    static String gender;
+    static String birthday;
+    static String location;
     SharedPreferences prefs;
     NavigationView navigationView;
     Toolbar toolbar;

@@ -46,6 +46,40 @@ public class PostPlanned extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
+       /* String currentTheme = MainActivity.currentTheme;
+        switch (currentTheme) {
+            case "Black":
+                mainBackground.setBackgroundResource(R.drawable.siyah);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#232323"));
+                break;
+            case "Red":
+                mainBackground.setBackgroundResource(R.drawable.kirmizi);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.kirmiziprofil).placeholder(R.drawable.kirmiziprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#B92D2C"));
+                break;
+            case "Green":
+                mainBackground.setBackgroundResource(R.drawable.yesil);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.yesilprofil).placeholder(R.drawable.yesilprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#619D43"));
+                break;
+            case "Orange":
+                mainBackground.setBackgroundResource(R.drawable.turuncu);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.turuncuprofil).placeholder(R.drawable.turuncuprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#C47229"));
+                break;
+            case "Purple":
+                mainBackground.setBackgroundResource(R.drawable.mor);
+                Picasso.with(getActivity()).load(photo).error(R.drawable.morprofil).placeholder(R.drawable.morprofil)
+                        .into(profilePic);
+                profilePic.setBorderColor(Color.parseColor("#70469C"));
+                break;
+        }*/
+
         swipeContainer = v.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

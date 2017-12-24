@@ -283,13 +283,16 @@
                 android:layout_below="@+id/recipient_indicator"
                 android:layout_marginTop="8dp"
                 android:background="#f0f0f0"
-                android:orientation="vertical">
+                android:orientation="vertical" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/search_result"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </SearchView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/search_recipient"
+                android:layout_alignStart="@+id/search_recipient"
+                android:layout_below="@+id/search_recipient"
+                android:background="#f0f0f0" />
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button

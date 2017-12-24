@@ -45,9 +45,9 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         expandableLayout1 = findViewById(R.id.expandableLayout1);
         expandableLayout2 = findViewById(R.id.expandableLayout2);
-        expandableLayout3 = findViewById(R.id.expandableLayout2);
-        expandableLayout4 = findViewById(R.id.expandableLayout3);
-        expandableLayout5 = findViewById(R.id.expandableLayout4);
+        expandableLayout3 = findViewById(R.id.expandableLayout3);
+        expandableLayout4 = findViewById(R.id.expandableLayout4);
+        expandableLayout5 = findViewById(R.id.expandableLayout5);
 
         siyahSet = findViewById(R.id.siyah_set);
         siyahSet.setOnClickListener(this);
