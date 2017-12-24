@@ -274,18 +274,22 @@
                 android:text="Recipient"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            <Spinner
-                android:id="@+id/spinner"
+            <SearchView
+                android:id="@+id/search_recipient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/editTextLocation"
                 android:layout_alignLeft="@+id/recipient_indicator"
-                android:layout_alignRight="@+id/editTextLocation"
                 android:layout_alignStart="@+id/recipient_indicator"
-                android:layout_below="@+id/recipient_title"
+                android:layout_below="@+id/recipient_indicator"
                 android:layout_marginTop="8dp"
-                android:drawSelectorOnTop="true"
-                android:spinnerMode="dialog" />
+                android:background="#f0f0f0"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </SearchView>
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button
@@ -299,7 +303,6 @@
             android:paddingRight="10dp"
             android:text="Post Information"
             android:textColor="#fff" />
-
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
             android:id="@+id/expandableLayout3"

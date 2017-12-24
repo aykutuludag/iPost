@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,9 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import app.ipost.adapter.RecipientAdapter;
+import app.ipost.adapter.ContactAdapter;
 import app.ipost.model.ContactItem;
 import app.ipost.receiver.AlarmReceiver;
 import droidninja.filepicker.FilePickerBuilder;
@@ -60,6 +62,7 @@ public class SingleEvent extends AppCompatActivity {
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7;
+    RecyclerView mRecyclerView;
 
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
@@ -169,6 +172,8 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout6 = findViewById(R.id.expandableLayout6);
         expandableLayout7 = findViewById(R.id.expandableLayout7);
 
+        mRecyclerView = findViewById(R.id.search_result);
+
         if (eventID == 0) {
             newEvent = true;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
@@ -185,7 +190,6 @@ public class SingleEvent extends AppCompatActivity {
 
         // Database connection
         getEventInfo();
-        getContactInfo();
         getPostInfo();
 
         //update UserInterface
@@ -199,19 +203,19 @@ public class SingleEvent extends AppCompatActivity {
     }
 
     public void expandableButton2(View view) {
-        expandableLayout2.toggle(); // toggle expand and collapse
+        expandableLayout2.toggle();// toggle expand and collapse
         expandableLayout1.collapse();
         expandableLayout3.collapse();
     }
 
     public void expandableButton3(View view) {
-        expandableLayout3.toggle(); // toggle expand and collapse
+        expandableLayout3.toggle();// toggle expand and collapse
         expandableLayout1.collapse();
         expandableLayout2.collapse();
     }
 
     public void expandableButton4(View view) {
-        expandableLayout4.toggle(); // toggle expand and collapse
+        expandableLayout4.toggle();
         expandableLayout5.collapse();
         expandableLayout6.collapse();
         expandableLayout7.collapse();
@@ -290,9 +294,10 @@ public class SingleEvent extends AppCompatActivity {
         }
     }
 
-    public void getContactInfo() {
+    public void getContactInfo(String parameter) {
         database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        cur3 = database_account3.rawQuery("SELECT * FROM contacts ORDER BY DisplayName ASC", null);
+        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE displayName LIKE '" + parameter + "%'", null);
+        System.out.println(cur3);
         if (cur3 != null && cur3.getCount() != 0) {
             cur3.moveToFirst();
             do {
@@ -327,6 +332,13 @@ public class SingleEvent extends AppCompatActivity {
             cur3.close();
             database_account3.close();
         }
+        // Adapter
+        RecyclerView.Adapter mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // The number of Columns
+        GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     public void getPostInfo() {
@@ -487,7 +499,25 @@ public class SingleEvent extends AppCompatActivity {
         messengerFileHolder = findViewById(R.id.messenger_filename);
         whatsappFileHolder = findViewById(R.id.whatsapp_filename);
 
-        mySpinner = findViewById(R.id.spinner);
+
+        SearchView search = findViewById(R.id.search_recipient);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                getContactInfo(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                getContactInfo(s);
+                return false;
+            }
+
+        });
+
+        /*mySpinner = findViewById(R.id.spinner);
         mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
         mySpinner.setSelection(userChoice);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -560,7 +590,7 @@ public class SingleEvent extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) {
                 //Do nothing
             }
-        });
+        });*/
 
         //SMS
         smsContentHolder.setText(smsContent);
