@@ -74,7 +74,6 @@ public class PermissionContacts extends Fragment {
         // Create local database to save contacs
         database_account = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null);
 
-
         buttonContacts = v.findViewById(R.id.permission_contacts_button);
         buttonContacts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,9 +132,6 @@ public class PermissionContacts extends Fragment {
             prefs.edit().putBoolean("isContactSync", true).apply();
             Toast.makeText(getActivity(), getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
         }
-        transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new PermissionSMS());
-        transaction.commit();
     }
 
     public String getEmail(String contactId) {

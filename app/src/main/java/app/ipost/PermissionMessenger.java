@@ -1,14 +1,20 @@
 package app.ipost;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -16,7 +22,9 @@ public class PermissionMessenger extends Fragment {
 
     Tracker t;
     SharedPreferences prefs;
-    Button buttonMessenger;
+    FragmentTransaction transaction;
+    CallbackManager callbackManager;
+    LoginButton loginButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,20 +37,35 @@ public class PermissionMessenger extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        buttonMessenger = v.findViewById(R.id.permission_messenger_button);
-        buttonMessenger.setOnClickListener(new View.OnClickListener() {
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = v.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        loginButton.setFragment(this);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View v) {
-                facebookLogin();
+            public void onSuccess(LoginResult loginResult) {
+                PermissionsActivity.isMessenger = true;
+            }
+
+            @Override
+            public void onCancel() {
+                PermissionsActivity.isMessenger = false;
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                PermissionsActivity.isMessenger = false;
             }
         });
+
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         return v;
     }
 
-
-    public void facebookLogin() {
-        //Logged with facebook
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

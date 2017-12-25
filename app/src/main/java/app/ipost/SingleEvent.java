@@ -205,7 +205,7 @@ public class SingleEvent extends AppCompatActivity {
 
         // Database connection
         getEventInfo();
-        getContactInfo("");
+        getContactInfo("-");
         getPostInfo();
 
         //update UserInterface

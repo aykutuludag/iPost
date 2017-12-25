@@ -23,10 +23,13 @@ public class PermissionsActivity extends AppCompatActivity {
     public static final int REQUEST_CALENDAR_READ = 0;
     public static final int REQUEST_CONTACTS_READ = 1;
     public static final int REQUEST_SMS_SEND = 2;
-
+    static boolean isMessenger;
     Tracker t;
     FrameLayout frame;
     FragmentTransaction transaction;
+    boolean isCalendar;
+    boolean isContact;
+    boolean isSMS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,18 @@ public class PermissionsActivity extends AppCompatActivity {
             transaction.commit();
         } else if (AccessToken.getCurrentAccessToken() == null) {
             transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new PermissionMessenger());
-            transaction.commit();
-        } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionSMS());
             transaction.commit();
+        } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(PermissionsActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, 1250);
         } else {
             Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
@@ -79,8 +88,7 @@ public class PermissionsActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CALENDAR_READ:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
-                    ((PermissionCalendar) fragment).getEvents();
+                    isCalendar = true;
                 } else {
                     Toast.makeText(PermissionsActivity.this, getString(R.string.error_aborted), Toast.LENGTH_SHORT)
                             .show();
@@ -89,8 +97,7 @@ public class PermissionsActivity extends AppCompatActivity {
             case REQUEST_CONTACTS_READ:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
-                    ((PermissionContacts) fragment).getContacts();
+                    isContact = true;
                 } else {
                     Toast.makeText(PermissionsActivity.this, getString(R.string.error_aborted), Toast.LENGTH_SHORT).show();
                 }
@@ -98,15 +105,7 @@ public class PermissionsActivity extends AppCompatActivity {
             case REQUEST_SMS_SEND:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(PermissionsActivity.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    }, 1250);
+                    isSMS = true;
                 } else {
                     Toast.makeText(PermissionsActivity.this, getString(R.string.error_aborted), Toast.LENGTH_SHORT).show();
                 }
@@ -114,6 +113,52 @@ public class PermissionsActivity extends AppCompatActivity {
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isCalendar) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
+            ((PermissionCalendar) fragment).getEvents();
+
+            FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionContacts());
+            transaction.commit();
+            isCalendar = false;
+        }
+
+        if (isContact) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
+            ((PermissionContacts) fragment).getContacts();
+
+            transaction = this.getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionSMS());
+            transaction.commit();
+            isContact = false;
+        }
+
+        if (isSMS) {
+            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
+            transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionSMS());
+            transaction.commit();
+            isSMS = false;
+        }
+
+        if (isMessenger) {
+            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(PermissionsActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, 1250);
+
+            isMessenger = false;
         }
     }
 }

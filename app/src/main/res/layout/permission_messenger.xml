@@ -17,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:text="Permission: Contacts"
+            android:text="Permission: Messenger"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold" />
@@ -36,9 +36,8 @@
             android:text="iPost needs to be authorized with Messenger to create messenger posts.\n\nWe will not collect any data from your Facebook account."
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-
-        <Button
-            android:id="@+id/permission_messenger_button"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
