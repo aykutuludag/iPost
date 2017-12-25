@@ -109,9 +109,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(receiverPhone, null, smsContent, null, null);
-            isDelivered = 1;
         } catch (Exception ex) {
-            isDelivered = 0;
             ex.printStackTrace();
         }
     }
@@ -126,6 +124,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         toNumber = toNumber.replace("+", "").replace(" ", "");
         sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
         sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, whatsappAttachment);
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setPackage("com.whatsapp");
         sendIntent.setType("text/plain");

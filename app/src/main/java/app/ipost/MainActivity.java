@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -114,23 +113,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_about) {
-            Intent i = new Intent(MainActivity.this, AboutActivity.class);
-            startActivity(i);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment;
         switch (item.getItemId()) {
@@ -167,8 +149,8 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i2);
                 break;
             case R.id.nav_privacy:
-                Intent i3 = new Intent(MainActivity.this, PrivacyActivity.class);
-                startActivity(i3);
+                Intent intent24 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://themorngroup.com/privacy"));
+                startActivity(intent24);
                 break;
             case R.id.nav_themes:
                 Intent i4 = new Intent(MainActivity.this, ThemesActivity.class);

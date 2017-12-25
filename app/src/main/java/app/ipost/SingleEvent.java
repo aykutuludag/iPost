@@ -58,42 +58,36 @@ public class SingleEvent extends AppCompatActivity {
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final int REQUEST_EXTERNAL_STORAGE = 2;
+    //tableEvent
+    public static int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
+    public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
+    public static boolean isEventEditing;
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
-
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7;
     Button expandableButton1, expandableButton2, expandableButton3;
-
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
     Cursor cur0, cur, cur2, cur3;
-
     ContactItem item;
-
     // Some variables
     boolean newEvent;
-
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    int userChoice;
+    String userChoice;
     //Event settings
     TextView title, description, location, timeStart, timeEnd;
-    //tableEvent
-    int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
     long startTime, endTime;
     String eventName, eventDescription, eventLocation, eventOwner;
     //tablePost
     int isDelivered;
-    String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
     // Post channels
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     Button emailFileChooser, messengerFileChooser, whatsappFileChooser;
     TextView emailFileHolder, messengerFileHolder, whatsappFileHolder;
     boolean mailIsChoosing, messengerIsChoosing, whatsappIsChoosing;
-
     String currentTheme;
     Toolbar toolbar;
     Window window;
-
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
     //Listener for startTime
@@ -137,6 +131,8 @@ public class SingleEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        isEventEditing = true;
+
         //ColoredBars
         window = this.getWindow();
 
@@ -145,6 +141,8 @@ public class SingleEvent extends AppCompatActivity {
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
         if (eventID == 0) {
             newEvent = true;
+            startTime = System.currentTimeMillis() + 60000 * 5;
+            endTime = System.currentTimeMillis() + 60000 * 65;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
             if (cur0 != null) {
@@ -155,7 +153,7 @@ public class SingleEvent extends AppCompatActivity {
             }
             db.close();
         }
-        userChoice = prefs.getInt("userChoiceSpinner" + eventID, 0);
+        userChoice = prefs.getString("userName" + eventID, "");
 
         expandableLayout1 = findViewById(R.id.expandableLayout1);
         expandableLayout2 = findViewById(R.id.expandableLayout2);
@@ -205,7 +203,7 @@ public class SingleEvent extends AppCompatActivity {
 
         // Database connection
         getEventInfo();
-        getContactInfo("-");
+        getContactInfo(userChoice);
         getPostInfo();
 
         //update UserInterface
@@ -521,7 +519,6 @@ public class SingleEvent extends AppCompatActivity {
         messengerFileHolder = findViewById(R.id.messenger_filename);
         whatsappFileHolder = findViewById(R.id.whatsapp_filename);
 
-
         SearchView search = findViewById(R.id.search_recipient);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -538,7 +535,42 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
-        /*mySpinner = findViewById(R.id.spinner);
+        //CREATE UI BASED ON VALUES
+        if (isSMS == 0) {
+            smsContentHolder.setEnabled(false);
+        } else {
+            smsContentHolder.setEnabled(true);
+        }
+
+        if (isMail == 0) {
+            mailTitleHolder.setEnabled(false);
+            mailContentHolder.setEnabled(false);
+            emailFileChooser.setEnabled(false);
+        } else {
+            mailTitleHolder.setEnabled(true);
+            mailContentHolder.setEnabled(true);
+            emailFileChooser.setEnabled(true);
+        }
+
+        if (isMessenger == 0) {
+            messengerContentHolder.setEnabled(false);
+            messengerFileChooser.setEnabled(false);
+        } else {
+            messengerContentHolder.setEnabled(false);
+            messengerFileChooser.setEnabled(false);
+        }
+
+        if (isWhatsapp == 0) {
+            whatsappContentHolder.setEnabled(false);
+            whatsappFileChooser.setEnabled(false);
+        } else {
+            whatsappContentHolder.setEnabled(true);
+            whatsappFileChooser.setEnabled(true);
+        }
+
+        prefs.edit().putString("userName" + eventID, receiverName).apply();
+
+       /* mySpinner = findViewById(R.id.spinner);
         mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
         mySpinner.setSelection(userChoice);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -923,6 +955,7 @@ public class SingleEvent extends AppCompatActivity {
             }
             createPost();
             editor.apply();
+            isEventEditing = false;
             finish();
             return true;
         }
@@ -1009,6 +1042,7 @@ public class SingleEvent extends AppCompatActivity {
         super.onBackPressed();
         database_account.close();
         database_account2.close();
+        isEventEditing = false;
         finish();
     }
 }

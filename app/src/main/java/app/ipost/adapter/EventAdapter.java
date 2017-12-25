@@ -64,7 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
 
         // Setting location
-        if (feedItem.getLocation() != null & !feedItem.getLocation().isEmpty()) {
+        if (feedItem.getLocation() != null && !feedItem.getLocation().isEmpty()) {
             viewHolder.location.setText(feedItem.getLocation());
         } else {
             viewHolder.placeIndicator.setVisibility(View.INVISIBLE);
@@ -161,5 +161,4 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             placeIndicator = itemView.findViewById(R.id.iconLocation);
         }
     }
-
 }

@@ -56,11 +56,11 @@ public class PermissionsActivity extends AppCompatActivity {
             transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, new PermissionContacts());
             transaction.commit();
-        } else if (AccessToken.getCurrentAccessToken() == null) {
-            transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new PermissionSMS());
-            transaction.commit();
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionMessenger());
+            transaction.commit();
+        } else if (AccessToken.getCurrentAccessToken() == null) {
             Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -140,15 +140,14 @@ public class PermissionsActivity extends AppCompatActivity {
         }
 
         if (isSMS) {
-            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new PermissionSMS());
+            transaction.replace(R.id.content, new PermissionMessenger());
             transaction.commit();
             isSMS = false;
         }
 
         if (isMessenger) {
-            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
+            Toast.makeText(PermissionsActivity.this, "Permission stage completed. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
