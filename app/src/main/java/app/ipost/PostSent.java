@@ -70,7 +70,7 @@ public class PostSent extends Fragment {
 
     public void pullPosts() {
         feedsList.clear();
-        cur = database_account.rawQuery("SELECT * FROM posts WHERE postTime < " + System.currentTimeMillis() + " ORDER BY postTime ASC", null);
+        cur = database_account.rawQuery("SELECT * FROM posts WHERE postTime < " + System.currentTimeMillis() + " ORDER BY postTime DESC", null);
         if (cur != null && cur.getCount() != 0) {
             cur.moveToFirst();
             do {

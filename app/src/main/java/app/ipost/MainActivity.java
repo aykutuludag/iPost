@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -149,16 +150,24 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i2);
                 break;
             case R.id.nav_privacy:
-                Intent intent24 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://themorngroup.com/privacy"));
-                startActivity(intent24);
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                builder.enableUrlBarHiding();
+                builder.setShowTitle(true);
+                builder.setToolbarColor(Color.parseColor("#212121"));
+                customTabsIntent.launchUrl(MainActivity.this, Uri.parse("http://themorngroup.com/privacy"));
                 break;
             case R.id.nav_themes:
                 Intent i4 = new Intent(MainActivity.this, ThemesActivity.class);
                 startActivity(i4);
                 break;
             case R.id.nav_rate:
-                Intent intent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=app.isend"));
-                startActivity(intent4);
+                CustomTabsIntent.Builder builder2 = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent2 = builder2.build();
+                builder2.enableUrlBarHiding();
+                builder2.setShowTitle(true);
+                builder2.setToolbarColor(Color.parseColor("#212121"));
+                customTabsIntent2.launchUrl(MainActivity.this, Uri.parse("market://details?id=app.isend"));
                 break;
             case R.id.nav_feedback:
                 Intent intent = new Intent(Intent.ACTION_SENDTO);

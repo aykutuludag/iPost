@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 
@@ -124,10 +125,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         toNumber = toNumber.replace("+", "").replace(" ", "");
         sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
         sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, whatsappAttachment);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(whatsappAttachment));
+        sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setPackage("com.whatsapp");
-        sendIntent.setType("text/plain");
+        sendIntent.setType("image/*");
 
         PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);

@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import app.ipost.MainActivity;
 import app.ipost.R;
 import app.ipost.SingleEvent;
 import app.ipost.model.PostItem;
@@ -49,11 +50,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         PostItem feedItem = feedItemList.get(i);
 
-        // Receiver name
+        //Recipient name
         if (feedItem.getReceiverName() != null && !feedItem.getReceiverName().isEmpty()) {
-            viewHolder.title.setText(feedItem.getReceiverName());
+            viewHolder.recipient.setText(feedItem.getReceiverName());
         } else {
-            viewHolder.title.setText("-");
+            viewHolder.recipient.setText("-");
         }
 
         // Post time
@@ -64,31 +65,51 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
 
         // setSMSOption
-        if (feedItem.getSmsContent() != null) {
-            viewHolder.sms.setAlpha(1.0f);
+        if (feedItem.getSmsContent() != null && !feedItem.getSmsContent().isEmpty()) {
+            viewHolder.sms.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.sms.setAlpha(0.5f);
+            viewHolder.sms.setVisibility(View.INVISIBLE);
         }
 
         // setMailOption
-        if (feedItem.getMailTitle() != null) {
-            viewHolder.mail.setAlpha(1.0f);
+        if (feedItem.getMailTitle() != null && !feedItem.getMailTitle().isEmpty()) {
+            viewHolder.mail.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.mail.setAlpha(0.5f);
+            viewHolder.mail.setVisibility(View.INVISIBLE);
         }
 
         // setMessengerOption
-        if (feedItem.getMessengerContent() != null) {
-            viewHolder.messenger.setAlpha(1.0f);
+        if (feedItem.getMessengerContent() != null && !feedItem.getMessengerContent().isEmpty()) {
+            viewHolder.messenger.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.messenger.setAlpha(0.5f);
+            viewHolder.messenger.setVisibility(View.INVISIBLE);
         }
 
         // setWhatsappOption
-        if (feedItem.getWhatsappContent() != null) {
-            viewHolder.whatsapp.setAlpha(1.0f);
+        if (feedItem.getWhatsappContent() != null && !feedItem.getWhatsappContent().isEmpty()) {
+            viewHolder.whatsapp.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.whatsapp.setAlpha(0.5f);
+            viewHolder.whatsapp.setVisibility(View.INVISIBLE);
+        }
+
+        // Setting background_splash
+        String currentTheme = MainActivity.currentTheme;
+        switch (currentTheme) {
+            case "Black":
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.businessbutonplan));
+                break;
+            case "Red":
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.womanbutonplan));
+                break;
+            case "Green":
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.fitnessbutonplan));
+                break;
+            case "Orange":
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.coffebuttonplan));
+                break;
+            case "Purple":
+                viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.paparaszzibutonplan));
+                break;
         }
 
         // Handle click event on image click
@@ -103,13 +124,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private String getDate(long time) {
         Date date = new Date(time);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM YYYY HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy HH:mm", Locale.getDefault());
         return sdf.format(date);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
+        TextView recipient;
         TextView startTime;
         ImageView background;
         ImageView sms;
@@ -120,6 +142,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.post_name);
+            recipient = itemView.findViewById(R.id.post_recipient);
             startTime = itemView.findViewById(R.id.post_time);
             background = itemView.findViewById(R.id.post_background);
             sms = itemView.findViewById(R.id.options_sms);

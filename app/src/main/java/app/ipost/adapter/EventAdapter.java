@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import app.ipost.MainActivity;
 import app.ipost.R;
 import app.ipost.SingleEvent;
 import app.ipost.model.EventItem;
@@ -70,9 +71,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             viewHolder.placeIndicator.setVisibility(View.INVISIBLE);
         }
 
-
         // Setting background_splash
-        String currentTheme = prefs.getString("DefaultTheme", "Black");
+        String currentTheme = MainActivity.currentTheme;
         switch (currentTheme) {
             case "Black":
                 viewHolder.background.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.siyahbutton));

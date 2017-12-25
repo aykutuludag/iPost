@@ -43,7 +43,8 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.ipost.MainActivity" />
@@ -69,15 +70,6 @@
         <activity
             android:name=".ThemesActivity"
             android:label="@string/title_activity_themes"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.ipost.MainActivity" />
-        </activity>
-        <activity
-            android:name=".PrivacyActivity"
-            android:label="@string/title_activity_privacy"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
             <meta-data

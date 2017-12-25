@@ -29,26 +29,14 @@
                 android:scaleType="fitXY" />
 
             <TextView
-                android:id="@+id/post_name"
+                android:id="@+id/post_recipient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
-                android:gravity="center"
-                android:maxLength="25"
-                android:text="Birthday Party"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                android:textColor="#fff" />
-
-            <TextView
-                android:id="@+id/post_recipient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/Channels"
-                android:layout_alignStart="@+id/Channels"
-                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:maxLength="25"
                 android:text="Remin Saylam"
@@ -62,7 +50,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="30 Eylül 2017 00:00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
