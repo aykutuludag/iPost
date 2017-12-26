@@ -133,14 +133,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             viewHolder.mail.setVisibility(View.GONE);
         }
 
-        // Setting whatsapp
+        // Setting event_edit_whatsappbar
         if (feedItem.getWhatsapp() == 1) {
             viewHolder.whatsapp.setVisibility(View.VISIBLE);
         } else {
             viewHolder.whatsapp.setVisibility(View.GONE);
         }
 
-        // Setting messenger
+        // Setting event_edit_messengerbar
         if (feedItem.getMessenger() == 1) {
             viewHolder.messenger.setVisibility(View.VISIBLE);
         } else {

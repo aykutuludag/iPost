@@ -55,7 +55,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@drawable/ic_location_dark" />
+                app:srcCompat="@drawable/event_edit_title" />
 
             <TextView
                 android:id="@+id/desc_title3"
@@ -92,7 +92,7 @@
                 android:layout_alignStart="@+id/editEventName"
                 android:layout_below="@+id/editEventName"
                 android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/ic_location_dark" />
+                app:srcCompat="@drawable/event_edit_desc" />
 
             <TextView
                 android:id="@+id/desc_title"
@@ -134,7 +134,7 @@
                 android:layout_below="@+id/editTextDesc"
                 android:layout_marginTop="16dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/ic_location_dark" />
+                app:srcCompat="@drawable/event_edit_location" />
 
             <TextView
                 android:id="@+id/loc_title"
@@ -172,7 +172,7 @@
                 android:layout_below="@+id/editTextLocation"
                 android:layout_marginTop="8dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/birthday_icon_dark" />
+                app:srcCompat="@drawable/event_edit_date" />
 
             <TextView
                 android:id="@+id/birthday_title"
@@ -259,7 +259,7 @@
                 android:layout_alignStart="@+id/editTextStartTime"
                 android:layout_below="@+id/editTextStartTime"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/recipients" />
+                app:srcCompat="@drawable/event_edit_recipient" />
 
             <TextView
                 android:id="@+id/recipient_title"
@@ -326,7 +326,7 @@
                 android:layout_alignStart="@+id/spinner"
                 android:layout_below="@+id/spinner"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/recipients" />
+                app:srcCompat="@drawable/left_menu_sent" />
 
             <TextView
                 android:id="@+id/post_channels"
@@ -343,13 +343,13 @@
 
             <Button
                 android:id="@+id/expandableButton4"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/post_channel_indicator"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/sms"
+                android:background="@drawable/event_edit_smsbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton4"
                 android:paddingRight="10dp"
@@ -380,10 +380,10 @@
 
             <Button
                 android:id="@+id/expandableButton5"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_below="@+id/expandableLayout4"
-                android:background="@drawable/gmail"
+                android:background="@drawable/event_edit_gmailbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton5"
                 android:paddingRight="10dp"
@@ -449,10 +449,10 @@
 
             <Button
                 android:id="@+id/expandableButton6"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_below="@+id/expandableLayout5"
-                android:background="@drawable/messenger"
+                android:background="@drawable/event_edit_messengerbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton6"
                 android:paddingRight="10dp"
@@ -506,10 +506,10 @@
 
             <Button
                 android:id="@+id/expandableButton7"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_below="@+id/expandableLayout6"
-                android:background="@drawable/whatsapp"
+                android:background="@drawable/event_edit_whatsappbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton7"
                 android:paddingRight="10dp"

@@ -62,7 +62,7 @@
                 android:layout_alignStart="@+id/profile_name"
                 android:layout_below="@+id/profile_name"
                 android:layout_marginTop="7dp"
-                app:srcCompat="@drawable/icon_email" />
+                app:srcCompat="@drawable/profile_email" />
 
             <TextView
                 android:id="@+id/profile_mail"
@@ -84,7 +84,7 @@
                 android:layout_below="@+id/indicator_desc"
                 android:layout_marginTop="7dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/ic_location" />
+                app:srcCompat="@drawable/profile_location" />
 
             <TextView
                 android:id="@+id/profile_loc"
@@ -106,7 +106,7 @@
                 android:layout_below="@+id/indicator_loc"
                 android:layout_marginTop="7dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/birthday_icon" />
+                app:srcCompat="@drawable/profile_birthday" />
 
             <TextView
                 android:id="@+id/profile_birthday"
@@ -128,7 +128,7 @@
                 android:layout_below="@+id/profile_birthday"
                 android:layout_marginTop="7dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/icon_gender" />
+                app:srcCompat="@drawable/profile_sex" />
 
             <TextView
                 android:id="@+id/profile_gender"

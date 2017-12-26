@@ -85,31 +85,31 @@ public class EventsUpcoming extends Fragment {
 
         switch (currentTheme) {
             case "Black":
-                mainBackground.setBackgroundResource(R.drawable.siyah);
+                mainBackground.setBackgroundResource(R.drawable.background_siyah);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#232323"));
                 break;
             case "Red":
-                mainBackground.setBackgroundResource(R.drawable.kirmizi);
+                mainBackground.setBackgroundResource(R.drawable.background_kirmizi);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.kirmiziprofil).placeholder(R.drawable.kirmiziprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#B92D2C"));
                 break;
             case "Green":
-                mainBackground.setBackgroundResource(R.drawable.yesil);
+                mainBackground.setBackgroundResource(R.drawable.background_yesil);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.yesilprofil).placeholder(R.drawable.yesilprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#619D43"));
                 break;
             case "Orange":
-                mainBackground.setBackgroundResource(R.drawable.turuncu);
+                mainBackground.setBackgroundResource(R.drawable.background_turuncu);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.turuncuprofil).placeholder(R.drawable.turuncuprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#C47229"));
                 break;
             case "Purple":
-                mainBackground.setBackgroundResource(R.drawable.mor);
+                mainBackground.setBackgroundResource(R.drawable.background_mor);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.morprofil).placeholder(R.drawable.morprofil)
                         .into(profilePic);
                 profilePic.setBorderColor(Color.parseColor("#70469C"));

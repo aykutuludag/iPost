@@ -76,7 +76,7 @@
                     android:id="@+id/options_sms"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    card_view:srcCompat="@drawable/icon_sms" />
+                    card_view:srcCompat="@drawable/social_sms" />
 
                 <ImageView
                     android:id="@+id/options_mail"

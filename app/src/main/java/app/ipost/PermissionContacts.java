@@ -158,7 +158,7 @@ public class PermissionContacts extends Fragment {
 
         String[] projection = new String[]{ContactsContract.RawContacts._ID};
         String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.whatsapp"};
+        String[] selectionArgs = new String[]{contactID, "com.event_edit_whatsappbar"};
         Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
         if (cursor != null) {
             hasWhatsApp = cursor.moveToNext();

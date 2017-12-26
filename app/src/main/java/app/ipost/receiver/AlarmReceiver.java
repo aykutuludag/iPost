@@ -124,12 +124,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent sendIntent = new Intent("android.intent.action.MAIN");
         String toNumber = receiverPhone; // contains spaces.
         toNumber = toNumber.replace("+", "").replace(" ", "");
-        sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
+        sendIntent.putExtra("jid", toNumber + "@s.event_edit_whatsappbar.net");
         sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
         sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(whatsappAttachment));
         sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setPackage("com.whatsapp");
+        sendIntent.setPackage("com.event_edit_whatsappbar");
         sendIntent.setType("image/*");
 
         PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -149,7 +149,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void sendMessenger(Context context) {
-        Uri uri = Uri.parse("fb-messenger://user/");
+        Uri uri = Uri.parse("fb-event_edit_messengerbar://user/");
         uri = ContentUris.withAppendedId(uri, Long.parseLong(receiverPhone));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);

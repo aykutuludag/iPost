@@ -33,7 +33,7 @@
             android:name=".PermissionsActivity"
             android:label="@string/title_activity_permissions"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Login" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

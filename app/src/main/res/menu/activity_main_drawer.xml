@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/ic_event_past"
+        android:icon="@drawable/left_menu_past"
         android:title="@string/events">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_eventupcoming"
-                    android:icon="@drawable/ic_event_upcoming"
+                    android:icon="@drawable/left_menu_upcoming"
                     android:title="@string/events_upcoming" />
                 <item
                     android:id="@+id/nav_eventpast"
-                    android:icon="@drawable/ic_event_past"
+                    android:icon="@drawable/left_menu_past"
                     android:title="@string/events_past" />
             </group>
         </menu>
@@ -22,11 +22,11 @@
         <menu>
             <item
                 android:id="@+id/nav_postplanned"
-                android:icon="@drawable/ic_eventime"
+                android:icon="@drawable/left_menu_planned"
                 android:title="@string/posts_planned" />
             <item
                 android:id="@+id/nav_postsent"
-                android:icon="@drawable/ic_post_sent"
+                android:icon="@drawable/left_menu_sent"
                 android:title="@string/posts_sent" />
         </menu>
     </item>
@@ -36,15 +36,15 @@
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
+                android:icon="@drawable/left_menu_settings"
                 android:title="@string/other_settings" />
             <item
                 android:id="@+id/nav_help"
-                android:icon="@drawable/ic_help"
+                android:icon="@drawable/left_menu_help"
                 android:title="@string/other_help" />
             <item
                 android:id="@+id/nav_privacy"
-                android:icon="@drawable/ic_privacy"
+                android:icon="@drawable/left_menu_privacy"
                 android:title="@string/other_privacy" />
         </menu>
     </item>
@@ -54,15 +54,15 @@
         <menu>
             <item
                 android:id="@+id/nav_themes"
-                android:icon="@drawable/ic_themes"
+                android:icon="@drawable/left_menu_themes"
                 android:title="@string/extras_themes" />
             <item
                 android:id="@+id/nav_rate"
-                android:icon="@drawable/ic_rate"
+                android:icon="@drawable/left_menu_rate"
                 android:title="@string/extras_rate" />
             <item
                 android:id="@+id/nav_feedback"
-                android:icon="@drawable/ic_feedback"
+                android:icon="@drawable/left_menu_feedback"
                 android:title="@string/extras_feedback" />
         </menu>
     </item>
