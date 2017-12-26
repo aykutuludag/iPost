@@ -15,6 +15,10 @@
       },
       "oauth_client": [
         {
+          "client_id": "802887467777-ehc3hvbn9vo84ulcugnh1kofir7nbs48.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "802887467777-7umhch4plk5ej75e62na8b87cbp7p0vf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -29,10 +33,6 @@
             "package_name": "app.ipost",
             "certificate_hash": "4481a8c51390115f2b611ee093446afff1ee73dd"
           }
-        },
-        {
-          "client_id": "802887467777-ehc3hvbn9vo84ulcugnh1kofir7nbs48.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [

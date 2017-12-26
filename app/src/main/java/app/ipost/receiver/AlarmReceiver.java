@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -148,6 +149,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void sendMessenger(Context context) {
-
+        Uri uri = Uri.parse("fb-messenger://user/");
+        uri = ContentUris.withAppendedId(uri, Long.parseLong(receiverPhone));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
     }
 }

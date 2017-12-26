@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:text="Permission: Contacts"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

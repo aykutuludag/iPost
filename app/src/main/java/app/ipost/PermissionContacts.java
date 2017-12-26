@@ -176,7 +176,7 @@ public class PermissionContacts extends Fragment {
 
         String[] projection = new String[]{ContactsContract.RawContacts._ID};
         String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.facebook.katana"};
+        String[] selectionArgs = new String[]{contactID, "com.facebook.orca"};
         Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
         if (cursor != null) {
             hasMessenger = cursor.moveToNext();
