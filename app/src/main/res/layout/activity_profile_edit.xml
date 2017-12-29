@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.isend.ProfileEditActivity">
+    tools:context="app.ipost.ProfileEditActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -68,7 +68,8 @@
             android:layout_below="@+id/post_name"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:enabled="false"
+            android:enabled="true"
+            android:focusableInTouchMode="false"
             android:gravity="bottom"
             android:hint="Aykut Uludağ"
             android:inputType="textPersonName"

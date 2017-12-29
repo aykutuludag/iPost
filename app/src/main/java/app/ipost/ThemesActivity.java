@@ -137,7 +137,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
         expandableLayout4.collapse();
     }
 
-    private void InAppBilling() {
+    public void InAppBilling() {
         mServiceConn = new ServiceConnection() {
             @Override
             public void onServiceDisconnected(ComponentName name) {
@@ -177,7 +177,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
                     prefs.edit().putBoolean("Green", false).apply();
                 }
 
-                if (ownedSkus.contains("Orange")) {
+                if (ownedSkus.contains("orange")) {
                     prefs.edit().putBoolean("Orange", true).apply();
                 } else {
                     prefs.edit().putBoolean("Orange", false).apply();
@@ -218,7 +218,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.turuncu_buy:
                 if (hasOrange) {
                     prefs.edit().putString("DefaultTheme", "Orange").apply();
-                    Toast.makeText(ThemesActivity.this, "New theme: ORANGE. All things setting up and will be ready soon!",
+                    Toast.makeText(ThemesActivity.this, "New theme: BROWN. All things setting up and will be ready soon!",
                             Toast.LENGTH_LONG).show();
                     Intent i5 = getBaseContext().getPackageManager()
                             .getLaunchIntentForPackage(getBaseContext().getPackageName());
@@ -305,7 +305,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1001) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "New theme: ORANGE. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: BROWN. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Orange", true).apply();
@@ -345,7 +345,7 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
 
         if (requestCode == 1003) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(ThemesActivity.this, "New theme: RED. All things setting up and will be ready soon!",
+                Toast.makeText(ThemesActivity.this, "New theme: GREEN. All things setting up and will be ready soon!",
                         Toast.LENGTH_LONG).show();
 
                 prefs.edit().putBoolean("Green", true).apply();

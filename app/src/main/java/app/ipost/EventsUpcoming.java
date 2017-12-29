@@ -106,7 +106,7 @@ public class EventsUpcoming extends Fragment {
                 mainBackground.setBackgroundResource(R.drawable.background_turuncu);
                 Picasso.with(getActivity()).load(photo).error(R.drawable.turuncuprofil).placeholder(R.drawable.turuncuprofil)
                         .into(profilePic);
-                profilePic.setBorderColor(Color.parseColor("#C47229"));
+                profilePic.setBorderColor(Color.parseColor("#795548"));
                 break;
             case "Purple":
                 mainBackground.setBackgroundResource(R.drawable.background_mor);

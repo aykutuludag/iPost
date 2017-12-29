@@ -131,8 +131,8 @@ public class ProfileActivity extends AppCompatActivity {
                 header.setBackgroundColor(Color.parseColor("#4CAF50"));
                 break;
             case "Orange":
-                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
-                header.setBackgroundColor(Color.parseColor("#FF9800"));
+                coloredBars(Color.parseColor("#5D4037"), Color.parseColor("#795548"));
+                header.setBackgroundColor(Color.parseColor("#795548"));
                 break;
             case "Purple":
                 coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));

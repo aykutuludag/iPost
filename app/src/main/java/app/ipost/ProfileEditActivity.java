@@ -83,15 +83,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         editLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =
-                        null;
                 try {
-                    intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(ProfileEditActivity.this);
-                } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(ProfileEditActivity.this);
+                    startActivityForResult(intent, 1320);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
                     e.printStackTrace();
                 }
-                startActivityForResult(intent, 1320);
             }
         });
 

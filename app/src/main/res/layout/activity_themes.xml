@@ -85,11 +85,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/expandableLayout1"
-        android:background="#C47229"
+        android:background="#795548"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:onClick="expandableButton2"
         android:paddingRight="10dp"
-        android:text="Theme: Orange"
+        android:text="Theme: BROWN"
         android:textColor="#fff" />
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -112,7 +112,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:src="@drawable/turuncuprofil"
-            app:civ_border_color="#C87527"
+            app:civ_border_color="#795548"
             app:civ_border_width="2dp" />
 
         <TextView

@@ -30,11 +30,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (SingleEvent.isEventEditing) {
+            ContactAdapter.ViewHolder holder = (ContactAdapter.ViewHolder) view.getTag();
+            int position = holder.getAdapterPosition();
+            String contactID = feedItemList.get(position).getID();
 
-                ContactAdapter.ViewHolder holder = (ContactAdapter.ViewHolder) view.getTag();
-                int position = holder.getAdapterPosition();
-                String contactID = feedItemList.get(position).getID();
+            if (SingleEvent.isEventEditing) {
                 //Receiver name
                 SingleEvent.receiverName = feedItemList.get(position).getName();
 
@@ -58,10 +58,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 ((SingleEvent) mContext).updateUI();
                 ((SingleEvent) mContext).expandableButton3(view);
             } else {
-                ContactAdapter.ViewHolder holder = (ContactAdapter.ViewHolder) view.getTag();
-                int position = holder.getAdapterPosition();
-                ContactItem feedItem = feedItemList.get(position);
-                String contactID = feedItem.getID();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactID);
                 intent.setData(uri);
@@ -108,7 +104,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 viewHolder.background.setBackgroundColor(Color.parseColor("#5EB546"));
                 break;
             case "Orange":
-                viewHolder.background.setBackgroundColor(Color.parseColor("#80472A"));
+                viewHolder.background.setBackgroundColor(Color.parseColor("#795548"));
                 break;
             case "Purple":
                 viewHolder.background.setBackgroundColor(Color.parseColor("#855BA5"));

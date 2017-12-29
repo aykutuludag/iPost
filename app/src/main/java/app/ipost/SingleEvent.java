@@ -188,10 +188,10 @@ public class SingleEvent extends AppCompatActivity {
                 expandableButton3.setBackgroundColor(Color.parseColor("#4CAF50"));
                 break;
             case "Orange":
-                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
-                expandableButton1.setBackgroundColor(Color.parseColor("#FF9800"));
-                expandableButton2.setBackgroundColor(Color.parseColor("#FF9800"));
-                expandableButton3.setBackgroundColor(Color.parseColor("#FF9800"));
+                coloredBars(Color.parseColor("#5D4037"), Color.parseColor("#795548"));
+                expandableButton1.setBackgroundColor(Color.parseColor("#795548"));
+                expandableButton2.setBackgroundColor(Color.parseColor("#795548"));
+                expandableButton3.setBackgroundColor(Color.parseColor("#795548"));
                 break;
             case "Purple":
                 coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));
@@ -357,8 +357,6 @@ public class SingleEvent extends AppCompatActivity {
         // The number of Columns
         GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        System.out.println(feedsList);
     }
 
     public void getPostInfo() {

@@ -48,13 +48,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+
         ID = prefs.getString("GoogleAccountID", "");
-        name = prefs.getString("Name", "-");
-        email = prefs.getString("Email", "-");
+        name = prefs.getString("Name", "");
+        email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
         gender = prefs.getString("Gender", "Other");
-        birthday = prefs.getString("Birthday", "-");
-        location = prefs.getString("Location", "-");
+        birthday = prefs.getString("Birthday", "");
+        location = prefs.getString("Location", "");
         currentTheme = prefs.getString("DefaultTheme", "Black");
 
         // Initializing Toolbar and setting it as the actionbar
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity
                 coloredBars(Color.parseColor("#388E3C"), Color.parseColor("#4CAF50"));
                 break;
             case "Orange":
-                coloredBars(Color.parseColor("#F57C00"), Color.parseColor("#FF9800"));
+                coloredBars(Color.parseColor("#5D4037"), Color.parseColor("#795548"));
                 break;
             case "Purple":
                 coloredBars(Color.parseColor("#7B1FA2"), Color.parseColor("#9C27B0"));
@@ -99,6 +100,15 @@ public class MainActivity extends AppCompatActivity
 
         //NavigationView
         navigationView = findViewById(R.id.nav_view);
+        View headerView = getLayoutInflater().inflate(R.layout.nav_header_main, navigationView, false);
+        navigationView.addHeaderView(headerView);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "iPost v1.0", Toast.LENGTH_LONG).show();
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
@@ -118,24 +128,28 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         switch (item.getItemId()) {
             case R.id.nav_eventupcoming:
+                item.setChecked(true);
                 fragment = new EventsUpcoming();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
                 navigationView.setCheckedItem(R.id.nav_eventupcoming);
                 toolbar.setTitle(R.string.events_upcoming);
                 break;
             case R.id.nav_eventpast:
+                item.setChecked(true);
                 fragment = new EventsPast();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Past").commit();
                 navigationView.setCheckedItem(R.id.nav_eventpast);
                 toolbar.setTitle(R.string.events_past);
                 break;
             case R.id.nav_postplanned:
+                item.setChecked(true);
                 fragment = new PostPlanned();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Planned").commit();
                 navigationView.setCheckedItem(R.id.nav_postplanned);
                 toolbar.setTitle(R.string.posts_planned);
                 break;
             case R.id.nav_postsent:
+                item.setChecked(true);
                 fragment = new PostSent();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Sent").commit();
                 navigationView.setCheckedItem(R.id.nav_postsent);
@@ -167,13 +181,13 @@ public class MainActivity extends AppCompatActivity
                 builder2.enableUrlBarHiding();
                 builder2.setShowTitle(true);
                 builder2.setToolbarColor(Color.parseColor("#212121"));
-                customTabsIntent2.launchUrl(MainActivity.this, Uri.parse("market://details?id=app.isend"));
+                customTabsIntent2.launchUrl(MainActivity.this, Uri.parse("market://details?id=app.ipost"));
                 break;
             case R.id.nav_feedback:
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@themorngroup.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "iSend Feedback");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "iPost Feedback");
                 startActivity(Intent.createChooser(intent, "Email via..."));
                 break;
         }
