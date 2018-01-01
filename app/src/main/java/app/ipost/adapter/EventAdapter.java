@@ -67,6 +67,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         // Setting location
         if (feedItem.getLocation() != null && !feedItem.getLocation().isEmpty()) {
             viewHolder.location.setText(feedItem.getLocation());
+            viewHolder.placeIndicator.setVisibility(View.VISIBLE);
         } else {
             viewHolder.placeIndicator.setVisibility(View.INVISIBLE);
         }

@@ -116,7 +116,7 @@
         <!-- GoogleLocationServices -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAl87N36K6SkKdlnL-rasSM__HMSw18RIc" />
+            android:value="AIzaSyD8E2jGsHfq_B7FzAFhmPZSR1ex9AYCeHw" />
     </application>
 
 </manifest>

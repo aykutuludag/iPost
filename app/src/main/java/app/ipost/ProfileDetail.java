@@ -1,14 +1,15 @@
 package app.ipost;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.CheckedTextView;
 
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -16,8 +17,10 @@ public class ProfileDetail extends Fragment {
 
     Tracker t;
     SharedPreferences prefs;
-    boolean isCalendarSync, isContactSync;
-    TextView calendarStatus, contactsStatus;
+    Button deleteEvents, deleteContacts;
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3;
+    CheckedTextView facebook, google;
+    Button expButton1, expButton2, expButton3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,25 +33,91 @@ public class ProfileDetail extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
-        calendarStatus = v.findViewById(R.id.calendar_status);
-        contactsStatus = v.findViewById(R.id.contacts_status);
+        expandableLayout1 = v.findViewById(R.id.expandableLayout1);
+        expandableLayout2 = v.findViewById(R.id.expandableLayout2);
+        expandableLayout3 = v.findViewById(R.id.expandableLayout3);
 
-        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        isCalendarSync = prefs.getBoolean("isCalendarSync", false);
-        isContactSync = prefs.getBoolean("isContactSync", false);
+        expButton1 = v.findViewById(R.id.expandableButton1);
+        expButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandableButton1(view);
+            }
+        });
 
-        if (isCalendarSync) {
-            calendarStatus.setText("Sync");
+        expButton2 = v.findViewById(R.id.expandableButton2);
+        expButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandableButton2(view);
+            }
+        });
+
+        expButton3 = v.findViewById(R.id.expandableButton3);
+        expButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandableButton3(view);
+            }
+        });
+
+        deleteEvents = v.findViewById(R.id.sync_event);
+        deleteEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resyncEvents();
+            }
+        });
+
+        deleteContacts = v.findViewById(R.id.sync_contact);
+        deleteContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resyncContacts();
+            }
+        });
+
+        facebook = v.findViewById(R.id.facebookLogged);
+        if (MainActivity.fID != null && !MainActivity.fID.isEmpty()) {
+            facebook.setChecked(true);
         } else {
-            calendarStatus.setText("Not sync");
+            facebook.setChecked(false);
         }
 
-        if (isContactSync) {
-            contactsStatus.setText("Sync");
+        google = v.findViewById(R.id.googleLogged);
+        if (MainActivity.ID != null && !MainActivity.ID.isEmpty()) {
+            google.setChecked(true);
         } else {
-            contactsStatus.setText("Not sync");
+            google.setChecked(false);
         }
 
         return v;
     }
+
+    public void resyncEvents() {
+
+    }
+
+    public void resyncContacts() {
+
+    }
+
+    public void expandableButton1(View view) {
+        expandableLayout1.toggle(); // toggle expand and collapse
+        expandableLayout2.collapse();
+        expandableLayout3.collapse();
+    }
+
+    public void expandableButton2(View view) {
+        expandableLayout2.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout3.collapse();
+    }
+
+    public void expandableButton3(View view) {
+        expandableLayout3.toggle(); // toggle expand and collapse
+        expandableLayout1.collapse();
+        expandableLayout2.collapse();
+    }
+
 }

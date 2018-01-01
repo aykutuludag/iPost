@@ -35,6 +35,8 @@ public class PermissionMessenger extends Fragment {
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
 
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+
         callbackManager = CallbackManager.Factory.create();
         loginButton = v.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -43,6 +45,7 @@ public class PermissionMessenger extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 PermissionsActivity.isMessenger = true;
+                prefs.edit().putString("FacebookAccountID", loginResult.getAccessToken().getUserId()).apply();
             }
 
             @Override
@@ -55,8 +58,6 @@ public class PermissionMessenger extends Fragment {
                 PermissionsActivity.isMessenger = false;
             }
         });
-
-        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         return v;
     }

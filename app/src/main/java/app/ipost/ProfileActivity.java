@@ -21,6 +21,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import static app.ipost.MainActivity.birthday;
+import static app.ipost.MainActivity.email;
+import static app.ipost.MainActivity.gender;
+import static app.ipost.MainActivity.location;
+import static app.ipost.MainActivity.name;
+import static app.ipost.MainActivity.photo;
+
 public class ProfileActivity extends AppCompatActivity {
 
     FrameLayout frame;
@@ -29,7 +36,6 @@ public class ProfileActivity extends AppCompatActivity {
     SharedPreferences prefs;
     Toolbar toolbar;
     Window window;
-    String name, email, photo, gender, birthday, location;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,12 +69,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-        name = prefs.getString("Name", "-");
-        email = prefs.getString("Email", "-");
-        photo = prefs.getString("ProfilePhoto", "");
-        gender = prefs.getString("Gender", "Other");
-        birthday = prefs.getString("Birthday", "-");
-        location = prefs.getString("Location", "-");
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = findViewById(R.id.toolbar);

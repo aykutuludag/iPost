@@ -44,7 +44,7 @@
             android:layout_below="@+id/expandableButton1"
             android:padding="16dp"
             app:ael_duration="400"
-            app:ael_expanded="false"
+            app:ael_expanded="true"
             app:ael_interpolator="bounce"
             app:ael_orientation="vertical">
 
@@ -80,7 +80,6 @@
                 android:layout_marginTop="8dp"
                 android:hint="Olivia Dunham's Birthday"
                 android:inputType="textShortMessage"
-                android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
@@ -120,9 +119,6 @@
                 android:layout_marginTop="8dp"
                 android:hint="Description about event"
                 android:inputType="textLongMessage"
-                android:paddingBottom="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
@@ -189,7 +185,7 @@
 
             <EditText
                 android:id="@+id/editTextStartTime"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/indicator_date"
                 android:layout_alignStart="@+id/indicator_date"
@@ -200,31 +196,6 @@
                 android:hint="2 May 2017 16:00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <TextView
-                android:id="@+id/timeseperator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/editTextStartTime"
-                android:layout_alignTop="@+id/editTextStartTime"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_toEndOf="@+id/editTextStartTime"
-                android:layout_toRightOf="@+id/editTextStartTime"
-                android:gravity="center"
-                android:text="-"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-            <EditText
-                android:id="@+id/editTextEndTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/timeseperator"
-                android:layout_alignTop="@+id/timeseperator"
-                android:layout_toRightOf="@+id/timeseperator"
-                android:enabled="true"
-                android:focusableInTouchMode="false"
-                android:hint="2 May 2017 17:00"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 
@@ -353,7 +324,7 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton4"
                 android:paddingRight="10dp"
-                android:text="SMS"
+                android:text="sms"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -387,7 +358,7 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton5"
                 android:paddingRight="10dp"
-                android:text="E-mail"
+                android:text="email"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -456,7 +427,7 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton6"
                 android:paddingRight="10dp"
-                android:text="Messenger"
+                android:text="messenger"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -513,7 +484,7 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton7"
                 android:paddingRight="10dp"
-                android:text="Whatsapp"
+                android:text="whatsapp"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout

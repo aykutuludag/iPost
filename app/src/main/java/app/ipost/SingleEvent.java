@@ -75,8 +75,8 @@ public class SingleEvent extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String userChoice;
     //Event settings
-    TextView title, description, location, timeStart, timeEnd;
-    long startTime, endTime;
+    TextView title, description, location, timeStart;
+    long startTime;
     String eventName, eventDescription, eventLocation, eventOwner;
     //tablePost
     int isDelivered;
@@ -105,21 +105,6 @@ public class SingleEvent extends AppCompatActivity {
 
         }
     };
-    //Listener for endTime
-    SlideDateTimeListener listener2 = new SlideDateTimeListener() {
-
-        @Override
-        public void onDateTimeSet(Date date) {
-            timeEnd.setText(mFormatter.format(date));
-            endTime = date.getTime();
-        }
-
-        // Optional cancel listener
-        @Override
-        public void onDateTimeCancel() {
-
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +120,7 @@ public class SingleEvent extends AppCompatActivity {
 
         //ColoredBars
         window = this.getWindow();
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
         editor = prefs.edit();
@@ -142,7 +128,6 @@ public class SingleEvent extends AppCompatActivity {
         if (eventID == 0) {
             newEvent = true;
             startTime = System.currentTimeMillis() + 60000 * 5;
-            endTime = System.currentTimeMillis() + 60000 * 65;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
             if (cur0 != null) {
@@ -276,10 +261,11 @@ public class SingleEvent extends AppCompatActivity {
                         startTime = cur.getLong(i);
                         break;
                     case 4:
-                        endTime = cur.getLong(i);
+                        //EndTime
                         break;
                     case 5:
                         eventLocation = cur.getString(i);
+                        System.out.println("Mekan: " + eventLocation);
                         break;
                     case 6:
                         eventOwner = cur.getString(i);
@@ -490,20 +476,6 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
-        timeEnd = findViewById(R.id.editTextEndTime);
-        timeEnd.setText(getDate(endTime));
-        timeEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(listener2)
-                        .setIs24HourTime(true)
-                        .setInitialDate(new Date((endTime)))
-                        .build()
-                        .show();
-            }
-        });
-
         //Choose user and create post options based on user
         smsContentHolder = findViewById(R.id.sms_content);
         mailTitleHolder = findViewById(R.id.mail_title);
@@ -528,7 +500,6 @@ public class SingleEvent extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                getContactInfo(s);
                 return false;
             }
         });
@@ -814,7 +785,7 @@ public class SingleEvent extends AppCompatActivity {
         values.put("title", eventName);
         values.put("description", eventDescription);
         values.put("sTime", startTime);
-        values.put("eTime", endTime);
+        values.put("eTime", 0);
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);
@@ -866,7 +837,7 @@ public class SingleEvent extends AppCompatActivity {
         values.put("title", eventName);
         values.put("description", eventDescription);
         values.put("sTime", startTime);
-        values.put("eTime", endTime);
+        values.put("eTime", 0);
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);

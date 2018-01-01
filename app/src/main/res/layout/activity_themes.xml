@@ -54,7 +54,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/siyah_email"
+            android:id="@+id/events_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/siyah_name"
@@ -69,7 +69,7 @@
             android:id="@+id/siyah_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/siyah_email"
+            android:layout_below="@+id/events_text"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
@@ -129,7 +129,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/turuncu_email"
+            android:id="@+id/contacts_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/turuncu_name"
@@ -144,11 +144,11 @@
             android:id="@+id/turuncu_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/turuncu_email"
+            android:layout_below="@+id/contacts_text"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
-            android:background="#C47229"
+            android:background="#795548"
             android:text="0.99 $"
             android:textColor="#fff" />
 
@@ -205,7 +205,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/mor_email"
+            android:id="@+id/accounts_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mor_name"
@@ -220,7 +220,7 @@
             android:id="@+id/mor_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mor_email"
+            android:layout_below="@+id/accounts_text"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"

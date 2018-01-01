@@ -1,102 +1,174 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.isend.ProfileDetail">
+    tools:context=".ProfileDetail">
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/expandableButton1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:text="Calendar"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/expandableButton1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
 
         <TextView
-            android:id="@+id/calendar_title"
+            android:id="@+id/events_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Calendar  : "
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:id="@+id/calendar_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/calendar_title"
-            android:layout_alignTop="@+id/calendar_title"
-            android:layout_marginLeft="8dp"
-            android:layout_toEndOf="@+id/calendar_title"
-            android:layout_toRightOf="@+id/calendar_title"
+            android:layout_below="@+id/siyah_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
             android:gravity="center"
-            android:text="Sync"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="If you want to remove all events in iPost and retrieve them again, clcik the button below"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/calendar_desc"
+        <Button
+            android:id="@+id/sync_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/calendar_title"
-            android:layout_margin="16dp"
-            android:text="iSend retrieves your events every hour to determine new events and import them.\n\nLast update: January 5, 2017 16:00" />
+            android:layout_below="@+id/events_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            android:background="#000"
+            android:padding="5dp"
+            android:text="Resync events"
+            android:textColor="#fff" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/expandableLayout1"
+        android:background="#212121"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:text="Contacts"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableButton2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
 
         <TextView
-            android:id="@+id/contacts_title"
+            android:id="@+id/contacts_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/calendar_desc"
-            android:layout_alignStart="@+id/calendar_desc"
-            android:layout_below="@+id/calendar_desc"
-            android:layout_marginTop="8dp"
-            android:text="Contacts : "
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:id="@+id/contacts_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/contacts_title"
-            android:layout_alignLeft="@+id/calendar_status"
-            android:layout_alignStart="@+id/calendar_status"
-            android:layout_alignTop="@+id/contacts_title"
+            android:layout_below="@+id/turuncu_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
             android:gravity="center"
-            android:text="Sync"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="If you want to remove all contacts in iPost and retrieve them again, click the button below"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/contacts_desc"
+        <Button
+            android:id="@+id/sync_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/contacts_status"
-            android:layout_margin="16dp"
-            android:text="iSend retrieves your contacts every 3 hours to determine new persons or changing info and import them.\n\nLast update: January 5, 2017 06:00" />
+            android:layout_below="@+id/contacts_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            android:background="#000"
+            android:padding="5dp"
+            android:text="Resync contacts"
+            android:textColor="#fff" />
+
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/expandableLayout2"
+        android:background="#212121"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:text="Accounts"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableButton3"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
 
         <TextView
-            android:id="@+id/accounts_title"
+            android:id="@+id/accounts_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/account_desc"
-            android:layout_alignStart="@+id/account_desc"
-            android:layout_below="@+id/contacts_desc"
+            android:layout_below="@+id/mor_name"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="You can see status of connected accounts here. You can change them on 'Connected accounts'."
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#000" />
+
+        <CheckedTextView
+            android:id="@+id/facebookLogged"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/accounts_text"
+            android:layout_alignStart="@+id/accounts_text"
+            android:layout_below="@+id/accounts_text"
             android:layout_marginTop="8dp"
-            android:text="Accounts"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="Facebook: " />
 
-        <TextView
-            android:id="@+id/account_desc"
+        <CheckedTextView
+            android:id="@+id/googleLogged"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/accounts_title"
-            android:layout_margin="16dp"
-            android:text="You can connect some calendar services such as Google Calendar, iCalendar etc. to iSend in connected accounts section." />
+            android:layout_alignLeft="@+id/facebookLogged"
+            android:layout_alignStart="@+id/facebookLogged"
+            android:layout_below="@+id/facebookLogged"
+            android:layout_marginTop="8dp"
+            android:checkMark="@android:drawable/checkbox_on_background"
+            android:text="Google:      " />
 
-    </RelativeLayout>
 
-</ScrollView>
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+</RelativeLayout>

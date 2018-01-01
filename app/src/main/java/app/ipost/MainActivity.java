@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
 
     public static String currentTheme;
     static String ID;
+    static String fID;
     static String name;
     static String email;
     static String photo;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         ID = prefs.getString("GoogleAccountID", "");
+        fID = prefs.getString("FacebookAccountID", "");
         name = prefs.getString("Name", "");
         email = prefs.getString("Email", "");
         photo = prefs.getString("ProfilePhoto", "");
@@ -98,8 +100,10 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //NavigationView
+        //Initializing NavigationView
         navigationView = findViewById(R.id.nav_view);
+
+        //Add Navigation header and its ClickListener
         View headerView = getLayoutInflater().inflate(R.layout.nav_header_main, navigationView, false);
         navigationView.addHeaderView(headerView);
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +112,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "iPost v1.0", Toast.LENGTH_LONG).show();
             }
         });
-
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
