@@ -35,10 +35,6 @@
     <item android:title="@string/other">
         <menu>
             <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/left_menu_settings"
-                android:title="@string/other_settings" />
-            <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/left_menu_help"
                 android:title="@string/other_help" />

@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.wafflecopter.multicontactpicker.ContactResult;
+import com.wafflecopter.multicontactpicker.MultiContactPicker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +61,7 @@ public class SingleEvent extends AppCompatActivity {
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final int REQUEST_EXTERNAL_STORAGE = 2;
+    public static final int CONTACT_PICKER_REQUEST = 3;
     //tableEvent
     public static int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
     public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
@@ -115,6 +119,7 @@ public class SingleEvent extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.single_activity_edit_event);
 
         isEventEditing = true;
 
@@ -127,6 +132,7 @@ public class SingleEvent extends AppCompatActivity {
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
         if (eventID == 0) {
             newEvent = true;
+            getSupportActionBar().setTitle(R.string.single_activity_add_event);
             startTime = System.currentTimeMillis() + 60000 * 5;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
@@ -288,9 +294,6 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
             cur.close();
-        } else {
-            Toast.makeText(SingleEvent.this, "You are creating a new event!", Toast.LENGTH_LONG).show();
-            getSupportActionBar().setTitle("New event");
         }
     }
 
@@ -490,7 +493,15 @@ public class SingleEvent extends AppCompatActivity {
         whatsappFileHolder = findViewById(R.id.whatsapp_filename);
 
         SearchView search = findViewById(R.id.search_recipient);
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        search.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new MultiContactPicker.Builder(SingleEvent.this)
+                        .showPickerForResult(CONTACT_PICKER_REQUEST);
+            }
+        });
+
+        /*search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -502,7 +513,7 @@ public class SingleEvent extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 return false;
             }
-        });
+        });*/
 
         //CREATE UI BASED ON VALUES
         if (isSMS == 0) {
@@ -950,7 +961,6 @@ public class SingleEvent extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
@@ -1002,6 +1012,21 @@ public class SingleEvent extends AppCompatActivity {
                     whatsappFileHolder.setText(whatsappAttachment);
                     whatsappIsChoosing = false;
                 }
+            }
+        }
+
+        if (requestCode == CONTACT_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                List<ContactResult> results = MultiContactPicker.obtainResult(data);
+                for (int i = 0; i < results.size(); i++) {
+                    Log.d("MyTag", results.get(i).getDisplayName());
+                    Log.d("MyTag", String.valueOf(results.get(i).getPhoto()));
+                    Log.d("MyTag", String.valueOf(results.get(i).getEmails()));
+                    Log.d("MyTag", String.valueOf(results.get(i).getPhoneNumbers()));
+                    Log.d("MyTag", String.valueOf(results.get(i).getThumbnail()));
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                System.out.println("User closed the picker without selecting items.");
             }
         }
     }

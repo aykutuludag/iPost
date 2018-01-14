@@ -82,15 +82,18 @@ public class SignInActivity extends AppCompatActivity implements
 
             Calendar rightNow = Calendar.getInstance();
             int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-            System.out.println("hour is:" + hour);
             if (hour < 6) {
-                welcomeText.setText("Good nights " + name);
+                String welcome = getString(R.string.good_nights) + " " + name;
+                welcomeText.setText(welcome);
             } else if (hour < 12) {
-                welcomeText.setText("Good morning " + name);
+                String welcome = getString(R.string.good_morning) + " " + name;
+                welcomeText.setText(welcome);
             } else if (hour < 18) {
-                welcomeText.setText("Have a nice day " + name);
+                String welcome = getString(R.string.have_a_nice_day) + " " + name;
+                welcomeText.setText(welcome);
             } else {
-                welcomeText.setText("Good afternoon " + name);
+                String welcome = getString(R.string.good_afternoon) + " " + name;
+                welcomeText.setText(welcome);
             }
 
             new Handler().postDelayed(new Runnable() {
@@ -130,9 +133,8 @@ public class SignInActivity extends AppCompatActivity implements
 
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .enableAutoManage(this, this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .addApi(Plus.API)
-                    //  .addApi(Gmail)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
         }
     }

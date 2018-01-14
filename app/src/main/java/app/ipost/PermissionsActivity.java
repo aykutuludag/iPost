@@ -58,20 +58,13 @@ public class PermissionsActivity extends AppCompatActivity {
             transaction.commit();
         } else if (ContextCompat.checkSelfPermission(PermissionsActivity.this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new PermissionMessenger());
+            transaction.replace(R.id.content, new PermissionSMS());
             transaction.commit();
         } else if (AccessToken.getCurrentAccessToken() == null) {
-            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i = new Intent(PermissionsActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }, 1250);
+            transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, new PermissionMessenger());
+            transaction.commit();
         } else {
-            Toast.makeText(PermissionsActivity.this, "SMS permission granted. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -119,6 +112,7 @@ public class PermissionsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         if (isCalendar) {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content);
             ((PermissionCalendar) fragment).getEvents();
@@ -147,7 +141,6 @@ public class PermissionsActivity extends AppCompatActivity {
         }
 
         if (isMessenger) {
-            Toast.makeText(PermissionsActivity.this, "Permission stage completed. Moving on...", Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

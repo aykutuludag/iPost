@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/permission_calendar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/izin1">
 
-    <RelativeLayout
-        android:id="@+id/permission_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/izin1">
+    <TextView
+        android:id="@+id/permission_calendar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/permission_calendar_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/permission_sms_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="Permission: Calendar"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/permission_calendar_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/permission_calendar_title"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/permission_calendar_desc"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <TextView
-            android:id="@+id/permission_sms_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/permission_sms_title"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="iPost needs calendar permission to show, update, delete and schedule events for replying.\n\nAll events saved on only this device so you can be sure that no one see your informations."
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    <Button
+        android:id="@+id/permission_calendar_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="#181818"
+        android:text="@string/permission_auth"
+        android:textColor="#fff" />
 
-        <Button
-            android:id="@+id/permission_calendar_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"
-            android:background="#181818"
-            android:text="Authorize"
-            android:textColor="#fff" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

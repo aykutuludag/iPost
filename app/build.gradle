@@ -5,7 +5,7 @@ android {
     buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "app.ipost"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 17
         versionName "1.0"
@@ -36,15 +36,10 @@ dependencies {
     compile 'com.github.aakira:expandable-layout:1.6.0'
     compile 'com.droidninja:filepicker:2.1.1'
     compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.google.apis:google-api-services-gmail:v1-rev76-1.23.0'
+    compile 'com.sun.mail:android-mail:1.5.5'
+    compile 'com.sun.mail:android-activation:1.5.5'
+    compile 'com.github.broakenmedia:MultiContactPicker:1.6'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    /*compile 'com.google.android.gms:play-services-auth:11.6.2'
-    compile 'pub.devrel:easypermissions:0.3.0'
-    compile('com.google.api-client:google-api-client-android:1.23.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    compile('com.google.apis:google-api-services-event_edit_gmailbar:v1-rev76-1.23.0') {
-        exclude group: 'org.apache.httpcomponents'
-}*/
 }
 apply plugin: 'com.google.gms.google-services'

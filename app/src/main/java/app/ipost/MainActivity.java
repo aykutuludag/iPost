@@ -158,10 +158,6 @@ public class MainActivity extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.nav_postsent);
                 toolbar.setTitle(R.string.posts_sent);
                 break;
-            case R.id.nav_settings:
-                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(i);
-                break;
             case R.id.nav_help:
                 Intent i2 = new Intent(MainActivity.this, HelpActivity.class);
                 startActivity(i2);

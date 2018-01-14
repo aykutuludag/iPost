@@ -44,67 +44,8 @@
     <string name="title_home">Profile</string>
     <string name="title_dashboard">Connected accounts</string>
     <string name="title_notifications">Friends</string>
-    <string name="permission_calendar_granted">Permission has been granted. Device\'s calendar is now synchronising&#8230;</string>
-    <string name="permission_calendar_revoked">Synchronise cancelled. Your calendar events will be removed from iSend&#8230;</string>
-    <string name="contact_sync_now">Synchronize now!</string>
-    <string name="contact_sync_completed">Synchronise completed. Your contacts synchronised&#8230;</string>
-    <string name="account_synchronized">Synchronized</string>
-    <string name="account_not_synchronized">Not synchronized</string>
-    <string name="profile_friends">To use automatic matching events and contact list, you may want to synchronise your contact list with iSend</string>
-
-    <!-- Settings -->
-    <string name="title_activity_settings">Settings</string>
-    <string name="pref_header_general">General</string>
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact based on your message history</string>
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="multi_select_list_preference_default_value" />
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-    <string name="pref_header_notifications">Notifications</string>
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="permission_granted">Permission has been granted&#8230;</string>
+    <string name="permission_revoked">Synchronise cancelled&#8230;</string>
 
     <!-- PermissionsActivity -->
     <string name="title_activity_permissions">Permissions</string>
@@ -118,4 +59,31 @@
     <string name="single_activity_add_event">Add an event</string>
     <string name="save">Save</string>
     <string name="title_activity_themes">Themes</string>
+    <string name="firstTime1">iPost is a personal assistant which replies your events for you! You can plan new event and responses to save your time.</string>
+    <string name="firstTime2">To get started, please sign-in with your Google account.</string>
+
+    <string name="good_nights">Good nights </string>
+    <string name="good_morning">Good morning </string>
+    <string name="have_a_nice_day">Have a nice day </string>
+    <string name="good_afternoon">Good afternoon </string>
+    <string name="welcome">WELCOME</string>
+    <string name="permission_calendar_title">Permission: Calendar</string>
+    <string name="permission_calendar_desc">iPost needs calendar permission to show, update, delete and schedule events for replying.\\n\\nAll events saved on only this device so you can be sure that no one see your informations.</string>
+    <string name="permission_auth">Authorize</string>
+    <string name="permission_contacts_title">Permission: Contacts</string>
+    <string name="permission_contacts_desc">iPost needs to be synchroized with your contacts to create events or schedule post friends or collegues etc.\\n\\nYour information only saved on device so accept you no one can access your data.</string>
+    <string name="permission_sms_title">Permission: SMS</string>
+    <string name="permission_sms_desc">iPost is personal planner. You can reply events via E-mail, Whastapp, Facebook Messenger or SMS. iSend needs SMS permission for any future usage of SMS channel to reply events.</string>
+    <string name="permission_messenger_title">Permission: Messenger</string>
+    <string name="permission_messenger_desc">iPost needs to be authorized with Messenger to create messenger posts.\\n\\nWe will not collect any data from your Facebook account.</string>
+    <string name="single_event_section1">Event Information</string>
+    <string name="single_event_name">Event name</string>
+    <string name="single_event_desc">Description</string>
+    <string name="single_event_loc">Location</string>
+    <string name="single_event_time"><![CDATA[Date &amp; Time]]></string>
+    <string name="single_event_section2">Recipient</string>
+    <string name="single_event_recipients">Recipients</string>
+    <string name="single_event_section3">Post Information</string>
+    <string name="single_event_channels">Post channels</string>
+    <string name="single_event_add_attachment">Add file</string>
 </resources>

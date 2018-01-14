@@ -31,7 +31,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="iPost is a personal assistant which replies your events for you! You can plan new event and responses to save your time"
+            android:text="@string/firstTime1"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="To get started, please sign-in with your Google account."
+            android:text="@string/firstTime2"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
         <com.google.android.gms.common.SignInButton
@@ -92,7 +92,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="WELCOME"
+            android:text="@string/welcome"
             android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
         <TextView

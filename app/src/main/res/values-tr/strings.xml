@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- General -->
+    <string name="app_name">iPost</string>
+    <string name="facebook_app_id">883953245105670</string>
+    <string name="fb_login_protocol_scheme">fb883953245105670</string>
+    <string name="exit">Çıkmak için tekrar dokunun</string>
+
+    <!-- ErrorTypes -->
+    <string name="error_login_no_account">Hata kodu: 001 - Hesap bilgilerinize ulaşamadık. Lütfen Google hesabınızı ve internet bağlantınızı kontrol ettikten sonra tekrar deneyiniz.&#8230;</string>
+    <string name="error_login_fail">Hata kodu: 002 - Giriş yapılırken bir hata ile karşılaşıldı. Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz.&#8230;</string>
+    <string name="error_aborted">Hata kodu: 002 - İşlem kullanıcı tarafından iptal edildi&#8230;</string>
+
+    <!-- LoginActivity -->
+    <string name="account_created">Giriş başarılı. Hesabınız oluşturuluyor lütfen bekleyiniz&#8230;</string>
+    <string name="firstTime1">iPost etkinlikleriniz için gönderiler oluşturmanızı sağlayan bir kişisel asistandır. Yeni etkinlik ve gönderiler planlayarak hem etkinlikleri kaçırmayıp hem zamandan tasarruf edebilirsiniz.</string>
+    <string name="firstTime2">Başlamak için lütfen Google hesabınla giriş yap</string>
+    <string name="welcome">HOŞGELDİNİZ</string>
+    <string name="good_nights">İyi geceler</string>
+    <string name="good_morning">İyi günler</string>
+    <string name="have_a_nice_day">Güzel bir gün geçirmen dileğiyle</string>
+    <string name="good_afternoon">İyi akşamlar</string>
+
+    <!-- PermissionsActivity-->
+    <string name="title_activity_permissions">İzinler</string>
+    <string name="permission_auth">Yetkilendir</string>
+    <string name="permission_granted">İzin verildi&#8230;</string>
+    <string name="permission_calendar_title">İzin: Takvim</string>
+    <string name="permission_calendar_desc">iPost etkinliklerinizi görme, güncelleme, silme ve gönderi oluşturmak için takvim iznine ihtiyaç duyar.\n\n Bu bilgiler sadece ve sadece cihazınızda depolanacaktır ve sizden başka kimsenin göremeyeceğinden emin olabilirsiniz.</string>
+    <string name="permission_contacts_title">İzin: Kişiler</string>
+    <string name="permission_contacts_desc">iPost arkadaşlarınızın etkinliklerine gönderi oluşturma, güncelleme ve silme işlemleri için rehber iznine ihtiyaç duyar.\n\n Bu bilgiler sadece ve sadece cihazınızda depolanacaktır ve sizden başka kimsenin göremeyeceğinden emin olabilirsiniz.</string>
+    <string name="permission_sms_title">İzin: SMS</string>
+    <string name="permission_sms_desc">iPost bir kişisel asistandır. Etkinliklerinize E-posta, Messenger, Whatsapp veya SMS kanalları aracılığıyla gönderi planlayabilirsiniz. iPost gelecekte olası kullanımına karşı SMS iznine ihtiyaç duyar.\n\n iPost siz planlamadığınız sürece kimseye SMS göndermez.</string>
+    <string name="permission_messenger_title">İzin: Messenger</string>
+    <string name="permission_messenger_desc">Messenger gönderileri oluşturmak için Messenger\'a giriş yap.\n\n Facebook hesabından çekilecek bilgiler sadece bu cihazda depolanacaktır ve senden başka kimse erişemez.</string>
+
+    <!-- NavigationDrawer -->
+    <string name="events">Etkinlikler</string>
+    <string name="events_upcoming">Yaklaşan etkinlikler</string>
+    <string name="events_past">Geçmiş etkinlikler</string>
+    <string name="posts">Gönderiler</string>
+    <string name="posts_planned">Planlandı</string>
+    <string name="posts_sent">Gönderildi</string>
+    <string name="other">Diğer</string>
+    <string name="other_help">Yardım</string>
+    <string name="other_privacy">Gizlilik</string>
+    <string name="extras">Ekstralar</string>
+    <string name="extras_rate">Uygulamayı puanla!</string>
+    <string name="extras_themes">Temalar</string>
+    <string name="extras_feedback">Geri bildirim</string>
+    <string name="navigation_drawer_open">Sol menü açıldı</string>
+    <string name="navigation_drawer_close">Sol menü kapandı</string>
+
+    <!-- ProfileActivity -->
+    <string name="title_activity_profile">Profil</string>
+    <string name="title_home">Profil</string>
+    <string name="title_dashboard">Bağlı hesaplar</string>
+    <string name="title_notifications">Arkadaşlar</string>
+    <string name="title_activity_profile_edit">Profilini düzenle</string>
+
+    <!-- HelpActivity -->
+    <string name="title_activity_help">Yardım</string>
+
+    <!-- SingleEvent-->
+    <string name="single_activity_edit_event">Etkinliği düzenle</string>
+    <string name="single_activity_add_event">Yeni etkinlik ekle</string>
+    <string name="save">Kaydet</string>
+    <string name="single_event_section1">Etkinlik bilgileri</string>
+    <string name="single_event_name">Etkinlik adı</string>
+    <string name="single_event_desc">Açıklama</string>
+    <string name="single_event_loc">Yer</string>
+    <string name="single_event_time">Gün &amp; Saat</string>
+    <string name="single_event_section2">Alıcılar</string>
+    <string name="single_event_recipients">Alıcılar</string>
+    <string name="single_event_section3">Gönderi bilgileri</string>
+    <string name="single_event_channels">Gönderi kanalları</string>
+    <string name="single_event_add_attachment">Dosya ekle</string>
+
+    <!-- ThemesActivity-->
+    <string name="title_activity_themes">Temalar</string>
+</resources>

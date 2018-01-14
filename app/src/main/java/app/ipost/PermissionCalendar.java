@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class PermissionCalendar extends Fragment {
     Button buttonCalendar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View v = inflater.inflate(R.layout.permission_calendar, container, false);
@@ -126,10 +127,7 @@ public class PermissionCalendar extends Fragment {
             cur.close();
             database_account.close();
             prefs.edit().putBoolean("isCalendarSync", true).apply();
-            Toast.makeText(getActivity(), getString(R.string.permission_calendar_granted), Toast.LENGTH_SHORT).show();
-        } else {
-            prefs.edit().putBoolean("isCalendarSync", false).apply();
-            Toast.makeText(getActivity(), getString(R.string.error_no_calendar), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -34,7 +34,7 @@
             android:drawableRight="@android:drawable/arrow_down_float"
             android:onClick="expandableButton1"
             android:paddingRight="10dp"
-            android:text="Event Information"
+            android:text="@string/single_event_section1"
             android:textColor="#fff" />
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -67,7 +67,7 @@
                 android:layout_toEndOf="@+id/indicator_eventname"
                 android:layout_toRightOf="@+id/indicator_eventname"
                 android:gravity="center"
-                android:text="Event name"
+                android:text="@string/single_event_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <EditText
@@ -104,7 +104,7 @@
                 android:layout_toEndOf="@+id/indicator_desc"
                 android:layout_toRightOf="@+id/indicator_desc"
                 android:gravity="center"
-                android:text="Description"
+                android:text="@string/single_event_desc"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <EditText
@@ -117,7 +117,7 @@
                 android:layout_alignStart="@+id/indicator_desc"
                 android:layout_below="@+id/indicator_desc"
                 android:layout_marginTop="8dp"
-                android:hint="Description about event"
+                android:hint="Dressed as casual, bring cookie she loves it"
                 android:inputType="textLongMessage"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -142,7 +142,7 @@
                 android:layout_toEndOf="@+id/indicator_loc"
                 android:layout_toRightOf="@+id/indicator_loc"
                 android:gravity="center"
-                android:text="Location"
+                android:text="@string/single_event_loc"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <EditText
@@ -155,7 +155,7 @@
                 android:layout_marginTop="8dp"
                 android:enabled="true"
                 android:focusableInTouchMode="false"
-                android:hint="8719 Essex Ave.  Oceanside, CA 92056"
+                android:hint="8719 Essex Ave. Oceanside, CA 92056"
                 android:inputType="textPostalAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -180,7 +180,7 @@
                 android:layout_toEndOf="@+id/indicator_date"
                 android:layout_toRightOf="@+id/indicator_date"
                 android:gravity="center"
-                android:text="Date &amp; Time"
+                android:text="@string/single_event_time"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <EditText
@@ -193,7 +193,7 @@
                 android:layout_marginTop="8dp"
                 android:enabled="true"
                 android:focusableInTouchMode="false"
-                android:hint="2 May 2017 16:00"
+                android:hint="1 Jan 2018 03:00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
@@ -208,7 +208,7 @@
             android:drawableRight="@android:drawable/arrow_down_float"
             android:onClick="expandableButton2"
             android:paddingRight="10dp"
-            android:text="Recipient"
+            android:text="@string/single_event_section2"
             android:textColor="#fff" />
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -242,7 +242,7 @@
                 android:layout_toEndOf="@+id/recipient_indicator"
                 android:layout_toRightOf="@+id/recipient_indicator"
                 android:gravity="center"
-                android:text="Recipient"
+                android:text="@string/single_event_recipients"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <SearchView
@@ -275,7 +275,7 @@
             android:drawableRight="@android:drawable/arrow_down_float"
             android:onClick="expandableButton3"
             android:paddingRight="10dp"
-            android:text="Post Information"
+            android:text="@string/single_event_section3"
             android:textColor="#fff" />
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -309,7 +309,7 @@
                 android:layout_toEndOf="@+id/post_channel_indicator"
                 android:layout_toRightOf="@+id/post_channel_indicator"
                 android:gravity="center"
-                android:text="Post channels"
+                android:text="@string/single_event_channels"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <Button
@@ -401,7 +401,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/mail_content"
                     android:layout_marginTop="8dp"
-                    android:text="Add file" />
+                    android:text="@string/single_event_add_attachment" />
 
                 <TextView
                     android:id="@+id/mail_filename"
@@ -458,7 +458,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/messenger_content"
                     android:layout_marginTop="8dp"
-                    android:text="Add file" />
+                    android:text="@string/single_event_add_attachment" />
 
                 <TextView
                     android:id="@+id/messenger_filename"
@@ -515,7 +515,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/whatsapp_content"
                     android:layout_marginTop="8dp"
-                    android:text="Add file" />
+                    android:text="@string/single_event_add_attachment" />
 
                 <TextView
                     android:id="@+id/whatsapp_filename"

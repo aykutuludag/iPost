@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -130,7 +129,6 @@ public class PermissionContacts extends Fragment {
             cur.close();
 
             prefs.edit().putBoolean("isContactSync", true).apply();
-            Toast.makeText(getActivity(), getString(R.string.contact_sync_completed), Toast.LENGTH_SHORT).show();
         }
     }
 
