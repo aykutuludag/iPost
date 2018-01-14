@@ -86,4 +86,6 @@
     <string name="single_event_section3">Post Information</string>
     <string name="single_event_channels">Post channels</string>
     <string name="single_event_add_attachment">Add file</string>
+    <string name="no_post">There is no post.</string>
+    <string name="no_event">There is no events</string>
 </resources>

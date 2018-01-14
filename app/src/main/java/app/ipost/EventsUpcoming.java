@@ -193,8 +193,7 @@ public class EventsUpcoming extends Fragment {
             cur.close();
             database_account.close();
         } else {
-            //First opening
-            Toast.makeText(getActivity(), "There is no events", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.no_event, Toast.LENGTH_LONG).show();
         }
 
         // Adapter

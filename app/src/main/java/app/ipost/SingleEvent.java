@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,7 +76,6 @@ public class SingleEvent extends AppCompatActivity {
     boolean newEvent;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    String userChoice;
     //Event settings
     TextView title, description, location, timeStart;
     long startTime;
@@ -144,7 +142,6 @@ public class SingleEvent extends AppCompatActivity {
             }
             db.close();
         }
-        userChoice = prefs.getString("userName" + eventID, "");
 
         expandableLayout1 = findViewById(R.id.expandableLayout1);
         expandableLayout2 = findViewById(R.id.expandableLayout2);
@@ -194,8 +191,8 @@ public class SingleEvent extends AppCompatActivity {
 
         // Database connection
         getEventInfo();
-        getContactInfo(userChoice);
         getPostInfo();
+        getContactInfo(receiverName);
 
         //update UserInterface
         updateUI();
@@ -267,7 +264,7 @@ public class SingleEvent extends AppCompatActivity {
                         startTime = cur.getLong(i);
                         break;
                     case 4:
-                        //EndTime
+                        //EndTime depraceted
                         break;
                     case 5:
                         eventLocation = cur.getString(i);
@@ -295,57 +292,6 @@ public class SingleEvent extends AppCompatActivity {
             }
             cur.close();
         }
-    }
-
-    public void getContactInfo(String parameter) {
-        List<ContactItem> feedsList = new ArrayList<>();
-        database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        String[] selectionArgs = {parameter + "%"};
-        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE DisplayName LIKE ? ORDER BY displayName ASC", selectionArgs);
-        if (cur3 != null && cur3.getCount() != 0) {
-            cur3.moveToFirst();
-            do {
-                for (int i = 0; i < cur3.getColumnCount(); i++) {
-                    switch (i % 7) {
-                        case 0:
-                            item = new ContactItem();
-                            item.setID(cur3.getString(i));
-                            break;
-                        case 1:
-                            item.setName(cur3.getString(i));
-                            break;
-                        case 2:
-                            item.setPhoneNumber(cur3.getString(i));
-                            break;
-                        case 3:
-                            item.setMail(cur3.getString(i));
-                            break;
-                        case 4:
-                            item.setWhastaspp(cur3.getInt(i));
-                            break;
-                        case 5:
-                            item.setMessenger(cur3.getInt(i));
-                            break;
-                        case 6:
-                            item.setContactPhoto(cur3.getString(i));
-                            feedsList.add(item);
-                            break;
-                    }
-                }
-            } while (cur3.moveToNext());
-            cur3.close();
-            database_account3.close();
-        }
-
-        // Adapter
-        RecyclerView mRecyclerView = findViewById(R.id.search_result);
-        RecyclerView.Adapter mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.setAdapter(mAdapter);
-
-        // The number of Columns
-        GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
-        mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     public void getPostInfo() {
@@ -401,6 +347,58 @@ public class SingleEvent extends AppCompatActivity {
             }
             cur2.close();
         }
+    }
+
+    public void getContactInfo(String parameter) {
+        List<ContactItem> feedsList = new ArrayList<>();
+        String[] names = parameter.split(";");
+        database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
+        String[] selectionArgs = {names + "%"};
+        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE DisplayName LIKE ? ORDER BY displayName ASC", selectionArgs);
+        if (cur3 != null && cur3.getCount() != 0) {
+            cur3.moveToFirst();
+            do {
+                for (int i = 0; i < cur3.getColumnCount(); i++) {
+                    switch (i % 7) {
+                        case 0:
+                            item = new ContactItem();
+                            item.setID(cur3.getString(i));
+                            break;
+                        case 1:
+                            item.setName(cur3.getString(i));
+                            break;
+                        case 2:
+                            item.setPhoneNumber(cur3.getString(i));
+                            break;
+                        case 3:
+                            item.setMail(cur3.getString(i));
+                            break;
+                        case 4:
+                            item.setWhastaspp(cur3.getInt(i));
+                            break;
+                        case 5:
+                            item.setMessenger(cur3.getInt(i));
+                            break;
+                        case 6:
+                            item.setContactPhoto(cur3.getString(i));
+                            feedsList.add(item);
+                            break;
+                    }
+                }
+            } while (cur3.moveToNext());
+            cur3.close();
+            database_account3.close();
+        }
+
+        // Adapter
+        RecyclerView mRecyclerView = findViewById(R.id.search_result);
+        RecyclerView.Adapter mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+
+        // The number of Columns
+        GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
+        mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     public void updateUI() {
@@ -501,20 +499,6 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
-        /*search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                getContactInfo(s);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });*/
-
         //CREATE UI BASED ON VALUES
         if (isSMS == 0) {
             smsContentHolder.setEnabled(false);
@@ -547,83 +531,6 @@ public class SingleEvent extends AppCompatActivity {
             whatsappContentHolder.setEnabled(true);
             whatsappFileChooser.setEnabled(true);
         }
-
-        prefs.edit().putString("userName" + eventID, receiverName).apply();
-
-       /* mySpinner = findViewById(R.id.spinner);
-        mySpinner.setAdapter(new RecipientAdapter(SingleEvent.this, R.id.spinner, feedsList));
-        mySpinner.setSelection(userChoice);
-        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View v,
-                                       int position, long arg3) {
-                //GET VALUES
-                item = feedsList.get(position);
-
-                //Receiver name
-                receiverName = item.getName();
-
-                //Receiver phone
-                if (item.getPhoneNumber() != null) {
-                    receiverPhone = item.getPhoneNumber();
-                    isSMS = 1;
-                } else {
-                    isSMS = 0;
-                }
-
-                if (item.getMail() != null && !item.getMail().contains("null")) {
-                    receiverMail = item.getMail();
-                    isMail = 1;
-                } else {
-                    isMail = 0;
-                }
-
-                isMessenger = item.getMessenger();
-                isWhatsapp = item.getWhatsapp();
-
-                //CREATE UI BASED ON VALUES
-                if (isSMS == 0) {
-                    smsContentHolder.setEnabled(false);
-                } else {
-                    smsContentHolder.setEnabled(true);
-                }
-
-                if (isMail == 0) {
-                    mailTitleHolder.setEnabled(false);
-                    mailContentHolder.setEnabled(false);
-                    emailFileChooser.setEnabled(false);
-                } else {
-                    mailTitleHolder.setEnabled(true);
-                    mailContentHolder.setEnabled(true);
-                    emailFileChooser.setEnabled(true);
-                }
-
-                if (isMessenger == 0) {
-                    messengerContentHolder.setEnabled(false);
-                    messengerFileChooser.setEnabled(false);
-                } else {
-                    messengerContentHolder.setEnabled(false);
-                    messengerFileChooser.setEnabled(false);
-                }
-
-                if (isWhatsapp == 0) {
-                    whatsappContentHolder.setEnabled(false);
-                    whatsappFileChooser.setEnabled(false);
-                } else {
-                    whatsappContentHolder.setEnabled(true);
-                    whatsappFileChooser.setEnabled(true);
-                }
-
-                //SAVE ROW NUMBER
-                userChoice = mySpinner.getSelectedItemPosition();
-                editor.putInt("userChoiceSpinner" + eventID, userChoice);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //Do nothing
-            }
-        });*/
 
         //SMS
         smsContentHolder.setText(smsContent);
@@ -861,9 +768,9 @@ public class SingleEvent extends AppCompatActivity {
         database_account.close();
 
         ContentValues values2 = new ContentValues();
-        values2.put("receiverName", item.getName());
-        values2.put("receiverMail", item.getMail());
-        values2.put("receiverPhone", item.getPhoneNumber());
+        values2.put("receiverName", receiverName);
+        values2.put("receiverMail", receiverMail);
+        values2.put("receiverPhone", receiverPhone);
         values2.put("postTime", startTime);
         values2.put("isDelivered", 0);
         values2.put("mailTitle", mailTitle);
@@ -1019,11 +926,11 @@ public class SingleEvent extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 List<ContactResult> results = MultiContactPicker.obtainResult(data);
                 for (int i = 0; i < results.size(); i++) {
-                    Log.d("MyTag", results.get(i).getDisplayName());
-                    Log.d("MyTag", String.valueOf(results.get(i).getPhoto()));
-                    Log.d("MyTag", String.valueOf(results.get(i).getEmails()));
-                    Log.d("MyTag", String.valueOf(results.get(i).getPhoneNumbers()));
-                    Log.d("MyTag", String.valueOf(results.get(i).getThumbnail()));
+                    receiverName = receiverName + results.get(i).getDisplayName() + ";";
+                    receiverPhone = receiverPhone + results.get(i).getPhoneNumbers() + ";";
+                    receiverMail = receiverMail + results.get(i).getEmails() + ";";
+                    System.out.println(receiverName);
+                    getContactInfo(receiverName);
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 System.out.println("User closed the picker without selecting items.");

@@ -49,7 +49,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:paddingTop="5dp"
-            android:text="Android Studio"
+            android:text="Lacy LaPlant"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000" />
 
@@ -61,7 +61,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
-            android:text="android.studio@android.com"
+            android:text="lacy.plant@yahoo.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -74,7 +74,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="20dp"
             android:background="#000"
-            android:text="Set Theme"
+            android:text="SET"
             android:textColor="#fff" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -124,7 +124,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:paddingTop="5dp"
-            android:text="Android Studio"
+            android:text="Lacy LaPlant"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000" />
 
@@ -136,7 +136,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
-            android:text="android.studio@android.com"
+            android:text="lacy.plant@yahoo.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -200,7 +200,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
             android:paddingTop="5dp"
-            android:text="Android Studio"
+            android:text="Lacy LaPlant"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000" />
 
@@ -212,7 +212,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="2dp"
-            android:text="android.studio@android.com"
+            android:text="lacy.plant@yahoo.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -276,7 +276,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:paddingTop="5dp"
-            android:text="Android Studio"
+            android:text="Lacy LaPlant"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000" />
 
@@ -288,7 +288,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
-            android:text="android.studio@android.com"
+            android:text="lacy.plant@yahoo.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -352,7 +352,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:paddingTop="5dp"
-            android:text="Android Studio"
+            android:text="Lacy LaPlant"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000" />
 
@@ -364,7 +364,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"
-            android:text="android.studio@android.com"
+            android:text="lacy.plant@yahoo.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 

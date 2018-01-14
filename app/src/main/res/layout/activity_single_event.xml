@@ -156,7 +156,6 @@
                 android:enabled="true"
                 android:focusableInTouchMode="false"
                 android:hint="8719 Essex Ave. Oceanside, CA 92056"
-                android:inputType="textPostalAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
@@ -259,7 +258,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_result"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/search_recipient"
                 android:layout_alignStart="@+id/search_recipient"
                 android:layout_below="@+id/search_recipient"
@@ -358,7 +357,7 @@
                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton5"
                 android:paddingRight="10dp"
-                android:text="email"
+                android:text="e-mail"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout

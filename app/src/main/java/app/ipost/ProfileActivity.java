@@ -37,6 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
     Window window;
 
+    TextView navUsername, navEmail, birthtext, loc, sex;
+    ImageView profilePic;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -79,25 +82,24 @@ public class ProfileActivity extends AppCompatActivity {
         window = this.getWindow();
 
         //Name
-        TextView navUsername = findViewById(R.id.profile_name);
-        navUsername.setText(name);
+        navUsername = findViewById(R.id.profile_name);
         //E-mail
-        TextView navEmail = findViewById(R.id.profile_mail);
-        navEmail.setText(email);
+        navEmail = findViewById(R.id.profile_mail);
         //ProfilePicture
-        ImageView profilePic = findViewById(R.id.profile_pic);
+        profilePic = findViewById(R.id.profile_pic);
+        //Age
+        birthtext = findViewById(R.id.profile_birthday);
+        //Location
+        loc = findViewById(R.id.profile_loc);
+        //Gender
+        sex = findViewById(R.id.profile_gender);
+
+        navUsername.setText(name);
+        navEmail.setText(email);
         Picasso.with(this).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
                 .into(profilePic);
-        //Age
-        TextView birthtext = findViewById(R.id.profile_birthday);
         birthtext.setText(birthday);
-
-        //Location
-        TextView loc = findViewById(R.id.profile_loc);
         loc.setText(location);
-
-        //Gender
-        TextView sex = findViewById(R.id.profile_gender);
         sex.setText(gender);
 
         header = findViewById(R.id.header_profile);
@@ -140,7 +142,6 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     public void coloredBars(int color1, int color2) {
         if (android.os.Build.VERSION.SDK_INT >= 21) {

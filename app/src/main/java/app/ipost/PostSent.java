@@ -121,8 +121,7 @@ public class PostSent extends Fragment {
             } while (cur.moveToNext());
             cur.close();
         } else {
-            //First opening
-            Toast.makeText(getActivity(), "There is no post", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.no_post, Toast.LENGTH_LONG).show();
         }
 
 
