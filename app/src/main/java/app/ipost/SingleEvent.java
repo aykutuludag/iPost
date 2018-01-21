@@ -427,15 +427,35 @@ public class SingleEvent extends AppCompatActivity {
                             break;
                         case 2:
                             item.setPhoneNumber(cur3.getString(i));
+                            if (cur3.getString(i) != null) {
+                                isSMS = 1;
+                            } else {
+                                isSMS = 0;
+                            }
                             break;
                         case 3:
                             item.setMail(cur3.getString(i));
+                            if (cur3.getString(i) != null) {
+                                isMail = 1;
+                            } else {
+                                isMail = 0;
+                            }
                             break;
                         case 4:
                             item.setWhastaspp(cur3.getInt(i));
+                            if (cur3.getInt(i) == 1) {
+                                isWhatsapp = 1;
+                            } else {
+                                isWhatsapp = 0;
+                            }
                             break;
                         case 5:
                             item.setMessenger(cur3.getInt(i));
+                            if (cur3.getInt(i) == 1) {
+                                isMessenger = 1;
+                            } else {
+                                isMessenger = 0;
+                            }
                             break;
                         case 6:
                             item.setContactPhoto(cur3.getString(i));
