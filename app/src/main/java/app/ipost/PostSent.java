@@ -124,7 +124,6 @@ public class PostSent extends Fragment {
             Toast.makeText(getActivity(), R.string.no_post, Toast.LENGTH_LONG).show();
         }
 
-
         // Adapter
         mAdapter = new PostAdapter(getActivity(), feedsList);
         mAdapter.notifyDataSetChanged();

@@ -182,21 +182,158 @@
                 android:text="@string/single_event_time"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            <EditText
-                android:id="@+id/editTextStartTime"
+            <Button
+                android:id="@+id/expandableButton8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/indicator_date"
-                android:layout_alignStart="@+id/indicator_date"
+                android:layout_height="40dp"
                 android:layout_below="@+id/indicator_date"
                 android:layout_marginTop="8dp"
-                android:enabled="true"
-                android:focusableInTouchMode="false"
-                android:hint="1 Jan 2018 03:00"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:background="#212121"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton8"
+                android:paddingRight="10dp"
+                android:text="One time"
+                android:textColor="#fff" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton8"
+                app:ael_duration="400"
+                app:ael_expanded="true"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/indicator_date"
+                    android:layout_alignStart="@+id/indicator_date"
+                    android:layout_below="@+id/indicator_date"
+                    android:layout_marginTop="4dp"
+                    android:enabled="true"
+                    android:focusableInTouchMode="false"
+                    android:hint="1 Jan 2018 03:00"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+            <Button
+                android:id="@+id/expandableButton9"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/expandableLayout8"
+                android:background="#212121"
+                android:drawableRight="@android:drawable/arrow_down_float"
+                android:onClick="expandableButton9"
+                android:paddingRight="10dp"
+                android:text="Regular"
+                android:textColor="#fff" />
+
+            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                android:id="@+id/expandableLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableButton9"
+                app:ael_duration="400"
+                app:ael_expanded="false"
+                app:ael_interpolator="bounce"
+                app:ael_orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextStartTime2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:enabled="true"
+                    android:focusableInTouchMode="false"
+                    android:hint="03:00"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupRetention"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/editTextStartTime2"
+                    android:layout_marginTop="4dp"
+                    android:checkedButton="@+id/radioMonday"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioMonday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mon"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioTuesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tue"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioWednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Wed"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioThursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Thu"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioFriday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fri"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioSaturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sat"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/radioSunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sun"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="12sp" />
+                </RadioGroup>
+
+            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
 
         <Button
             android:id="@+id/expandableButton2"
@@ -336,7 +473,6 @@
                 app:ael_expanded="false"
                 app:ael_interpolator="bounce"
                 app:ael_orientation="vertical">
-
 
                 <EditText
                     android:id="@+id/sms_content"

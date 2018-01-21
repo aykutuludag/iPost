@@ -2,7 +2,6 @@ package app.ipost.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -24,7 +23,6 @@ import app.ipost.SingleEvent;
 import app.ipost.model.ContactItem;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-    SharedPreferences prefs;
     private List<ContactItem> feedItemList;
     private Context mContext;
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -34,7 +32,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             int position = holder.getAdapterPosition();
             String contactID = feedItemList.get(position).getID();
 
-            if (SingleEvent.isEventEditing) {
+            if (!SingleEvent.newEvent) {
                 //Receiver name
                 SingleEvent.receiverName = feedItemList.get(position).getName();
 
@@ -69,7 +67,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ContactAdapter(Context context, List<ContactItem> feedItemList) {
         this.feedItemList = feedItemList;
         this.mContext = context;
-        prefs = mContext.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
     }
 
     @Override

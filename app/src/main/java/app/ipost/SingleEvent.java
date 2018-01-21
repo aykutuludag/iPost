@@ -1,17 +1,15 @@
 package app.ipost;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +25,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,20 +64,20 @@ public class SingleEvent extends AppCompatActivity {
     //tableEvent
     public static int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
     public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
-    public static boolean isEventEditing;
+    // Some variables
+    public static boolean newEvent;
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
-    ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7;
-    Button expandableButton1, expandableButton2, expandableButton3;
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7, expandableLayout8, expandableLayout9;
+    Button expandableButton1, expandableButton2, expandableButton3, expandableButton8, expandableButton9;
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
     Cursor cur0, cur, cur2, cur3;
     ContactItem item;
-    // Some variables
-    boolean newEvent;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
     //Event settings
-    TextView title, description, location, timeStart;
+    TextView title, description, location, timeStart, timeStart2;
+    RadioGroup retentionChooser;
+    RadioButton sunday, monday, tuesday, wednesday, thursday, friday, saturday;
+    Calendar retcal;
     long startTime;
     String eventName, eventDescription, eventLocation, eventOwner;
     //tablePost
@@ -90,15 +90,34 @@ public class SingleEvent extends AppCompatActivity {
     String currentTheme;
     Toolbar toolbar;
     Window window;
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
+
+    boolean isTekrarli;
     //Listener for startTime
     SlideDateTimeListener listener = new SlideDateTimeListener() {
+        SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
 
         @Override
         public void onDateTimeSet(Date date) {
             timeStart.setText(mFormatter.format(date));
             startTime = date.getTime();
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+
+        }
+    };
+    //Listener for startTime
+    SlideDateTimeListener listener2 = new SlideDateTimeListener() {
+        SimpleDateFormat mFormatter = new SimpleDateFormat("HH:mm");
+
+        @Override
+        public void onDateTimeSet(Date date) {
+            timeStart2.setText(mFormatter.format(date));
+            startTime = date.getTime();
+            retcal.set(Calendar.HOUR_OF_DAY, date.getHours());
+            retcal.set(Calendar.MINUTE, date.getMinutes());
         }
 
         // Optional cancel listener
@@ -119,19 +138,17 @@ public class SingleEvent extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.single_activity_edit_event);
 
-        isEventEditing = true;
 
         //ColoredBars
         window = this.getWindow();
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        prefs = this.getSharedPreferences("SINGLE_EVENT", Context.MODE_PRIVATE);
-        editor = prefs.edit();
         eventID = getIntent().getIntExtra("EVENT_ID", 0);
         if (eventID == 0) {
             newEvent = true;
+
             getSupportActionBar().setTitle(R.string.single_activity_add_event);
-            startTime = System.currentTimeMillis() + 60000 * 5;
+            startTime = System.currentTimeMillis() + 60000 * 60;
             db = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
             cur0 = db.rawQuery("SELECT MAX(ID) FROM events", new String[]{});
             if (cur0 != null) {
@@ -150,10 +167,14 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout5 = findViewById(R.id.expandableLayout5);
         expandableLayout6 = findViewById(R.id.expandableLayout6);
         expandableLayout7 = findViewById(R.id.expandableLayout7);
+        expandableLayout8 = findViewById(R.id.expandableLayout8);
+        expandableLayout9 = findViewById(R.id.expandableLayout9);
 
         expandableButton1 = findViewById(R.id.expandableButton1);
         expandableButton2 = findViewById(R.id.expandableButton2);
         expandableButton3 = findViewById(R.id.expandableButton3);
+        expandableButton8 = findViewById(R.id.expandableButton8);
+        expandableButton9 = findViewById(R.id.expandableButton9);
 
         currentTheme = MainActivity.currentTheme;
         switch (currentTheme) {
@@ -242,6 +263,22 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout4.collapse();
         expandableLayout5.collapse();
         expandableLayout6.collapse();
+    }
+
+    public void expandableButton8(View view) {
+        expandableLayout8.toggle(); // toggle expand and collapse
+        expandableLayout9.collapse();
+        expandableButton8.setAlpha(1.0f);
+        expandableButton9.setAlpha(0.5f);
+        isTekrarli = false;
+    }
+
+    public void expandableButton9(View view) {
+        expandableLayout9.toggle(); // toggle expand and collapse
+        expandableLayout8.collapse();
+        expandableButton9.setAlpha(1.0f);
+        expandableButton8.setAlpha(0.5f);
+        isTekrarli = true;
     }
 
     public void getEventInfo() {
@@ -463,6 +500,7 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
+        //TEKLİ
         timeStart = findViewById(R.id.editTextStartTime);
         timeStart.setText(getDate(startTime));
         timeStart.setOnClickListener(new View.OnClickListener() {
@@ -472,6 +510,82 @@ public class SingleEvent extends AppCompatActivity {
                         .setListener(listener)
                         .setIs24HourTime(true)
                         .setInitialDate(new Date((startTime)))
+                        .build()
+                        .show();
+            }
+        });
+
+        //MULTİPLE
+        //isDelivered haftanın retention kontrolü ve haftanın günüün tutmak için kullanılıyor
+        retcal = Calendar.getInstance();
+        retentionChooser = findViewById(R.id.radioGroupRetention);
+        sunday = findViewById(R.id.radioSunday);
+        monday = findViewById(R.id.radioMonday);
+        tuesday = findViewById(R.id.radioTuesday);
+        wednesday = findViewById(R.id.radioWednesday);
+        thursday = findViewById(R.id.radioThursday);
+        friday = findViewById(R.id.radioFriday);
+        saturday = findViewById(R.id.radioSaturday);
+
+        if (isDelivered == 0) {
+            isTekrarli = false;
+            expandableLayout8.expand();
+            expandableLayout9.collapse();
+            expandableButton8.setAlpha(1.0f);
+            expandableButton9.setAlpha(0.5f);
+        } else {
+            isTekrarli = true;
+            expandableLayout8.collapse();
+            expandableLayout9.expand();
+            expandableButton8.setAlpha(0.5f);
+            expandableButton9.setAlpha(1.0f);
+            if (isDelivered == 1) {
+                sunday.setChecked(true);
+            } else if (isDelivered == 2) {
+                monday.setChecked(true);
+            } else if (isDelivered == 3) {
+                tuesday.setChecked(true);
+            } else if (isDelivered == 4) {
+                wednesday.setChecked(true);
+            } else if (isDelivered == 5) {
+                thursday.setChecked(true);
+            } else if (isDelivered == 6) {
+                friday.setChecked(true);
+            } else if (isDelivered == 7) {
+                saturday.setChecked(true);
+            }
+        }
+
+        retentionChooser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkedId) {
+                if (checkedId == R.id.radioMonday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                } else if (checkedId == R.id.radioTuesday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                } else if (checkedId == R.id.radioWednesday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                } else if (checkedId == R.id.radioThursday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                } else if (checkedId == R.id.radioFriday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                } else if (checkedId == R.id.radioSaturday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                } else if (checkedId == R.id.radioSunday) {
+                    retcal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                }
+                isDelivered = retcal.get(Calendar.DAY_OF_WEEK);
+            }
+        });
+
+        timeStart2 = findViewById(R.id.editTextStartTime2);
+        timeStart2.setText(getTime(startTime));
+        timeStart2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(listener2)
+                        .setIs24HourTime(true)
                         .build()
                         .show();
             }
@@ -553,7 +667,6 @@ public class SingleEvent extends AppCompatActivity {
             }
         });
 
-
         //MAİL
         mailTitleHolder.setText(mailTitle);
         mailTitleHolder.addTextChangedListener(new TextWatcher() {
@@ -594,7 +707,6 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-
 
         emailFileChooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -720,21 +832,7 @@ public class SingleEvent extends AppCompatActivity {
         values2.put("receiverMail", receiverMail);
         values2.put("receiverPhone", receiverPhone);
         values2.put("postTime", startTime);
-        values2.put("isDelivered", 0);
-        values2.put("mailTitle", mailTitle);
-        values2.put("mailContent", mailContent);
-        values2.put("mailAttachment", mailAttachment);
-        values2.put("smsContent", smsContent);
-        values2.put("messengerContent", messengerContent);
-        values2.put("messengerAttachment", messengerAttachment);
-        values2.put("whatsappContent", whatsappContent);
-        values2.put("whatsappAttachment", whatsappAttachment);
-
-        values2.put("receiverName", item.getName());
-        values2.put("receiverMail", item.getMail());
-        values2.put("receiverPhone", item.getPhoneNumber());
-        values2.put("postTime", startTime);
-        values2.put("isDelivered", 0);
+        values2.put("isDelivered", isDelivered);
         values2.put("mailTitle", mailTitle);
         values2.put("mailContent", mailContent);
         values2.put("mailAttachment", mailAttachment);
@@ -747,7 +845,7 @@ public class SingleEvent extends AppCompatActivity {
         database_account2.close();
 
         Toast.makeText(SingleEvent.this,
-                "Event created", Toast.LENGTH_SHORT).show();
+                R.string.event_created, Toast.LENGTH_SHORT).show();
     }
 
     public void updateEvent() {
@@ -772,7 +870,7 @@ public class SingleEvent extends AppCompatActivity {
         values2.put("receiverMail", receiverMail);
         values2.put("receiverPhone", receiverPhone);
         values2.put("postTime", startTime);
-        values2.put("isDelivered", 0);
+        values2.put("isDelivered", isDelivered);
         values2.put("mailTitle", mailTitle);
         values2.put("mailContent", mailContent);
         values2.put("mailAttachment", mailAttachment);
@@ -786,7 +884,7 @@ public class SingleEvent extends AppCompatActivity {
         database_account2.close();
 
         Toast.makeText(SingleEvent.this,
-                "Event updated", Toast.LENGTH_SHORT).show();
+                R.string.event_updated, Toast.LENGTH_SHORT).show();
     }
 
     public void createPost() {
@@ -796,21 +894,35 @@ public class SingleEvent extends AppCompatActivity {
         myIntent.putExtra("EVENT_ID", eventID);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(SingleEvent.this, eventID, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-
-        System.out.println("PostTime" + startTime);
-
-        System.out.println("Şimdiki zaman: " + Calendar.getInstance().getTimeInMillis());
-
-        if (Calendar.getInstance().getTimeInMillis() < startTime) {
-            alarmManager.set(AlarmManager.RTC, startTime, pendingIntent);
+        if (!isTekrarli) {
+            if (Calendar.getInstance().getTimeInMillis() < startTime) {
+                alarmManager.set(AlarmManager.RTC, startTime, pendingIntent);
+            } else {
+                Toast.makeText(SingleEvent.this, "You chose past time. Post will not be triggered.", Toast.LENGTH_LONG).show();
+            }
+            isDelivered = 0;
+            System.out.println("PostTime" + getDate(startTime));
         } else {
-            Toast.makeText(SingleEvent.this, "You chose past time. Post will not be triggered.", Toast.LENGTH_LONG).show();
+            if (Calendar.getInstance().getTimeInMillis() < retcal.getTimeInMillis()) {
+                alarmManager.setInexactRepeating(AlarmManager.RTC, retcal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            } else {
+                retcal.setTimeInMillis(retcal.getTimeInMillis() + 1000 * 60 * 60 * 24 * 7);
+                alarmManager.setInexactRepeating(AlarmManager.RTC, retcal.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            }
+            startTime = retcal.getTimeInMillis();
+            System.out.println("PostTime" + getDate(startTime));
         }
     }
 
     private String getDate(long time) {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy HH:mm", Locale.getDefault());
+        return sdf.format(date);
+    }
+
+    private String getTime(long time) {
+        Date date = new Date(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return sdf.format(date);
     }
 
@@ -835,14 +947,12 @@ public class SingleEvent extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_save) {
+            createPost();
             if (newEvent) {
                 addEvent();
             } else {
                 updateEvent();
             }
-            createPost();
-            editor.apply();
-            isEventEditing = false;
             finish();
             return true;
         }
@@ -943,7 +1053,6 @@ public class SingleEvent extends AppCompatActivity {
         super.onBackPressed();
         database_account.close();
         database_account2.close();
-        isEventEditing = false;
         finish();
     }
 }

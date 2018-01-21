@@ -131,28 +131,24 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         switch (item.getItemId()) {
             case R.id.nav_eventupcoming:
-                item.setChecked(true);
                 fragment = new EventsUpcoming();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Upcoming").commit();
                 navigationView.setCheckedItem(R.id.nav_eventupcoming);
                 toolbar.setTitle(R.string.events_upcoming);
                 break;
             case R.id.nav_eventpast:
-                item.setChecked(true);
                 fragment = new EventsPast();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Past").commit();
                 navigationView.setCheckedItem(R.id.nav_eventpast);
                 toolbar.setTitle(R.string.events_past);
                 break;
             case R.id.nav_postplanned:
-                item.setChecked(true);
                 fragment = new PostPlanned();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Planned").commit();
                 navigationView.setCheckedItem(R.id.nav_postplanned);
                 toolbar.setTitle(R.string.posts_planned);
                 break;
             case R.id.nav_postsent:
-                item.setChecked(true);
                 fragment = new PostSent();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, "Sent").commit();
                 navigationView.setCheckedItem(R.id.nav_postsent);

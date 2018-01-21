@@ -88,4 +88,5 @@
     <string name="single_event_add_attachment">Add file</string>
     <string name="no_post">There is no post.</string>
     <string name="no_event">There is no events</string>
+    <string name="event_created">Event created...</string>
 </resources>
