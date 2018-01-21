@@ -80,6 +80,8 @@
     <string name="single_event_add_attachment">Dosya ekle</string>
     <string name="event_created">Etkinlik oluşturuldu&#8230;</string>
     <string name="event_updated">Etkinlik güncellendi&#8230;</string>
+    <string name="event_one_time">Bir sefer</string>
+    <string name="event_multiple_time">Tekrar</string>
 
     <!-- ThemesActivity-->
     <string name="title_activity_themes">Temalar</string>

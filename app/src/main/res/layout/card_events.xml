@@ -37,7 +37,6 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:maxLength="25"
-                android:text="Birthday Party"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
                 android:textColor="#fff" />
 
@@ -50,7 +49,6 @@
                 android:layout_alignStart="@+id/iconTime"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:text="30 Eylül 2017 00:00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:textColor="#fff" />
 
@@ -84,7 +82,6 @@
                 android:layout_alignEnd="@+id/iconLocation"
                 android:layout_alignRight="@+id/iconLocation"
                 android:layout_below="@+id/iconLocation"
-                android:text="Ankara, Türkiye"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:textColor="#fff" />
 

@@ -25,9 +25,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,7 +137,6 @@ public class SingleEvent extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.single_activity_edit_event);
-
 
         //ColoredBars
         window = this.getWindow();
@@ -387,11 +386,33 @@ public class SingleEvent extends AppCompatActivity {
     }
 
     public void getContactInfo(String parameter) {
+        System.out.println("PARAMETER" + parameter);
+        String[] names = null;
+        String[] selectionArgs = null;
+        StringBuilder query;
+
+        if (parameter.length() > 0) {
+            names = parameter.split(";");
+        }
+        if (names == null) {
+            query = new StringBuilder("SELECT * FROM contacts WHERE displayName LIKE ? ORDER BY displayName ASC");
+        } else {
+            query = new StringBuilder("SELECT * FROM contacts WHERE");
+            selectionArgs = new String[names.length];
+            for (int i = 0; i < names.length; i++) {
+                if (i == 0) {
+                    query.append(" displayName LIKE ?");
+                } else {
+                    query.append(" OR displayName LIKE ?");
+                }
+                selectionArgs[i] = names[i] + "%";
+            }
+            query.append(" ORDER BY displayName ASC");
+        }
+
         List<ContactItem> feedsList = new ArrayList<>();
-        String[] names = parameter.split(";");
         database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
-        String[] selectionArgs = {names + "%"};
-        cur3 = database_account3.rawQuery("SELECT * FROM contacts WHERE DisplayName LIKE ? ORDER BY displayName ASC", selectionArgs);
+        cur3 = database_account3.rawQuery(query.toString(), selectionArgs);
         if (cur3 != null && cur3.getCount() != 0) {
             cur3.moveToFirst();
             do {
@@ -604,8 +625,8 @@ public class SingleEvent extends AppCompatActivity {
         messengerFileHolder = findViewById(R.id.messenger_filename);
         whatsappFileHolder = findViewById(R.id.whatsapp_filename);
 
-        SearchView search = findViewById(R.id.search_recipient);
-        search.setOnSearchClickListener(new View.OnClickListener() {
+        ImageView search = findViewById(R.id.search_recipient);
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new MultiContactPicker.Builder(SingleEvent.this)
@@ -1034,11 +1055,10 @@ public class SingleEvent extends AppCompatActivity {
 
         if (requestCode == CONTACT_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
+                receiverName = "";
                 List<ContactResult> results = MultiContactPicker.obtainResult(data);
                 for (int i = 0; i < results.size(); i++) {
                     receiverName = receiverName + results.get(i).getDisplayName() + ";";
-                    receiverPhone = receiverPhone + results.get(i).getPhoneNumbers() + ";";
-                    receiverMail = receiverMail + results.get(i).getEmails() + ";";
                     System.out.println(receiverName);
                     getContactInfo(receiverName);
                 }
