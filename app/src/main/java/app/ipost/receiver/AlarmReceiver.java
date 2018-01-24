@@ -100,7 +100,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     case 11:
                         messengerAttachment = cur2.getString(i);
                         if (messengerContent != null && !messengerContent.contains("null")) {
-                            sendMessenger(context);
+                            //   sendMessenger(context);
                         }
                         break;
                     case 12:
@@ -119,9 +119,12 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void sendSMS() {
+        String[] phones = receiverPhone.split(";");
         try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(receiverPhone, null, smsContent, null, null);
+            for (int i = 0; i < phones.length; i++) {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phones[i], null, smsContent, null, null);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -173,31 +176,33 @@ public class AlarmReceiver extends BroadcastReceiver {
     }*/
 
     public void sendWhatsapp(Context context) {
-        Intent sendIntent = new Intent("android.intent.action.MAIN");
-        String toNumber = receiverPhone; // contains spaces.
-        toNumber = toNumber.replace("+", "").replace(" ", "");
-        sendIntent.putExtra("jid", toNumber + "@s.event_edit_whatsappbar.net");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(whatsappAttachment));
-        sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setPackage("com.event_edit_whatsappbar");
-        sendIntent.setType("image/*");
+        String[] toNumber = receiverPhone.split(";"); // contains spaces.
+        for (int i = 0; i < toNumber.length; i++) {
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            toNumber[i] = toNumber[i].replace("+", "").replace(" ", "");
+            sendIntent.putExtra("jid", toNumber[i] + "@s.event_edit_whatsappbar.net");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(whatsappAttachment));
+            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.setPackage("com.event_edit_whatsappbar");
+            sendIntent.setType("image/*");
 
-        PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-        Notification noti = new NotificationCompat.Builder(context)
-                .setContentTitle("iPost")
-                .setContentText("Action requiered: Click here to send Whatsapp message.")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setAutoCancel(true)
-                .setContentIntent(pIntent)
-                .setLargeIcon(bm)
-                .setDefaults(Notification.DEFAULT_ALL).build();
+            PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_ONE_SHOT);
+            Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+            Notification noti = new NotificationCompat.Builder(context)
+                    .setContentTitle("iPost")
+                    .setContentText("Action requiered: Click here to send Whatsapp message.")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setAutoCancel(true)
+                    .setContentIntent(pIntent)
+                    .setLargeIcon(bm)
+                    .setDefaults(Notification.DEFAULT_ALL).build();
 
-        NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, noti);
+            NotificationManager notificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, noti);
+        }
     }
 
     public void sendMessenger(Context context) {

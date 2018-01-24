@@ -10,7 +10,6 @@
     <string name="error_login_no_account">Error Code: 001 - We couldn\'t fetch your account information. Please check your Google account and internet connection then try again later&#8230;</string>
     <string name="error_login_fail">Error Code: 002 - An error occurred while logging in. Please check your internet connection and try again later&#8230;</string>
     <string name="error_aborted">Error Code: 002 - Process aborted by user&#8230;</string>
-    <string name="error_no_calendar">We couldn\'t find any events on your calendar. Please check Google Calendar sync and try again&#8230;</string>
 
     <!-- LoginActivity -->
     <string name="account_created">Sign-in is successful. Your account is creating. We will start soon.&#8230;</string>
@@ -23,7 +22,6 @@
     <string name="posts_planned">Planned posts</string>
     <string name="posts_sent">Sent posts</string>
     <string name="other">Other</string>
-    <string name="other_settings">Settings</string>
     <string name="other_help">Help</string>
     <string name="other_privacy">Privacy</string>
     <string name="extras">Extras</string>
@@ -34,18 +32,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- ActionBarMenu -->
-    <string name="action_settings">Settings</string>
-    <string name="action_help">Help</string>
-    <string name="action_about">About iSend</string>
-
     <!-- ProfileActivity -->
     <string name="title_activity_profile">Profile</string>
     <string name="title_home">Profile</string>
     <string name="title_dashboard">Connected accounts</string>
     <string name="title_notifications">Friends</string>
     <string name="permission_granted">Permission has been granted&#8230;</string>
-    <string name="permission_revoked">Synchronise cancelled&#8230;</string>
 
     <!-- PermissionsActivity -->
     <string name="title_activity_permissions">Permissions</string>
@@ -55,7 +47,7 @@
 
     <!-- AboutActivity -->
     <string name="title_activity_profile_edit">Edit profile</string>
-    <string name="title_activity_single_event">Update event</string>
+    <string name="single_activity_edit_event">Update event</string>
     <string name="single_activity_add_event">Add an event</string>
     <string name="save">Save</string>
     <string name="title_activity_themes">Themes</string>
@@ -71,7 +63,7 @@
     <string name="permission_calendar_desc">iPost needs calendar permission to show, update, delete and schedule events for replying.\\n\\nAll events saved on only this device so you can be sure that no one see your informations.</string>
     <string name="permission_auth">Authorize</string>
     <string name="permission_contacts_title">Permission: Contacts</string>
-    <string name="permission_contacts_desc">iPost needs to be synchroized with your contacts to create events or schedule post friends or collegues etc.\\n\\nYour information only saved on device so accept you no one can access your data.</string>
+    <string name="permission_contacts_desc">iPost needs to be synchroized with your contacts to create events or schedule post friends or colleagues etc.\\n\\nYour information only saved on device so accept you no one can access your data.</string>
     <string name="permission_sms_title">Permission: SMS</string>
     <string name="permission_sms_desc">iPost is personal planner. You can reply events via E-mail, Whastapp, Facebook Messenger or SMS. iSend needs SMS permission for any future usage of SMS channel to reply events.</string>
     <string name="permission_messenger_title">Permission: Messenger</string>
@@ -89,6 +81,7 @@
     <string name="no_post">There is no post.</string>
     <string name="no_event">There is no events</string>
     <string name="event_created">Event created&#8230;</string>
+    <string name="event_updated">Event updated&#8230;</string>
     <string name="event_one_time">One time</string>
     <string name="event_multiple_time">Repeat</string>
 </resources>

@@ -156,7 +156,7 @@ public class PermissionContacts extends Fragment {
 
         String[] projection = new String[]{ContactsContract.RawContacts._ID};
         String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.event_edit_whatsappbar"};
+        String[] selectionArgs = new String[]{contactID, "com.whatsapp"};
         Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
         if (cursor != null) {
             hasWhatsApp = cursor.moveToNext();
@@ -174,7 +174,7 @@ public class PermissionContacts extends Fragment {
 
         String[] projection = new String[]{ContactsContract.RawContacts._ID};
         String selection = ContactsContract.Data.CONTACT_ID + " = ? AND account_type IN (?)";
-        String[] selectionArgs = new String[]{contactID, "com.facebook.orca"};
+        String[] selectionArgs = new String[]{contactID, "com.facebook.katana"};
         Cursor cursor = getActivity().getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, selection, selectionArgs, null);
         if (cursor != null) {
             hasMessenger = cursor.moveToNext();

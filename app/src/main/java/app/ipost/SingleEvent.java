@@ -391,7 +391,7 @@ public class SingleEvent extends AppCompatActivity {
         String[] selectionArgs = null;
         StringBuilder query;
 
-        if (parameter.length() > 0) {
+        if (parameter != null && parameter.length() > 0) {
             names = parameter.split(";");
         }
         if (names == null) {
@@ -445,8 +445,10 @@ public class SingleEvent extends AppCompatActivity {
                             item.setWhastaspp(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isWhatsapp = 1;
+                                Toast.makeText(SingleEvent.this, "Whastapp var", Toast.LENGTH_SHORT).show();
                             } else {
                                 isWhatsapp = 0;
+                                Toast.makeText(SingleEvent.this, "Whastapp yok", Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case 5:
