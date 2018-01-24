@@ -5,7 +5,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -90,7 +89,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                         break;
                     case 9:
                         smsContent = cur2.getString(i);
-                        if (smsContent != null && !smsContent.contains("null")) {
+                        if (smsContent != null && !smsContent.contains("null") && smsContent.length() > 1) {
                             sendSMS();
                         }
                         break;
@@ -99,7 +98,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                         break;
                     case 11:
                         messengerAttachment = cur2.getString(i);
-                        if (messengerContent != null && !messengerContent.contains("null")) {
+                        if (messengerContent != null && !messengerContent.contains("null") && messengerContent.length() > 1) {
                             //   sendMessenger(context);
                         }
                         break;
@@ -108,7 +107,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                         break;
                     case 13:
                         whatsappAttachment = cur2.getString(i);
-                        if (whatsappContent != null && !whatsappContent.contains("null")) {
+                        if (whatsappContent != null && !whatsappContent.contains("null") && whatsappContent.length() > 1) {
                             sendWhatsapp(context);
                         }
                         break;
@@ -192,7 +191,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
             Notification noti = new NotificationCompat.Builder(context)
                     .setContentTitle("iPost")
-                    .setContentText("Action requiered: Click here to send Whatsapp message.")
+                    .setContentText(context.getString(R.string.action_required))
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setAutoCancel(true)
                     .setContentIntent(pIntent)
@@ -202,13 +201,30 @@ public class AlarmReceiver extends BroadcastReceiver {
             NotificationManager notificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, noti);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void sendMessenger(Context context) {
-        Uri uri = Uri.parse("fb-event_edit_messengerbar://user/");
-        uri = ContentUris.withAppendedId(uri, Long.parseLong(receiverPhone));
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        context.startActivity(intent);
-    }
+    /*public void sendMessenger(Context context) {
+        String mimeType = "image/jpeg";
+
+        ShareToMessengerParams shareToMessengerParams =
+                ShareToMessengerParams.newBuilder(contentUri, mimeType)
+                        .build();
+
+        String metadata = "{ \"image\" : \"trees\" }";
+        ShareToMessengerParams shareToMessengerParams =
+                ShareToMessengerParams.newBuilder(contentUri, "image/jpeg")
+                        .setMetaData(metadata)
+                        .build();
+
+        MessengerUtils.shareToMessenger(
+                this,
+                REQUEST_CODE_SHARE_TO_MESSENGER,
+                shareToMessengerParams);
+    }*/
 }

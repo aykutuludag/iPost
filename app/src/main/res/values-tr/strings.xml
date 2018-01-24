@@ -84,4 +84,5 @@
 
     <!-- ThemesActivity-->
     <string name="title_activity_themes">Temalar</string>
+    <string name="action_required">Eylem gerekiyor. Whatsapp gönderinizi tamamlamak için tıklayınız&#8230;</string>
 </resources>
