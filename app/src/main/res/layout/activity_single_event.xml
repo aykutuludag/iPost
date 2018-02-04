@@ -399,7 +399,8 @@
                 android:layout_alignLeft="@+id/search_recipient"
                 android:layout_alignStart="@+id/search_recipient"
                 android:layout_below="@+id/search_recipient"
-                android:background="#f0f0f0" />
+                android:background="#f0f0f0"
+                android:minHeight="130dp" />
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button

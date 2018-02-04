@@ -34,11 +34,14 @@
                 android:layout_alignLeft="@+id/iconTime"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/iconTime"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:maxLength="25"
+                android:layout_marginTop="12dp"
+                android:layout_toLeftOf="@+id/Channels"
+                android:layout_toStartOf="@+id/Channels"
+                android:maxLength="30"
+                android:text="Empty Event Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/event_time"
@@ -61,7 +64,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="25dp"
                 card_view:srcCompat="@drawable/left_menu_planned" />
 
             <ImageView
@@ -72,7 +75,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="5dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="15dp"
                 card_view:srcCompat="@drawable/profile_location" />
 
             <TextView
@@ -90,14 +93,14 @@
                 android:id="@+id/Channels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/event_name"
                 android:layout_alignEnd="@+id/iconLocation"
-                android:layout_alignRight="@+id/iconLocation">
+                android:layout_alignRight="@+id/iconLocation"
+                android:layout_alignTop="@+id/event_name">
 
                 <ImageView
                     android:id="@+id/options_sms"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
@@ -106,7 +109,7 @@
                 <ImageView
                     android:id="@+id/options_whatsapp"
                     android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_height="24dp"
                     android:layout_alignTop="@+id/options_messenger"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_messenger"
@@ -115,8 +118,8 @@
 
                 <ImageView
                     android:id="@+id/options_messenger"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_alignTop="@+id/options_mail"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_mail"
@@ -125,8 +128,8 @@
 
                 <ImageView
                     android:id="@+id/options_mail"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_alignTop="@+id/options_sms"
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/options_sms"

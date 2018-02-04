@@ -85,4 +85,10 @@
     <string name="event_one_time">One time</string>
     <string name="event_multiple_time">Repeat</string>
     <string name="action_required">Action requiered: Click here to send Whatsapp message.</string>
+    <string name="past_time">You chose past time. Post will not be triggered.</string>
+    <string name="resync_events">If you want to remove all events in iPost and retrieve them again, clcik the button below</string>
+    <string name="resync_contacts">If you want to remove all contacts in iPost and retrieve them again, click the button below</string>
+    <string name="accounts_info">You can see status of connected accounts here. You can change them on \'Connected accounts\'.</string>
+    <string name="reset_events">Resync events</string>
+    <string name="reset_contacts">Resync contacts</string>
 </resources>

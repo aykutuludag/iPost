@@ -85,4 +85,10 @@
     <!-- ThemesActivity-->
     <string name="title_activity_themes">Temalar</string>
     <string name="action_required">Eylem gerekiyor. Whatsapp gönderinizi tamamlamak için tıklayınız&#8230;</string>
+    <string name="past_time">Geçmişte bir tarih seçtiniz. Gönderi tetiklenmeyecek.</string>
+    <string name="resync_events">iPost içerisindeki tüm etkinlinlerinizi istiyorsanız aşağıdaki butona tıklayınız.</string>
+    <string name="resync_contacts">Rehberiniz ile iPost\'u senkronize etmek istiyorsanız aşağıdaki butona tıklayınız. Bu işlem rehbere kişi eklendiğinde/güncellendiğinde gereklidir.</string>
+    <string name="accounts_info">Burada iPost\'a bağlanmış hesapları görebilirsiniz. Hesap bağlantılarını Bağlı Hesaplar sekmesinden değiştirebilirsiniz.</string>
+    <string name="reset_events">ETKİNLİKLERİ SIFIRLA</string>
+    <string name="reset_contacts">ARKADAŞLARI SIFIRLA</string>
 </resources>

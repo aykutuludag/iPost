@@ -90,7 +90,9 @@ public class SingleEvent extends AppCompatActivity {
     String currentTheme;
     Toolbar toolbar;
     Window window;
-
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    List<ContactItem> feedsList;
     boolean isTekrarli;
     //Listener for startTime
     SlideDateTimeListener listener = new SlideDateTimeListener() {
@@ -208,6 +210,10 @@ public class SingleEvent extends AppCompatActivity {
                 expandableButton3.setBackgroundColor(Color.parseColor("#9C27B0"));
                 break;
         }
+
+        feedsList = new ArrayList<>();
+        mRecyclerView = findViewById(R.id.search_result);
+        mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
 
         // Database connection
         getEventInfo();
@@ -386,6 +392,7 @@ public class SingleEvent extends AppCompatActivity {
     }
 
     public void getContactInfo(String parameter) {
+        feedsList.clear();
         System.out.println("PARAMETER" + parameter);
         String[] names = null;
         String[] selectionArgs = null;
@@ -410,7 +417,6 @@ public class SingleEvent extends AppCompatActivity {
             query.append(" ORDER BY displayName ASC");
         }
 
-        List<ContactItem> feedsList = new ArrayList<>();
         database_account3 = this.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         cur3 = database_account3.rawQuery(query.toString(), selectionArgs);
         if (cur3 != null && cur3.getCount() != 0) {
@@ -445,10 +451,8 @@ public class SingleEvent extends AppCompatActivity {
                             item.setWhastaspp(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isWhatsapp = 1;
-                                Toast.makeText(SingleEvent.this, "Whastapp var", Toast.LENGTH_SHORT).show();
                             } else {
                                 isWhatsapp = 0;
-                                Toast.makeText(SingleEvent.this, "Whastapp yok", Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case 5:
@@ -471,14 +475,14 @@ public class SingleEvent extends AppCompatActivity {
         }
 
         // Adapter
-        RecyclerView mRecyclerView = findViewById(R.id.search_result);
-        RecyclerView.Adapter mAdapter = new ContactAdapter(SingleEvent.this, feedsList);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAdapter);
 
         // The number of Columns
         GridLayoutManager mLayoutManager = new GridLayoutManager(SingleEvent.this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        updateUI();
     }
 
     public void updateUI() {
@@ -706,6 +710,8 @@ public class SingleEvent extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     smsContent = editable.toString();
+                } else {
+                    smsContent = "";
                 }
             }
         });
@@ -727,6 +733,8 @@ public class SingleEvent extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     mailTitle = editable.toString();
+                } else {
+                    mailTitle = "";
                 }
             }
         });
@@ -747,6 +755,8 @@ public class SingleEvent extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     mailContent = editable.toString();
+                } else {
+                    mailContent = "";
                 }
             }
         });
@@ -784,6 +794,8 @@ public class SingleEvent extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     messengerContent = editable.toString();
+                } else {
+                    messengerContent = "";
                 }
             }
         });
@@ -821,6 +833,8 @@ public class SingleEvent extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     whatsappContent = editable.toString();
+                } else {
+                    whatsappContent = "";
                 }
             }
         });
@@ -941,7 +955,7 @@ public class SingleEvent extends AppCompatActivity {
             if (Calendar.getInstance().getTimeInMillis() < startTime) {
                 alarmManager.set(AlarmManager.RTC, startTime, pendingIntent);
             } else {
-                Toast.makeText(SingleEvent.this, "You chose past time. Post will not be triggered.", Toast.LENGTH_LONG).show();
+                Toast.makeText(SingleEvent.this, getString(R.string.past_time), Toast.LENGTH_LONG).show();
             }
             isDelivered = 0;
             System.out.println("PostTime" + getDate(startTime));
@@ -996,6 +1010,9 @@ public class SingleEvent extends AppCompatActivity {
             } else {
                 updateEvent();
             }
+            System.out.println("alıcı numaralar SMS: " + receiverName);
+            System.out.println("alıcı numaralar SMS: " + receiverPhone);
+            System.out.println("alıcı numaralar SMS: " + receiverMail);
             finish();
             return true;
         }
@@ -1038,17 +1055,29 @@ public class SingleEvent extends AppCompatActivity {
             if (resultCode == RESULT_OK && data != null) {
                 if (mailIsChoosing) {
                     ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    mailAttachment = aq.get(0);
+                    if (aq.size() > 1) {
+                        mailAttachment = aq.get(0);
+                    } else {
+                        mailAttachment = "";
+                    }
                     emailFileHolder.setText(mailAttachment);
                     mailIsChoosing = false;
                 } else if (messengerIsChoosing) {
                     ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    messengerAttachment = aq.get(0);
+                    if (aq.size() > 1) {
+                        messengerAttachment = aq.get(0);
+                    } else {
+                        messengerAttachment = "";
+                    }
                     messengerFileHolder.setText(messengerAttachment);
                     messengerIsChoosing = false;
                 } else if (whatsappIsChoosing) {
                     ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    whatsappAttachment = aq.get(0);
+                    if (aq.size() > 1) {
+                        whatsappAttachment = aq.get(0);
+                    } else {
+                        whatsappAttachment = "";
+                    }
                     whatsappFileHolder.setText(whatsappAttachment);
                     whatsappIsChoosing = false;
                 }
@@ -1078,12 +1107,19 @@ public class SingleEvent extends AppCompatActivity {
         if (requestCode == CONTACT_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 receiverName = "";
+                receiverPhone = "";
+                receiverMail = "";
                 List<ContactResult> results = MultiContactPicker.obtainResult(data);
                 for (int i = 0; i < results.size(); i++) {
                     receiverName = receiverName + results.get(i).getDisplayName() + ";";
-                    System.out.println(receiverName);
-                    getContactInfo(receiverName);
+                    if (results.get(i).getPhoneNumbers().size() > 0) {
+                        receiverPhone = receiverPhone + results.get(i).getPhoneNumbers().get(0) + ";";
+                    }
+                    if (results.get(i).getEmails().size() > 0) {
+                        receiverMail = receiverMail + results.get(i).getEmails().get(0) + ";";
+                    }
                 }
+                getContactInfo(receiverName);
             } else if (resultCode == RESULT_CANCELED) {
                 System.out.println("User closed the picker without selecting items.");
             }

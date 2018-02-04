@@ -7,13 +7,18 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
+
+import java.net.URLEncoder;
 
 import app.ipost.R;
 
@@ -42,7 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             reScheduleAlarms(context);
         } else {
             eventID = intent.getIntExtra("EVENT_ID", 0);
-            getPostInfo(context, intent);
+            getPostInfo(context);
         }
     }
 
@@ -50,7 +55,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //DATABESE DEN ÇEK ALARMLARI KUR
     }
 
-    public void getPostInfo(Context context, Intent intent) {
+    public void getPostInfo(Context context) {
         SQLiteDatabase database_account2 = context.openOrCreateDatabase("database_app", MODE_PRIVATE, null);
         Cursor cur2 = database_account2.rawQuery("SELECT * FROM posts WHERE ID=? ", new String[]{eventID + ""});
         if (cur2 != null && cur2.getCount() != 0) {
@@ -58,7 +63,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             for (int i = 0; i < cur2.getColumnCount(); i++) {
                 switch (i % 14) {
                     case 0:
-                        eventID = cur2.getInt(i);
+                        //eventID fetched already
                         break;
                     case 1:
                         receiverName = cur2.getString(i);
@@ -119,10 +124,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public void sendSMS() {
         String[] phones = receiverPhone.split(";");
+        System.out.println("alıcı numaralar SMS: " + receiverPhone);
         try {
-            for (int i = 0; i < phones.length; i++) {
+            for (String phone : phones) {
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phones[i], null, smsContent, null, null);
+                smsManager.sendTextMessage(phone, null, smsContent, null, null);
+                Thread.sleep(1500);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -175,35 +182,45 @@ public class AlarmReceiver extends BroadcastReceiver {
     }*/
 
     public void sendWhatsapp(Context context) {
-        String[] toNumber = receiverPhone.split(";"); // contains spaces.
-        for (int i = 0; i < toNumber.length; i++) {
-            Intent sendIntent = new Intent("android.intent.action.MAIN");
-            toNumber[i] = toNumber[i].replace("+", "").replace(" ", "");
-            sendIntent.putExtra("jid", toNumber[i] + "@s.event_edit_whatsappbar.net");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, whatsappContent);
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(whatsappAttachment));
-            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.setPackage("com.event_edit_whatsappbar");
-            sendIntent.setType("image/*");
-
-            PendingIntent pIntent = PendingIntent.getActivity(context, eventID, sendIntent, PendingIntent.FLAG_ONE_SHOT);
-            Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-            Notification noti = new NotificationCompat.Builder(context)
-                    .setContentTitle("iPost")
-                    .setContentText(context.getString(R.string.action_required))
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setAutoCancel(true)
-                    .setContentIntent(pIntent)
-                    .setLargeIcon(bm)
-                    .setDefaults(Notification.DEFAULT_ALL).build();
-
-            NotificationManager notificationManager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, noti);
+        String[] phones = receiverPhone.split(";"); // contains spaces.
+        System.out.println("alıcı numaralar Whatsapp: " + receiverPhone);
+        System.out.println(whatsappContent);
+        for (int i = 0; i < phones.length; i++) {
+            if (!phones[i].contains("+")) {
+                phones[i] = "+9" + phones[i];
+            }
+            String clearPhone = phones[i].replace("+", "").replace(" ", "");
+            System.out.println("alıcı numaralarTEMİZ: " + clearPhone);
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
+                PackageManager packageManager = context.getPackageManager();
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                String url = "https://api.whatsapp.com/send?phone=" + clearPhone + "&text=" + URLEncoder.encode(whatsappContent, "UTF-8");
+                sendIntent.setPackage("com.whatsapp");
+                sendIntent.setData(Uri.parse(url));
+                if (sendIntent.resolveActivity(packageManager) != null) {
+                    PendingIntent pIntent = PendingIntent.getActivity(context, i, sendIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+                    Notification noti = new NotificationCompat.Builder(context)
+                            .setContentTitle("iPost")
+                            .setContentText(context.getString(R.string.action_required))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setAutoCancel(true)
+                            .setContentIntent(pIntent)
+                            .setLargeIcon(bm)
+                            .setLights(Color.RED, 500, 500)
+                            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)).build();
+
+                    NotificationManager notificationManager = (NotificationManager) context
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(i, noti);
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

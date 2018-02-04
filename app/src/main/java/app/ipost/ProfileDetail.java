@@ -1,6 +1,9 @@
 package app.ipost;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,6 +35,8 @@ public class ProfileDetail extends Fragment {
         t.setScreenName("Profile - Detail");
         t.enableAdvertisingIdCollection(true);
         t.send(new HitBuilders.ScreenViewBuilder().build());
+
+        prefs = getActivity().getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
 
         expandableLayout1 = v.findViewById(R.id.expandableLayout1);
         expandableLayout2 = v.findViewById(R.id.expandableLayout2);
@@ -95,11 +100,27 @@ public class ProfileDetail extends Fragment {
     }
 
     public void resyncEvents() {
-
+        SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null, null);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "events");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "posts");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "contacts");
+        prefs.edit().clear().apply();
+        Intent i = getActivity().getPackageManager()
+                .getLaunchIntentForPackage(getActivity().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     public void resyncContacts() {
-
+        SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null, null);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "events");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "posts");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "contacts");
+        prefs.edit().clear().apply();
+        Intent i = getActivity().getPackageManager()
+                .getLaunchIntentForPackage(getActivity().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     public void expandableButton1(View view) {
@@ -119,5 +140,4 @@ public class ProfileDetail extends Fragment {
         expandableLayout1.collapse();
         expandableLayout2.collapse();
     }
-
 }

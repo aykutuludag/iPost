@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="If you want to remove all events in iPost and retrieve them again, clcik the button below"
+            android:text="@string/resync_events"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -49,10 +49,10 @@
             android:layout_below="@+id/events_text"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:background="#000"
             android:padding="5dp"
-            android:text="Resync events"
+            android:text="@string/reset_events"
             android:textColor="#fff" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -89,7 +89,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:text="If you want to remove all contacts in iPost and retrieve them again, click the button below"
+            android:text="@string/resync_contacts"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
@@ -100,10 +100,10 @@
             android:layout_below="@+id/contacts_text"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:background="#000"
             android:padding="5dp"
-            android:text="Resync contacts"
+            android:text="@string/reset_contacts"
             android:textColor="#fff" />
 
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
@@ -142,7 +142,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:text="You can see status of connected accounts here. You can change them on 'Connected accounts'."
+            android:text="@string/accounts_info"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#000" />
 
