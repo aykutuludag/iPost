@@ -208,6 +208,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                             .setAutoCancel(true)
                             .setContentIntent(pIntent)
                             .setLargeIcon(bm)
+                            .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                             .setLights(Color.RED, 500, 500)
                             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)).build();
 

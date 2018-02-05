@@ -170,8 +170,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         if (requestCode == 1320) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                editLocation.setText(place.getName().toString());
-                prefs.edit().putString("Location", place.getName().toString()).apply();
+                editLocation.setText(place.getAddress().toString());
+                prefs.edit().putString("Location", place.getAddress().toString()).apply();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 Log.i("Error", status.getStatusMessage());

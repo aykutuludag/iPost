@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#212121"
         android:drawableRight="@android:drawable/arrow_down_float"
-        android:text="Calendar"
+        android:text="@string/profile_calendar"
         android:textColor="#fff" />
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -65,7 +65,7 @@
         android:layout_below="@+id/expandableLayout1"
         android:background="#212121"
         android:drawableRight="@android:drawable/arrow_down_float"
-        android:text="Contacts"
+        android:text="@string/profile_contacts"
         android:textColor="#fff" />
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -117,7 +117,7 @@
         android:layout_below="@+id/expandableLayout2"
         android:background="#212121"
         android:drawableRight="@android:drawable/arrow_down_float"
-        android:text="Accounts"
+        android:text="@string/profile_accounts"
         android:textColor="#fff" />
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout

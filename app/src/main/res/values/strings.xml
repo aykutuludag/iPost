@@ -54,10 +54,10 @@
     <string name="firstTime1">iPost is a personal assistant which replies your events for you! You can plan new event and responses to save your time.</string>
     <string name="firstTime2">To get started, please sign-in with your Google account.</string>
 
-    <string name="good_nights">Good nights </string>
-    <string name="good_morning">Good morning </string>
-    <string name="have_a_nice_day">Have a nice day </string>
-    <string name="good_afternoon">Good afternoon </string>
+    <string name="good_nights">Good Night </string>
+    <string name="good_morning">Good Morning </string>
+    <string name="have_a_nice_day">Have A Nice Day </string>
+    <string name="good_afternoon">Good Afternoon </string>
     <string name="welcome">WELCOME</string>
     <string name="permission_calendar_title">Permission: Calendar</string>
     <string name="permission_calendar_desc">iPost needs calendar permission to show, update, delete and schedule events for replying.\\n\\nAll events saved on only this device so you can be sure that no one see your informations.</string>
@@ -91,4 +91,18 @@
     <string name="accounts_info">You can see status of connected accounts here. You can change them on \'Connected accounts\'.</string>
     <string name="reset_events">Resync events</string>
     <string name="reset_contacts">Resync contacts</string>
+    <string name="faq">FAQ</string>
+    <string name="howto1">How to add new event?</string>
+    <string name="exp1">You can add new event clicking gold circle plus button. After that, event edit page will be opened.</string>
+    <string name="howto2">How can I changed the theme?</string>
+    <string name="exp2">From the left menu, click the Themes button.</string>
+    <string name="howto3">How to update my events?</string>
+    <string name="exp3">Click your profile from opening screen. After that you will see profile page and there are two buttons on there. You can using these buttons, you can update your friends or events.</string>
+    <string name="howto4">How to delete my iPost account?</string>
+    <string name="exp4">Easy! Just delete app and all your datas will be removed forever! Don\'t forget, your events are stored on this device only. If you remove the app, you will lose your information permanently.</string>
+    <string name="howto5">How can I see my planned and sent posts?</string>
+    <string name="exp5">You can see all pending and sent post on left menu. From left menu, you can see planned and sent under posts section.</string>
+    <string name="profile_calendar">Calendar</string>
+    <string name="profile_contacts">Contacts</string>
+    <string name="profile_accounts">Accounts</string>
 </resources>

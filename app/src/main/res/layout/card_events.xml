@@ -37,7 +37,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toLeftOf="@+id/Channels"
                 android:layout_toStartOf="@+id/Channels"
-                android:maxLength="30"
+
                 android:text="Empty Event Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
                 android:textColor="#fff"
@@ -85,6 +85,7 @@
                 android:layout_alignEnd="@+id/iconLocation"
                 android:layout_alignRight="@+id/iconLocation"
                 android:layout_below="@+id/iconLocation"
+                android:maxLength="30"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:textColor="#fff" />
 
