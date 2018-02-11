@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:background="#212121"
             android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="expandableButton1"
+            android:onClick="buttonClick1"
             android:paddingRight="10dp"
             android:text="@string/single_event_section1"
             android:textColor="#fff" />
@@ -190,7 +190,7 @@
                 android:layout_marginTop="8dp"
                 android:background="#212121"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton8"
+                android:onClick="buttonClick8"
                 android:paddingRight="10dp"
                 android:text="@string/event_one_time"
                 android:textColor="#fff" />
@@ -227,7 +227,7 @@
                 android:layout_below="@+id/expandableLayout8"
                 android:background="#212121"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton9"
+                android:onClick="buttonClick9"
                 android:paddingRight="10dp"
                 android:text="@string/event_multiple_time"
                 android:textColor="#fff" />
@@ -342,7 +342,7 @@
             android:layout_below="@+id/expandableLayout1"
             android:background="#212121"
             android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="expandableButton2"
+            android:onClick="buttonClick2"
             android:paddingRight="10dp"
             android:text="@string/single_event_section2"
             android:textColor="#fff" />
@@ -400,7 +400,7 @@
                 android:layout_alignStart="@+id/search_recipient"
                 android:layout_below="@+id/search_recipient"
                 android:background="#f0f0f0"
-                android:minHeight="130dp" />
+                android:minHeight="175dp" />
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button
@@ -410,7 +410,7 @@
             android:layout_below="@+id/expandableLayout2"
             android:background="#212121"
             android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="expandableButton3"
+            android:onClick="buttonClick3"
             android:paddingRight="10dp"
             android:text="@string/single_event_section3"
             android:textColor="#fff" />
@@ -459,9 +459,9 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/event_edit_smsbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton4"
+                android:onClick="buttonClick4"
                 android:paddingRight="10dp"
-                android:text="sms"
+                android:text="SMS"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -479,10 +479,12 @@
                     android:id="@+id/sms_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:gravity="top|left|start"
                     android:hint="Content"
                     android:inputType="textMultiLine"
-                    android:paddingBottom="20dp" />
+                    android:minHeight="100dp"
+                    android:paddingBottom="20dp"
+                    android:textAlignment="viewStart" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             <Button
@@ -492,9 +494,9 @@
                 android:layout_below="@+id/expandableLayout4"
                 android:background="@drawable/event_edit_gmailbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton5"
+                android:onClick="buttonClick5"
                 android:paddingRight="10dp"
-                android:text="e-mail"
+                android:text="E-MAIL"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -512,9 +514,10 @@
                     android:id="@+id/mail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:gravity="top|left|start"
                     android:hint="Title"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:maxLines="1" />
 
                 <EditText
                     android:id="@+id/mail_content"
@@ -525,8 +528,10 @@
                     android:layout_below="@+id/mail_title"
                     android:layout_marginTop="15dp"
                     android:ems="10"
+                    android:gravity="top|left|start"
                     android:hint="Content"
                     android:inputType="textMultiLine"
+                    android:minHeight="100dp"
                     android:paddingBottom="20dp" />
 
                 <Button
@@ -561,9 +566,9 @@
                 android:layout_below="@+id/expandableLayout5"
                 android:background="@drawable/event_edit_messengerbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton6"
+                android:onClick="buttonClick6"
                 android:paddingRight="10dp"
-                android:text="messenger"
+                android:text="MESSENGER"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -582,8 +587,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:gravity="top|left|start"
                     android:hint="Content"
                     android:inputType="textMultiLine"
+                    android:minHeight="100dp"
                     android:paddingBottom="20dp" />
 
                 <Button
@@ -618,9 +625,9 @@
                 android:layout_below="@+id/expandableLayout6"
                 android:background="@drawable/event_edit_whatsappbar"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton7"
+                android:onClick="buttonClick7"
                 android:paddingRight="10dp"
-                android:text="whatsapp"
+                android:text="WHATSAPP"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
@@ -641,6 +648,7 @@
                     android:ems="10"
                     android:hint="Content"
                     android:inputType="textMultiLine"
+                    android:minHeight="100dp"
                     android:paddingBottom="20dp" />
 
                 <Button

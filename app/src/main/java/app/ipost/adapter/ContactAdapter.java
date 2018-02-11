@@ -54,7 +54,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 SingleEvent.isMessenger = feedItemList.get(position).getMessenger();
                 SingleEvent.isWhatsapp = feedItemList.get(position).getWhatsapp();
                 ((SingleEvent) mContext).updateUI();
-                ((SingleEvent) mContext).expandableButton3(view);
+                ((SingleEvent) mContext).buttonClick3(view);
             } else {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactID);

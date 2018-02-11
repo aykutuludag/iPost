@@ -94,14 +94,6 @@ public class ProfileActivity extends AppCompatActivity {
         //Gender
         sex = findViewById(R.id.profile_gender);
 
-        navUsername.setText(name);
-        navEmail.setText(email);
-        Picasso.with(this).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
-                .into(profilePic);
-        birthtext.setText(birthday);
-        loc.setText(location);
-        sex.setText(gender);
-
         header = findViewById(R.id.header_profile);
         header.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +133,18 @@ public class ProfileActivity extends AppCompatActivity {
                 header.setBackgroundColor(Color.parseColor("#9C27B0"));
                 break;
         }
+
+        updateUI();
+    }
+
+    public void updateUI() {
+        navUsername.setText(name);
+        navEmail.setText(email);
+        Picasso.with(this).load(photo).error(R.drawable.siyahprofil).placeholder(R.drawable.siyahprofil)
+                .into(profilePic);
+        birthtext.setText(birthday);
+        loc.setText(location);
+        sex.setText(gender);
     }
 
     public void coloredBars(int color1, int color2) {

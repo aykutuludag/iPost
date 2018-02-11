@@ -182,6 +182,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        ProfileActivity proA = new ProfileActivity();
+        proA.updateUI();
         finish();
     }
 }

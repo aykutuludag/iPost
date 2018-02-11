@@ -68,7 +68,7 @@ public class SingleEvent extends AppCompatActivity {
     public static boolean newEvent;
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7, expandableLayout8, expandableLayout9;
-    Button expandableButton1, expandableButton2, expandableButton3, expandableButton8, expandableButton9;
+    Button expandableButton1, expandableButton2, expandableButton3, expandableButton4, expandableButton5, expandableButton6, expandableButton7, expandableButton8, expandableButton9;
     // Databese connection
     SQLiteDatabase db, database_account, database_account2, database_account3;
     Cursor cur0, cur, cur2, cur3;
@@ -161,6 +161,16 @@ public class SingleEvent extends AppCompatActivity {
             db.close();
         }
 
+        expandableButton1 = findViewById(R.id.expandableButton1);
+        expandableButton2 = findViewById(R.id.expandableButton2);
+        expandableButton3 = findViewById(R.id.expandableButton3);
+        expandableButton4 = findViewById(R.id.expandableButton4);
+        expandableButton5 = findViewById(R.id.expandableButton5);
+        expandableButton6 = findViewById(R.id.expandableButton6);
+        expandableButton7 = findViewById(R.id.expandableButton7);
+        expandableButton8 = findViewById(R.id.expandableButton8);
+        expandableButton9 = findViewById(R.id.expandableButton9);
+
         expandableLayout1 = findViewById(R.id.expandableLayout1);
         expandableLayout2 = findViewById(R.id.expandableLayout2);
         expandableLayout3 = findViewById(R.id.expandableLayout3);
@@ -170,12 +180,6 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout7 = findViewById(R.id.expandableLayout7);
         expandableLayout8 = findViewById(R.id.expandableLayout8);
         expandableLayout9 = findViewById(R.id.expandableLayout9);
-
-        expandableButton1 = findViewById(R.id.expandableButton1);
-        expandableButton2 = findViewById(R.id.expandableButton2);
-        expandableButton3 = findViewById(R.id.expandableButton3);
-        expandableButton8 = findViewById(R.id.expandableButton8);
-        expandableButton9 = findViewById(R.id.expandableButton9);
 
         currentTheme = MainActivity.currentTheme;
         switch (currentTheme) {
@@ -224,65 +228,65 @@ public class SingleEvent extends AppCompatActivity {
         updateUI();
     }
 
-    public void expandableButton1(View view) {
+    public void buttonClick1(View view) {
         expandableLayout1.toggle(); // toggle expand and collapse
         expandableLayout2.collapse();
         expandableLayout3.collapse();
     }
 
-    public void expandableButton2(View view) {
+    public void buttonClick2(View view) {
         expandableLayout2.toggle();// toggle expand and collapse
         expandableLayout1.collapse();
         expandableLayout3.collapse();
     }
 
-    public void expandableButton3(View view) {
+    public void buttonClick3(View view) {
         expandableLayout3.toggle();// toggle expand and collapse
         expandableLayout1.collapse();
         expandableLayout2.collapse();
     }
 
-    public void expandableButton4(View view) {
+    public void buttonClick4(View view) {
         expandableLayout4.toggle();
         expandableLayout5.collapse();
         expandableLayout6.collapse();
         expandableLayout7.collapse();
     }
 
-    public void expandableButton5(View view) {
+    public void buttonClick5(View view) {
         expandableLayout5.toggle(); // toggle expand and collapse
         expandableLayout4.collapse();
         expandableLayout6.collapse();
         expandableLayout7.collapse();
     }
 
-    public void expandableButton6(View view) {
+    public void buttonClick6(View view) {
         expandableLayout6.toggle(); // toggle expand and collapse
         expandableLayout4.collapse();
         expandableLayout5.collapse();
         expandableLayout7.collapse();
     }
 
-    public void expandableButton7(View view) {
+    public void buttonClick7(View view) {
         expandableLayout7.toggle(); // toggle expand and collapse
         expandableLayout4.collapse();
         expandableLayout5.collapse();
         expandableLayout6.collapse();
     }
 
-    public void expandableButton8(View view) {
+    public void buttonClick8(View view) {
         expandableLayout8.toggle(); // toggle expand and collapse
         expandableLayout9.collapse();
         expandableButton8.setAlpha(1.0f);
-        expandableButton9.setAlpha(0.5f);
+        expandableButton9.setAlpha(0.75f);
         isTekrarli = false;
     }
 
-    public void expandableButton9(View view) {
+    public void buttonClick9(View view) {
         expandableLayout9.toggle(); // toggle expand and collapse
         expandableLayout8.collapse();
         expandableButton9.setAlpha(1.0f);
-        expandableButton8.setAlpha(0.5f);
+        expandableButton8.setAlpha(0.75f);
         isTekrarli = true;
     }
 
@@ -438,30 +442,30 @@ public class SingleEvent extends AppCompatActivity {
                             } else {
                                 isSMS = 0;
                             }
-                            break;
-                        case 3:
-                            item.setMail(cur3.getString(i));
                             if (cur3.getString(i) != null) {
                                 isMail = 1;
                             } else {
                                 isMail = 0;
                             }
-                            break;
-                        case 4:
-                            item.setWhastaspp(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isWhatsapp = 1;
                             } else {
                                 isWhatsapp = 0;
                             }
-                            break;
-                        case 5:
-                            item.setMessenger(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isMessenger = 1;
                             } else {
                                 isMessenger = 0;
                             }
+                            break;
+                        case 3:
+                            item.setMail(cur3.getString(i));
+                            break;
+                        case 4:
+                            item.setWhastaspp(cur3.getInt(i));
+                            break;
+                        case 5:
+                            item.setMessenger(cur3.getInt(i));
                             break;
                         case 6:
                             item.setContactPhoto(cur3.getString(i));
@@ -662,33 +666,57 @@ public class SingleEvent extends AppCompatActivity {
 
         //CREATE UI BASED ON VALUES
         if (isSMS == 0) {
+            expandableButton4.setAlpha(0.75f);
+            expandableButton4.setEnabled(false);
+
             smsContentHolder.setEnabled(false);
         } else {
+            expandableButton4.setAlpha(1.0f);
+            expandableButton4.setEnabled(true);
+
             smsContentHolder.setEnabled(true);
         }
 
         if (isMail == 0) {
+            expandableButton5.setAlpha(0.75f);
+            expandableButton5.setEnabled(false);
+
             mailTitleHolder.setEnabled(false);
             mailContentHolder.setEnabled(false);
             emailFileChooser.setEnabled(false);
         } else {
+            expandableButton5.setAlpha(1.0f);
+            expandableButton5.setEnabled(true);
+
             mailTitleHolder.setEnabled(true);
             mailContentHolder.setEnabled(true);
             emailFileChooser.setEnabled(true);
         }
 
         if (isMessenger == 0) {
+            expandableButton6.setAlpha(0.75f);
+            expandableButton6.setEnabled(false);
+
             messengerContentHolder.setEnabled(false);
             messengerFileChooser.setEnabled(false);
         } else {
+            expandableButton6.setAlpha(1.0f);
+            expandableButton6.setEnabled(true);
+
             messengerContentHolder.setEnabled(false);
             messengerFileChooser.setEnabled(false);
         }
 
         if (isWhatsapp == 0) {
+            expandableButton7.setAlpha(0.75f);
+            expandableButton7.setEnabled(false);
+
             whatsappContentHolder.setEnabled(false);
             whatsappFileChooser.setEnabled(false);
         } else {
+            expandableButton7.setAlpha(1.0f);
+            expandableButton7.setEnabled(true);
+
             whatsappContentHolder.setEnabled(true);
             whatsappFileChooser.setEnabled(true);
         }
@@ -876,10 +904,26 @@ public class SingleEvent extends AppCompatActivity {
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);
-        values.put("isMail", isMail);
-        values.put("isSMS", isSMS);
-        values.put("isMessenger", isMessenger);
-        values.put("isWhatsapp", isWhatsapp);
+        if (mailTitle != null && mailTitle.length() > 0) {
+            values.put("isMail", 1);
+        } else {
+            values.put("isMail", 0);
+        }
+        if (smsContent != null && smsContent.length() > 0) {
+            values.put("isSMS", 1);
+        } else {
+            values.put("isSMS", 0);
+        }
+        if (messengerContent != null && messengerContent.length() > 0) {
+            values.put("isMessenger", 1);
+        } else {
+            values.put("isMessenger", 0);
+        }
+        if (whatsappContent != null && whatsappContent.length() > 0) {
+            values.put("isWhatsapp", 1);
+        } else {
+            values.put("isWhatsapp", 0);
+        }
         database_account.insert("events", null, values);
         database_account.close();
         newEvent = false;
@@ -914,10 +958,26 @@ public class SingleEvent extends AppCompatActivity {
         values.put("location", eventLocation);
         values.put("owner", eventOwner);
         values.put("color", eventColor);
-        values.put("isMail", isMail);
-        values.put("isSMS", isSMS);
-        values.put("isMessenger", isMessenger);
-        values.put("isWhatsapp", isWhatsapp);
+        if (mailTitle != null && mailTitle.length() > 0) {
+            values.put("isMail", 1);
+        } else {
+            values.put("isMail", 0);
+        }
+        if (smsContent != null && smsContent.length() > 0) {
+            values.put("isSMS", 1);
+        } else {
+            values.put("isSMS", 0);
+        }
+        if (messengerContent != null && messengerContent.length() > 0) {
+            values.put("isMessenger", 1);
+        } else {
+            values.put("isMessenger", 0);
+        }
+        if (whatsappContent != null && whatsappContent.length() > 0) {
+            values.put("isWhatsapp", 1);
+        } else {
+            values.put("isWhatsapp", 0);
+        }
         String[] selectionArgs = {String.valueOf(eventID)};
         database_account.update("events", values, "ID=?", selectionArgs);
         database_account.close();
