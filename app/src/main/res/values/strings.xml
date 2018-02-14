@@ -105,4 +105,7 @@
     <string name="profile_calendar">Calendar</string>
     <string name="profile_contacts">Contacts</string>
     <string name="profile_accounts">Accounts</string>
+    <string name="other_donate">Donate</string>
+    <string name="hasSent">Sent</string>
+    <string name="willSent">Planned</string>
 </resources>

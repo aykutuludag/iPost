@@ -93,7 +93,7 @@ public class PostSent extends Fragment {
                             item.setPostTime(cur.getLong(i));
                             break;
                         case 5:
-                            item.setIsSuccess(cur.getInt(i));
+                            item.setIsSuccess(1);
                             break;
                         case 6:
                             item.setMailTitle(cur.getString(i));

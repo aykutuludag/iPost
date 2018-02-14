@@ -93,7 +93,7 @@ public class PostPlanned extends Fragment {
                             item.setPostTime(cur.getLong(i));
                             break;
                         case 5:
-                            item.setIsSuccess(cur.getInt(i));
+                            item.setIsSuccess(0);
                             break;
                         case 6:
                             item.setMailTitle(cur.getString(i));

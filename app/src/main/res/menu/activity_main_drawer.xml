@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:icon="@drawable/left_menu_past"
-        android:title="@string/events">
+    <item android:title="@string/events">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -20,46 +18,52 @@
 
     <item android:title="@string/posts">
         <menu>
-            <item
-                android:id="@+id/nav_postplanned"
-                android:icon="@drawable/left_menu_planned"
-                android:title="@string/posts_planned" />
-            <item
-                android:id="@+id/nav_postsent"
-                android:icon="@drawable/left_menu_sent"
-                android:title="@string/posts_sent" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_postplanned"
+                    android:icon="@drawable/left_menu_planned"
+                    android:title="@string/posts_planned" />
+                <item
+                    android:id="@+id/nav_postsent"
+                    android:icon="@drawable/left_menu_sent"
+                    android:title="@string/posts_sent" />
+            </group>
         </menu>
     </item>
-
 
     <item android:title="@string/other">
         <menu>
-            <item
-                android:id="@+id/nav_help"
-                android:icon="@drawable/left_menu_help"
-                android:title="@string/other_help" />
-            <item
-                android:id="@+id/nav_privacy"
-                android:icon="@drawable/left_menu_privacy"
-                android:title="@string/other_privacy" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_help"
+                    android:icon="@drawable/left_menu_help"
+                    android:title="@string/other_help" />
+                <item
+                    android:id="@+id/nav_privacy"
+                    android:icon="@drawable/left_menu_privacy"
+                    android:title="@string/other_privacy" />
+            </group>
         </menu>
     </item>
 
-
-    <item android:title="@string/extras">
+    <item
+        android:icon="@drawable/left_menu_past"
+        android:title="@string/extras">
         <menu>
-            <item
-                android:id="@+id/nav_themes"
-                android:icon="@drawable/left_menu_themes"
-                android:title="@string/extras_themes" />
-            <item
-                android:id="@+id/nav_rate"
-                android:icon="@drawable/left_menu_rate"
-                android:title="@string/extras_rate" />
-            <item
-                android:id="@+id/nav_feedback"
-                android:icon="@drawable/left_menu_feedback"
-                android:title="@string/extras_feedback" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_themes"
+                    android:icon="@drawable/left_menu_themes"
+                    android:title="@string/extras_themes" />
+                <item
+                    android:id="@+id/nav_rate"
+                    android:icon="@drawable/left_menu_rate"
+                    android:title="@string/extras_rate" />
+                <item
+                    android:id="@+id/nav_feedback"
+                    android:icon="@drawable/left_menu_feedback"
+                    android:title="@string/extras_feedback" />
+            </group>
         </menu>
     </item>
 

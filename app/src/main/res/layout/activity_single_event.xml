@@ -237,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableButton9"
+                android:layout_marginBottom="10dp"
                 app:ael_duration="400"
                 app:ael_expanded="false"
                 app:ael_interpolator="bounce"
@@ -469,6 +470,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableButton4"
+                android:background="#f1f1f1"
                 android:padding="8dp"
                 app:ael_duration="400"
                 app:ael_expanded="false"
@@ -484,7 +486,7 @@
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
                     android:paddingBottom="20dp"
-                    android:textAlignment="viewStart" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             <Button
@@ -504,6 +506,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableButton5"
+                android:background="#f1f1f1"
                 android:padding="8dp"
                 app:ael_duration="400"
                 app:ael_expanded="false"
@@ -517,7 +520,8 @@
                     android:gravity="top|left|start"
                     android:hint="Title"
                     android:inputType="textMultiLine"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <EditText
                     android:id="@+id/mail_content"
@@ -532,7 +536,8 @@
                     android:hint="Content"
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
-                    android:paddingBottom="20dp" />
+                    android:paddingBottom="20dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <Button
                     android:id="@+id/mail_addfile"
@@ -576,6 +581,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableButton6"
+                android:background="#f1f1f1"
                 android:padding="8dp"
                 app:ael_duration="400"
                 app:ael_expanded="false"
@@ -591,7 +597,8 @@
                     android:hint="Content"
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
-                    android:paddingBottom="20dp" />
+                    android:paddingBottom="20dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <Button
                     android:id="@+id/messenger_addfile"
@@ -635,6 +642,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableButton7"
+                android:background="#f1f1f1"
                 android:padding="8dp"
                 app:ael_duration="400"
                 app:ael_expanded="false"
@@ -646,10 +654,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:gravity="top|left|start"
                     android:hint="Content"
                     android:inputType="textMultiLine"
                     android:minHeight="100dp"
-                    android:paddingBottom="20dp" />
+                    android:paddingBottom="20dp"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <Button
                     android:id="@+id/whatsapp_addfile"

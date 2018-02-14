@@ -31,6 +31,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static app.ipost.MainActivity.getStoredValues;
+
 public class ProfileEditActivity extends AppCompatActivity {
 
     EditText editName, editMail, editLocation, editBirthday;
@@ -182,8 +184,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ProfileActivity proA = new ProfileActivity();
-        proA.updateUI();
+        getStoredValues();
         finish();
     }
 }

@@ -37,19 +37,13 @@ public class MainActivity extends AppCompatActivity
     static String gender;
     static String birthday;
     static String location;
-    SharedPreferences prefs;
+    static SharedPreferences prefs;
     NavigationView navigationView;
     Toolbar toolbar;
     Window window;
     boolean doubleBackToExitPressedOnce;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
-
+    public static void getStoredValues() {
         ID = prefs.getString("GoogleAccountID", "");
         fID = prefs.getString("FacebookAccountID", "");
         name = prefs.getString("Name", "");
@@ -59,6 +53,15 @@ public class MainActivity extends AppCompatActivity
         birthday = prefs.getString("Birthday", "");
         location = prefs.getString("Location", "");
         currentTheme = prefs.getString("DefaultTheme", "Black");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        prefs = this.getSharedPreferences("ProfileInformation", Context.MODE_PRIVATE);
+        getStoredValues();
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = findViewById(R.id.toolbar);
@@ -264,6 +267,5 @@ public class MainActivity extends AppCompatActivity
                 toolbar.setTitle(R.string.events_upcoming);
             }
         }
-
     }
 }

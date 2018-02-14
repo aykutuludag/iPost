@@ -58,13 +58,26 @@
                 android:textColor="#fff" />
 
 
+            <TextView
+                android:id="@+id/isSent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/post_time"
+                android:layout_alignRight="@+id/post_time"
+                android:layout_alignTop="@+id/Channels"
+                android:gravity="center"
+                android:text="@string/hasSent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                android:textColor="#000" />
+
             <RelativeLayout
                 android:id="@+id/Channels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="7dp">
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="8dp">
 
                 <ImageView
                     android:id="@+id/options_sms"

@@ -105,4 +105,7 @@
     <string name="profile_calendar">Takvim</string>
     <string name="profile_contacts">Rehber</string>
     <string name="profile_accounts">Bağlı Hesaplar</string>
+    <string name="other_donate">Bağış</string>
+    <string name="hasSent">Gönderildi</string>
+    <string name="willSent">Planlandı</string>
 </resources>

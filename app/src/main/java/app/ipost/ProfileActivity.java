@@ -157,4 +157,10 @@ public class ProfileActivity extends AppCompatActivity {
             toolbar.setBackgroundColor(color2);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

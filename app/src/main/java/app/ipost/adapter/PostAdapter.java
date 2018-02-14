@@ -64,6 +64,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             viewHolder.startTime.setText("-");
         }
 
+        if (feedItem.getPostTime() - System.currentTimeMillis() > 0) {
+            viewHolder.postSituation.setText(R.string.willSent);
+        } else {
+            viewHolder.postSituation.setText(R.string.hasSent);
+        }
+
         // setSMSOption
         if (feedItem.getSmsContent() != null && !feedItem.getSmsContent().isEmpty()) {
             viewHolder.sms.setVisibility(View.VISIBLE);
@@ -138,6 +144,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView mail;
         ImageView messenger;
         ImageView whatsapp;
+        TextView postSituation;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -149,6 +156,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             mail = itemView.findViewById(R.id.options_mail);
             messenger = itemView.findViewById(R.id.options_messenger);
             whatsapp = itemView.findViewById(R.id.options_whatsapp);
+            postSituation = itemView.findViewById(R.id.isSent);
         }
     }
 

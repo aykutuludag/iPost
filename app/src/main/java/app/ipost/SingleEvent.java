@@ -2,6 +2,7 @@ package app.ipost;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
@@ -63,7 +65,7 @@ public class SingleEvent extends AppCompatActivity {
     public static final int CONTACT_PICKER_REQUEST = 3;
     //tableEvent
     public static int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
-    public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment;
+    public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment = null;
     // Some variables
     public static boolean newEvent;
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -94,6 +96,7 @@ public class SingleEvent extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     List<ContactItem> feedsList;
     boolean isTekrarli;
+
     //Listener for startTime
     SlideDateTimeListener listener = new SlideDateTimeListener() {
         SimpleDateFormat mFormatter = new SimpleDateFormat("dd-MMMM-yyyy HH:mm");
@@ -102,24 +105,6 @@ public class SingleEvent extends AppCompatActivity {
         public void onDateTimeSet(Date date) {
             timeStart.setText(mFormatter.format(date));
             startTime = date.getTime();
-        }
-
-        // Optional cancel listener
-        @Override
-        public void onDateTimeCancel() {
-
-        }
-    };
-    //Listener for startTime
-    SlideDateTimeListener listener2 = new SlideDateTimeListener() {
-        SimpleDateFormat mFormatter = new SimpleDateFormat("HH:mm");
-
-        @Override
-        public void onDateTimeSet(Date date) {
-            timeStart2.setText(mFormatter.format(date));
-            startTime = date.getTime();
-            retcal.set(Calendar.HOUR_OF_DAY, date.getHours());
-            retcal.set(Calendar.MINUTE, date.getMinutes());
         }
 
         // Optional cancel listener
@@ -278,7 +263,7 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout8.toggle(); // toggle expand and collapse
         expandableLayout9.collapse();
         expandableButton8.setAlpha(1.0f);
-        expandableButton9.setAlpha(0.75f);
+        expandableButton9.setAlpha(0.5f);
         isTekrarli = false;
     }
 
@@ -286,7 +271,7 @@ public class SingleEvent extends AppCompatActivity {
         expandableLayout9.toggle(); // toggle expand and collapse
         expandableLayout8.collapse();
         expandableButton9.setAlpha(1.0f);
-        expandableButton8.setAlpha(0.75f);
+        expandableButton8.setAlpha(0.5f);
         isTekrarli = true;
     }
 
@@ -442,30 +427,30 @@ public class SingleEvent extends AppCompatActivity {
                             } else {
                                 isSMS = 0;
                             }
+                            break;
+                        case 3:
+                            item.setMail(cur3.getString(i));
                             if (cur3.getString(i) != null) {
                                 isMail = 1;
                             } else {
                                 isMail = 0;
                             }
+                            break;
+                        case 4:
+                            item.setWhastaspp(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isWhatsapp = 1;
                             } else {
                                 isWhatsapp = 0;
                             }
+                            break;
+                        case 5:
+                            item.setMessenger(cur3.getInt(i));
                             if (cur3.getInt(i) == 1) {
                                 isMessenger = 1;
                             } else {
                                 isMessenger = 0;
                             }
-                            break;
-                        case 3:
-                            item.setMail(cur3.getString(i));
-                            break;
-                        case 4:
-                            item.setWhastaspp(cur3.getInt(i));
-                            break;
-                        case 5:
-                            item.setMessenger(cur3.getInt(i));
                             break;
                         case 6:
                             item.setContactPhoto(cur3.getString(i));
@@ -633,12 +618,22 @@ public class SingleEvent extends AppCompatActivity {
         timeStart2.setText(getTime(startTime));
         timeStart2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(listener2)
-                        .setIs24HourTime(true)
-                        .build()
-                        .show();
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(SingleEvent.this, android.R.style.Theme_Black, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        retcal.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        retcal.set(Calendar.MINUTE, selectedMinute);
+                        timeStart2.setText(getTime(retcal.getTimeInMillis()));
+                        startTime = retcal.getTimeInMillis();
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.show();
             }
         });
 
@@ -666,7 +661,7 @@ public class SingleEvent extends AppCompatActivity {
 
         //CREATE UI BASED ON VALUES
         if (isSMS == 0) {
-            expandableButton4.setAlpha(0.75f);
+            expandableButton4.setAlpha(0.5f);
             expandableButton4.setEnabled(false);
 
             smsContentHolder.setEnabled(false);
@@ -678,7 +673,7 @@ public class SingleEvent extends AppCompatActivity {
         }
 
         if (isMail == 0) {
-            expandableButton5.setAlpha(0.75f);
+            expandableButton5.setAlpha(0.5f);
             expandableButton5.setEnabled(false);
 
             mailTitleHolder.setEnabled(false);
@@ -694,7 +689,7 @@ public class SingleEvent extends AppCompatActivity {
         }
 
         if (isMessenger == 0) {
-            expandableButton6.setAlpha(0.75f);
+            expandableButton6.setAlpha(0.5f);
             expandableButton6.setEnabled(false);
 
             messengerContentHolder.setEnabled(false);
@@ -708,7 +703,7 @@ public class SingleEvent extends AppCompatActivity {
         }
 
         if (isWhatsapp == 0) {
-            expandableButton7.setAlpha(0.75f);
+            expandableButton7.setAlpha(0.5f);
             expandableButton7.setEnabled(false);
 
             whatsappContentHolder.setEnabled(false);
