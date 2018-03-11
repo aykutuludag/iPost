@@ -108,4 +108,6 @@
     <string name="other_donate">Donate</string>
     <string name="hasSent">Sent</string>
     <string name="willSent">Planned</string>
+    <string name="connected">Connected</string>
+    <string name="pls_choose_time">Please choose a time</string>
 </resources>

@@ -108,4 +108,6 @@
     <string name="other_donate">Bağış</string>
     <string name="hasSent">Gönderildi</string>
     <string name="willSent">Planlandı</string>
+    <string name="connected">Bağlı</string>
+    <string name="pls_choose_time">Etkinlik zamanını giriniz</string>
 </resources>

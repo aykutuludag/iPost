@@ -21,673 +21,662 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/expandableButton1"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#212121"
-            android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="buttonClick1"
-            android:paddingRight="10dp"
-            android:text="@string/single_event_section1"
-            android:textColor="#fff" />
-
-        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-            android:id="@+id/expandableLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableButton1"
-            android:padding="16dp"
-            app:ael_duration="400"
-            app:ael_expanded="true"
-            app:ael_interpolator="bounce"
-            app:ael_orientation="vertical">
-
-            <ImageView
-                android:id="@+id/indicator_eventname"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@drawable/event_edit_title" />
-
-            <TextView
-                android:id="@+id/desc_title3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/indicator_eventname"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/indicator_eventname"
-                android:layout_toRightOf="@+id/indicator_eventname"
-                android:gravity="center"
-                android:text="@string/single_event_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <EditText
-                android:id="@+id/editEventName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/indicator_eventname"
-                android:layout_marginTop="8dp"
-                android:hint="Olivia Dunham's Birthday"
-                android:inputType="textShortMessage"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-
-            <ImageView
-                android:id="@+id/indicator_desc"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/editEventName"
-                android:layout_alignStart="@+id/editEventName"
-                android:layout_below="@+id/editEventName"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/event_edit_desc" />
-
-            <TextView
-                android:id="@+id/desc_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/indicator_desc"
-                android:layout_alignTop="@+id/indicator_desc"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/indicator_desc"
-                android:layout_toRightOf="@+id/indicator_desc"
-                android:gravity="center"
-                android:text="@string/single_event_desc"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <EditText
-                android:id="@+id/editTextDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/indicator_desc"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/indicator_desc"
-                android:layout_below="@+id/indicator_desc"
-                android:layout_marginTop="8dp"
-                android:hint="Dressed as casual, bring cookie she loves it"
-                android:inputType="textLongMessage"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:id="@+id/indicator_loc"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/editTextDesc"
-                android:layout_alignStart="@+id/editTextDesc"
-                android:layout_below="@+id/editTextDesc"
-                android:layout_marginTop="16dp"
-                android:scaleType="fitStart"
-                app:srcCompat="@drawable/event_edit_location" />
-
-            <TextView
-                android:id="@+id/loc_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/indicator_loc"
-                android:layout_alignTop="@+id/indicator_loc"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/indicator_loc"
-                android:layout_toRightOf="@+id/indicator_loc"
-                android:gravity="center"
-                android:text="@string/single_event_loc"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <EditText
-                android:id="@+id/editTextLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/indicator_loc"
-                android:layout_marginTop="8dp"
-                android:enabled="true"
-                android:focusableInTouchMode="false"
-                android:hint="8719 Essex Ave. Oceanside, CA 92056"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:id="@+id/indicator_date"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/editTextLocation"
-                android:layout_alignStart="@+id/editTextLocation"
-                android:layout_below="@+id/editTextLocation"
-                android:layout_marginTop="8dp"
-                android:scaleType="fitStart"
-                app:srcCompat="@drawable/event_edit_date" />
-
-            <TextView
-                android:id="@+id/birthday_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/editTextStartTime"
-                android:layout_alignTop="@+id/indicator_date"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/indicator_date"
-                android:layout_toRightOf="@+id/indicator_date"
-                android:gravity="center"
-                android:text="@string/single_event_time"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/expandableButton8"
+                android:id="@+id/expandableButton1"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/indicator_date"
-                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
                 android:background="#212121"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick8"
-                android:paddingRight="10dp"
-                android:text="@string/event_one_time"
+                android:text="@string/single_event_section1"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout8"
+                android:id="@+id/expandableLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton8"
+                android:layout_below="@+id/expandableButton1"
+                android:padding="16dp"
                 app:ael_duration="400"
                 app:ael_expanded="true"
                 app:ael_interpolator="bounce"
                 app:ael_orientation="vertical">
 
-                <EditText
-                    android:id="@+id/editTextStartTime"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/indicator_eventname"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    app:srcCompat="@drawable/event_edit_title" />
+
+                <TextView
+                    android:id="@+id/desc_title3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/indicator_date"
-                    android:layout_alignStart="@+id/indicator_date"
-                    android:layout_below="@+id/indicator_date"
-                    android:layout_marginTop="4dp"
-                    android:enabled="true"
-                    android:focusableInTouchMode="false"
-                    android:hint="1 Jan 2018 03:00"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-            <Button
-                android:id="@+id/expandableButton9"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/expandableLayout8"
-                android:background="#212121"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick9"
-                android:paddingRight="10dp"
-                android:text="@string/event_multiple_time"
-                android:textColor="#fff" />
-
-            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton9"
-                android:layout_marginBottom="10dp"
-                app:ael_duration="400"
-                app:ael_expanded="false"
-                app:ael_interpolator="bounce"
-                app:ael_orientation="vertical">
+                    android:layout_alignBottom="@+id/indicator_eventname"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@+id/indicator_eventname"
+                    android:layout_toRightOf="@+id/indicator_eventname"
+                    android:gravity="center"
+                    android:text="@string/single_event_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                 <EditText
-                    android:id="@+id/editTextStartTime2"
+                    android:id="@+id/editEventName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:enabled="true"
-                    android:focusableInTouchMode="false"
-                    android:hint="03:00"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/indicator_eventname"
+                    android:layout_marginTop="8dp"
+                    android:hint="Olivia Dunham's Birthday"
+                    android:inputType="textShortMessage"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-                <RadioGroup
-                    android:id="@+id/radioGroupRetention"
+
+                <ImageView
+                    android:id="@+id/indicator_desc"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignLeft="@+id/editEventName"
+                    android:layout_alignStart="@+id/editEventName"
+                    android:layout_below="@+id/editEventName"
+                    android:layout_marginTop="8dp"
+                    app:srcCompat="@drawable/event_edit_desc" />
+
+                <TextView
+                    android:id="@+id/desc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/indicator_desc"
+                    android:layout_alignTop="@+id/indicator_desc"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/indicator_desc"
+                    android:layout_toRightOf="@+id/indicator_desc"
+                    android:gravity="center"
+                    android:text="@string/single_event_desc"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <EditText
+                    android:id="@+id/editTextDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/indicator_desc"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignStart="@+id/indicator_desc"
+                    android:layout_below="@+id/indicator_desc"
+                    android:layout_marginTop="8dp"
+                    android:hint="Dressed as casual, bring cookie she loves it"
+                    android:inputType="textLongMessage"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <ImageView
+                    android:id="@+id/indicator_loc"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignLeft="@+id/editTextDesc"
+                    android:layout_alignStart="@+id/editTextDesc"
+                    android:layout_below="@+id/editTextDesc"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/event_edit_location" />
+
+                <TextView
+                    android:id="@+id/loc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/indicator_loc"
+                    android:layout_alignTop="@+id/indicator_loc"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@+id/indicator_loc"
+                    android:layout_toRightOf="@+id/indicator_loc"
+                    android:gravity="center"
+                    android:text="@string/single_event_loc"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <EditText
+                    android:id="@+id/editTextLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/indicator_loc"
+                    android:layout_marginTop="8dp"
+                    android:enabled="true"
+                    android:focusableInTouchMode="false"
+                    android:hint="8719 Essex Ave. Oceanside, CA 92056"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                <ImageView
+                    android:id="@+id/indicator_date"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignLeft="@+id/editTextLocation"
+                    android:layout_alignStart="@+id/editTextLocation"
+                    android:layout_below="@+id/editTextLocation"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/event_edit_date" />
+
+                <TextView
+                    android:id="@+id/birthday_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/editTextStartTime"
+                    android:layout_alignTop="@+id/indicator_date"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@+id/indicator_date"
+                    android:layout_toRightOf="@+id/indicator_date"
+                    android:gravity="center"
+                    android:text="@string/single_event_time"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <Button
+                    android:id="@+id/expandableButton8"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/editTextStartTime2"
-                    android:layout_marginTop="4dp"
-                    android:checkedButton="@+id/radioMonday"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/indicator_date"
+                    android:layout_marginTop="8dp"
+                    android:background="#212121"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick8"
+                    android:paddingRight="10dp"
+                    android:text="@string/event_one_time"
+                    android:textColor="#fff" />
 
-                    <RadioButton
-                        android:id="@+id/radioMonday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Mon"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioTuesday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Tue"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioWednesday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Wed"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioThursday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thu"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioFriday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Fri"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioSaturday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Sat"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/radioSunday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Sun"
-
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textSize="12sp" />
-                </RadioGroup>
-
-            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-        <Button
-            android:id="@+id/expandableButton2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableLayout1"
-            android:background="#212121"
-            android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="buttonClick2"
-            android:paddingRight="10dp"
-            android:text="@string/single_event_section2"
-            android:textColor="#fff" />
-
-        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-            android:id="@+id/expandableLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableButton2"
-            android:padding="16dp"
-            app:ael_duration="400"
-            app:ael_expanded="false"
-            app:ael_interpolator="bounce"
-            app:ael_orientation="vertical">
-
-            <ImageView
-                android:id="@+id/recipient_indicator"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/editTextStartTime"
-                android:layout_alignStart="@+id/editTextStartTime"
-                android:layout_below="@+id/editTextStartTime"
-                android:scaleType="fitStart"
-                app:srcCompat="@drawable/event_edit_recipient" />
-
-            <TextView
-                android:id="@+id/recipient_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/recipient_indicator"
-                android:layout_alignTop="@+id/recipient_indicator"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/recipient_indicator"
-                android:layout_toRightOf="@+id/recipient_indicator"
-                android:gravity="center"
-                android:text="@string/single_event_recipients"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <ImageView
-                android:id="@+id/search_recipient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/recipient_indicator"
-                android:layout_alignStart="@+id/recipient_indicator"
-                android:layout_below="@+id/recipient_indicator"
-                android:layout_marginTop="8dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/searchbar" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/search_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/search_recipient"
-                android:layout_alignStart="@+id/search_recipient"
-                android:layout_below="@+id/search_recipient"
-                android:background="#f0f0f0"
-                android:minHeight="175dp" />
-        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-        <Button
-            android:id="@+id/expandableButton3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableLayout2"
-            android:background="#212121"
-            android:drawableRight="@android:drawable/arrow_down_float"
-            android:onClick="buttonClick3"
-            android:paddingRight="10dp"
-            android:text="@string/single_event_section3"
-            android:textColor="#fff" />
-
-        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-            android:id="@+id/expandableLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/expandableButton3"
-            android:padding="16dp"
-            app:ael_duration="400"
-            app:ael_expanded="false"
-            app:ael_interpolator="bounce"
-            app:ael_orientation="vertical">
-
-            <ImageView
-                android:id="@+id/post_channel_indicator"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignLeft="@+id/spinner"
-                android:layout_alignStart="@+id/spinner"
-                android:layout_below="@+id/spinner"
-                android:scaleType="fitStart"
-                app:srcCompat="@drawable/left_menu_sent" />
-
-            <TextView
-                android:id="@+id/post_channels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/post_channel_indicator"
-                android:layout_alignTop="@+id/post_channel_indicator"
-                android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/post_channel_indicator"
-                android:layout_toRightOf="@+id/post_channel_indicator"
-                android:gravity="center"
-                android:text="@string/single_event_channels"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-            <Button
-                android:id="@+id/expandableButton4"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/post_channel_indicator"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/event_edit_smsbar"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick4"
-                android:paddingRight="10dp"
-                android:text="SMS"
-                android:textColor="#fff" />
-
-            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton4"
-                android:background="#f1f1f1"
-                android:padding="8dp"
-                app:ael_duration="400"
-                app:ael_expanded="false"
-                app:ael_interpolator="bounce"
-                app:ael_orientation="vertical">
-
-                <EditText
-                    android:id="@+id/sms_content"
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top|left|start"
-                    android:hint="Content"
-                    android:inputType="textMultiLine"
-                    android:minHeight="100dp"
-                    android:paddingBottom="20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+                    android:layout_below="@+id/expandableButton8"
+                    app:ael_duration="400"
+                    app:ael_expanded="true"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
 
-            <Button
-                android:id="@+id/expandableButton5"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/expandableLayout4"
-                android:background="@drawable/event_edit_gmailbar"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick5"
-                android:paddingRight="10dp"
-                android:text="E-MAIL"
-                android:textColor="#fff" />
+                    <EditText
+                        android:id="@+id/editTextStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/indicator_date"
+                        android:layout_alignStart="@+id/indicator_date"
+                        android:layout_below="@+id/indicator_date"
+                        android:layout_marginTop="4dp"
+                        android:enabled="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="1 Jan 2018 03:00"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton5"
-                android:background="#f1f1f1"
-                android:padding="8dp"
-                app:ael_duration="400"
-                app:ael_expanded="false"
-                app:ael_interpolator="bounce"
-                app:ael_orientation="vertical">
-
-                <EditText
-                    android:id="@+id/mail_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top|left|start"
-                    android:hint="Title"
-                    android:inputType="textMultiLine"
-                    android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                <EditText
-                    android:id="@+id/mail_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/mail_title"
-                    android:layout_marginTop="15dp"
-                    android:ems="10"
-                    android:gravity="top|left|start"
-                    android:hint="Content"
-                    android:inputType="textMultiLine"
-                    android:minHeight="100dp"
-                    android:paddingBottom="20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
                 <Button
-                    android:id="@+id/mail_addfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/mail_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/single_event_add_attachment" />
+                    android:id="@+id/expandableButton9"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/expandableLayout8"
+                    android:background="#212121"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick9"
+                    android:paddingRight="10dp"
+                    android:text="@string/event_multiple_time"
+                    android:textColor="#fff" />
 
-                <TextView
-                    android:id="@+id/mail_filename"
-                    android:layout_width="wrap_content"
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout9"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/mail_addfile"
-                    android:layout_alignBottom="@+id/mail_addfile"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/mail_addfile"
-                    android:layout_toRightOf="@+id/mail_addfile"
-                    android:maxLength="35"
-                    android:text="-" />
+                    android:layout_below="@+id/expandableButton9"
+                    android:layout_marginBottom="10dp"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editTextStartTime2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:enabled="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="03:00"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupRetention"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/editTextStartTime2"
+                        android:layout_marginTop="4dp"
+                        android:checkedButton="@+id/radioMonday"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioMonday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Mon"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioTuesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tue"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioWednesday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Wed"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioThursday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Thu"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioFriday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Fri"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioSaturday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sat"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radioSunday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sun"
+
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textSize="12sp" />
+                    </RadioGroup>
+
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             <Button
-                android:id="@+id/expandableButton6"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/expandableLayout5"
-                android:background="@drawable/event_edit_messengerbar"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick6"
-                android:paddingRight="10dp"
-                android:text="MESSENGER"
+                android:id="@+id/expandableButton2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout1"
+                android:background="#212121"
+                android:text="@string/single_event_section2"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout6"
+                android:id="@+id/expandableLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton6"
-                android:background="#f1f1f1"
-                android:padding="8dp"
+                android:layout_below="@+id/expandableButton2"
+                android:padding="16dp"
                 app:ael_duration="400"
-                app:ael_expanded="false"
+                app:ael_expanded="true"
                 app:ael_interpolator="bounce"
                 app:ael_orientation="vertical">
 
-                <EditText
-                    android:id="@+id/messenger_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="top|left|start"
-                    android:hint="Content"
-                    android:inputType="textMultiLine"
-                    android:minHeight="100dp"
-                    android:paddingBottom="20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                <Button
-                    android:id="@+id/messenger_addfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/messenger_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/single_event_add_attachment" />
+                <ImageView
+                    android:id="@+id/recipient_indicator"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignLeft="@+id/editTextStartTime"
+                    android:layout_alignStart="@+id/editTextStartTime"
+                    android:layout_below="@+id/editTextStartTime"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/event_edit_recipient" />
 
                 <TextView
-                    android:id="@+id/messenger_filename"
+                    android:id="@+id/recipient_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/messenger_addfile"
-                    android:layout_alignBottom="@+id/messenger_addfile"
+                    android:layout_alignBottom="@+id/recipient_indicator"
+                    android:layout_alignTop="@+id/recipient_indicator"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/messenger_addfile"
-                    android:layout_toRightOf="@+id/messenger_addfile"
-                    android:maxLength="35"
-                    android:text="-" />
+                    android:layout_toEndOf="@+id/recipient_indicator"
+                    android:layout_toRightOf="@+id/recipient_indicator"
+                    android:gravity="center"
+                    android:text="@string/single_event_recipients"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
+                <ImageView
+                    android:id="@+id/search_recipient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/recipient_indicator"
+                    android:layout_alignStart="@+id/recipient_indicator"
+                    android:layout_below="@+id/recipient_indicator"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/searchbar" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/search_recipient"
+                    android:layout_alignStart="@+id/search_recipient"
+                    android:layout_below="@+id/search_recipient"
+                    android:background="#f0f0f0" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             <Button
-                android:id="@+id/expandableButton7"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/expandableLayout6"
-                android:background="@drawable/event_edit_whatsappbar"
-                android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="buttonClick7"
-                android:paddingRight="10dp"
-                android:text="WHATSAPP"
+                android:id="@+id/expandableButton3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expandableLayout2"
+                android:background="#212121"
+                android:text="@string/single_event_section3"
                 android:textColor="#fff" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                android:id="@+id/expandableLayout7"
+                android:id="@+id/expandableLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableButton7"
-                android:background="#f1f1f1"
-                android:padding="8dp"
+                android:layout_below="@+id/expandableButton3"
+                android:padding="16dp"
                 app:ael_duration="400"
-                app:ael_expanded="false"
+                app:ael_expanded="true"
                 app:ael_interpolator="bounce"
                 app:ael_orientation="vertical">
 
-                <EditText
-                    android:id="@+id/whatsapp_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="top|left|start"
-                    android:hint="Content"
-                    android:inputType="textMultiLine"
-                    android:minHeight="100dp"
-                    android:paddingBottom="20dp"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-                <Button
-                    android:id="@+id/whatsapp_addfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/whatsapp_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/single_event_add_attachment" />
+                <ImageView
+                    android:id="@+id/post_channel_indicator"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignLeft="@+id/spinner"
+                    android:layout_alignStart="@+id/spinner"
+                    android:layout_below="@+id/spinner"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/left_menu_sent" />
 
                 <TextView
-                    android:id="@+id/whatsapp_filename"
+                    android:id="@+id/post_channels"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/whatsapp_addfile"
-                    android:layout_alignBottom="@+id/whatsapp_addfile"
+                    android:layout_alignBottom="@+id/post_channel_indicator"
+                    android:layout_alignTop="@+id/post_channel_indicator"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/whatsapp_addfile"
-                    android:layout_toRightOf="@+id/whatsapp_addfile"
-                    android:maxLength="35"
-                    android:text="-" />
+                    android:layout_toEndOf="@+id/post_channel_indicator"
+                    android:layout_toRightOf="@+id/post_channel_indicator"
+                    android:gravity="center"
+                    android:text="@string/single_event_channels"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <Button
+                    android:id="@+id/expandableButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/post_channel_indicator"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/event_edit_smsbar"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick4"
+                    android:paddingRight="10dp"
+                    android:text="SMS"
+                    android:textColor="#fff" />
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/expandableButton4"
+                    android:background="#f1f1f1"
+                    android:padding="8dp"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/sms_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left|start"
+                        android:hint="Content"
+                        android:inputType="textMultiLine"
+                        android:minHeight="100dp"
+                        android:paddingBottom="20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+                <Button
+                    android:id="@+id/expandableButton5"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/expandableLayout4"
+                    android:background="@drawable/event_edit_gmailbar"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick5"
+                    android:paddingRight="10dp"
+                    android:text="E-MAIL"
+                    android:textColor="#fff" />
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/expandableButton5"
+                    android:background="#f1f1f1"
+                    android:padding="8dp"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/mail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left|start"
+                        android:hint="Title"
+                        android:inputType="textMultiLine"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <EditText
+                        android:id="@+id/mail_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/mail_title"
+                        android:layout_marginTop="15dp"
+                        android:ems="10"
+                        android:gravity="top|left|start"
+                        android:hint="Content"
+                        android:inputType="textMultiLine"
+                        android:minHeight="100dp"
+                        android:paddingBottom="20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <Button
+                        android:id="@+id/mail_addfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/mail_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/single_event_add_attachment" />
+
+                    <ImageView
+                        android:id="@+id/mail_filename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/mail_addfile"
+                        android:layout_alignTop="@+id/mail_addfile"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/mail_addfile"
+                        android:layout_toRightOf="@+id/mail_addfile" />
+
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+                <Button
+                    android:id="@+id/expandableButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/expandableLayout5"
+                    android:background="@drawable/event_edit_messengerbar"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick6"
+                    android:paddingRight="10dp"
+                    android:text="MESSENGER"
+                    android:textColor="#fff" />
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/expandableButton6"
+                    android:background="#f1f1f1"
+                    android:padding="8dp"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/messenger_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="top|left|start"
+                        android:hint="Content"
+                        android:inputType="textMultiLine"
+                        android:minHeight="100dp"
+                        android:paddingBottom="20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <Button
+                        android:id="@+id/messenger_addfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/messenger_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/single_event_add_attachment" />
+
+                    <ImageView
+                        android:id="@+id/messenger_filename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/messenger_addfile"
+                        android:layout_alignTop="@+id/messenger_addfile"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/messenger_addfile"
+                        android:layout_toRightOf="@+id/messenger_addfile" />
+
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+                <Button
+                    android:id="@+id/expandableButton7"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/expandableLayout6"
+                    android:background="@drawable/event_edit_whatsappbar"
+                    android:drawableRight="@android:drawable/arrow_down_float"
+                    android:onClick="buttonClick7"
+                    android:paddingRight="10dp"
+                    android:text="WHATSAPP"
+                    android:textColor="#fff" />
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/expandableLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/expandableButton7"
+                    android:background="#f1f1f1"
+                    android:padding="8dp"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="bounce"
+                    app:ael_orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/whatsapp_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="top|left|start"
+                        android:hint="Content"
+                        android:inputType="textMultiLine"
+                        android:minHeight="100dp"
+                        android:paddingBottom="20dp"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <Button
+                        android:id="@+id/whatsapp_addfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/whatsapp_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/single_event_add_attachment" />
+
+                    <ImageView
+                        android:id="@+id/whatsapp_filename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/whatsapp_addfile"
+                        android:layout_alignTop="@+id/whatsapp_addfile"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/whatsapp_addfile"
+                        android:layout_toRightOf="@+id/whatsapp_addfile" />
+
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

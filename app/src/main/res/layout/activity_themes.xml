@@ -1,385 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/expandableButton1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#000"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton1"
-        android:paddingRight="10dp"
-        android:text="Theme: Black"
-        android:textColor="#fff" />
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-        android:id="@+id/expandableLayout1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/expandableButton1"
-        android:background="@drawable/themes_siyah"
-        app:ael_duration="400"
-        app:ael_expanded="false"
-        app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/siyah_profile"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/siyahprofil"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/siyah_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/siyah_profile"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:paddingTop="5dp"
-            android:text="Lacy LaPlant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
-
-        <TextView
-            android:id="@+id/events_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/siyah_name"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
-            android:text="lacy.plant@yahoo.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#000" />
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/siyah_set"
-            android:layout_width="wrap_content"
+            android:id="@+id/expandableButton1"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/events_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
             android:background="#000"
-            android:text="SET"
+            android:text="Theme: Black"
             android:textColor="#fff" />
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-    <Button
-        android:id="@+id/expandableButton2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/expandableLayout1"
-        android:background="#795548"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton2"
-        android:paddingRight="10dp"
-        android:text="Theme: BROWN"
-        android:textColor="#fff" />
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-        android:id="@+id/expandableLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/expandableButton2"
-        android:background="@drawable/themes_turuncu"
-        app:ael_duration="400"
-        app:ael_expanded="false"
-        app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/turuncu_picture"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/turuncuprofil"
-            app:civ_border_color="#795548"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/turuncu_name"
-            android:layout_width="wrap_content"
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/turuncu_picture"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:paddingTop="5dp"
-            android:text="Lacy LaPlant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/expandableButton1"
+            android:background="@drawable/themes_siyah"
+            app:ael_duration="400"
+            app:ael_expanded="true"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
 
-        <TextView
-            android:id="@+id/contacts_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/turuncu_name"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
-            android:text="lacy.plant@yahoo.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#000" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/siyah_profile"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/siyahprofil"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/siyah_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/siyah_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:text="Lacy LaPlant"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/events_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/siyah_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="lacy.plant@yahoo.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/siyah_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/events_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#000"
+                android:text="SET"
+                android:textColor="#fff" />
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button
-            android:id="@+id/turuncu_buy"
-            android:layout_width="wrap_content"
+            android:id="@+id/expandableButton2"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contacts_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/expandableLayout1"
             android:background="#795548"
-            android:text="0.99 $"
+            android:text="Theme: BROWN"
             android:textColor="#fff" />
 
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-    <Button
-        android:id="@+id/expandableButton3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/expandableLayout2"
-        android:background="#70469C"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton3"
-        android:paddingRight="10dp"
-        android:text="Theme: Purple"
-        android:textColor="#fff" />
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-        android:id="@+id/expandableLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/expandableButton3"
-        android:background="@drawable/themes_mor"
-        app:ael_duration="400"
-        app:ael_expanded="false"
-        app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mor_picture"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/morprofil"
-            app:civ_border_color="#6F489B"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/mor_name"
-            android:layout_width="wrap_content"
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mor_picture"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="4dp"
-            android:paddingTop="5dp"
-            android:text="Lacy LaPlant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
+            android:layout_below="@+id/expandableButton2"
+            android:background="@drawable/themes_turuncu"
+            app:ael_duration="400"
+            app:ael_expanded="true"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
 
-        <TextView
-            android:id="@+id/accounts_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mor_name"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:text="lacy.plant@yahoo.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#000" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/turuncu_picture"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/turuncuprofil"
+                app:civ_border_color="#795548"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/turuncu_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turuncu_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:text="Lacy LaPlant"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/contacts_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turuncu_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="lacy.plant@yahoo.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/turuncu_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contacts_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#795548"
+                android:text="0.99 $"
+                android:textColor="#fff" />
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button
-            android:id="@+id/mor_buy"
-            android:layout_width="wrap_content"
+            android:id="@+id/expandableButton3"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/accounts_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/expandableLayout2"
             android:background="#70469C"
-            android:text="0.99 $"
+            android:text="Theme: Purple"
             android:textColor="#fff" />
 
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-    <Button
-        android:id="@+id/expandableButton4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/expandableLayout3"
-        android:background="#619D43"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton4"
-        android:paddingRight="10dp"
-        android:text="Theme: Green"
-        android:textColor="#fff" />
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-        android:id="@+id/expandableLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/expandableButton4"
-        android:background="@drawable/themes_yesil"
-        app:ael_duration="400"
-        app:ael_expanded="false"
-        app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/yesil_picture"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/yesilprofil"
-            app:civ_border_color="#629E46"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/yesil_name"
-            android:layout_width="wrap_content"
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/yesil_picture"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:paddingTop="5dp"
-            android:text="Lacy LaPlant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
+            android:layout_below="@+id/expandableButton3"
+            android:background="@drawable/themes_mor"
+            app:ael_duration="400"
+            app:ael_expanded="true"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
 
-        <TextView
-            android:id="@+id/yesil_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/yesil_name"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
-            android:text="lacy.plant@yahoo.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#000" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mor_picture"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/morprofil"
+                app:civ_border_color="#6F489B"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/mor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mor_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:paddingTop="5dp"
+                android:text="Lacy LaPlant"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/accounts_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mor_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="lacy.plant@yahoo.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/mor_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/accounts_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#70469C"
+                android:text="0.99 $"
+                android:textColor="#fff" />
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
         <Button
-            android:id="@+id/yesil_buy"
-            android:layout_width="wrap_content"
+            android:id="@+id/expandableButton4"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/yesil_email"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/expandableLayout3"
             android:background="#619D43"
-            android:text="0.99 $"
+            android:text="Theme: Green"
             android:textColor="#fff" />
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
-    <Button
-        android:id="@+id/expandableButton5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/expandableLayout4"
-        android:background="#B92D2C"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton5"
-        android:paddingRight="10dp"
-        android:text="Theme: RED"
-        android:textColor="#fff" />
-
-    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-        android:id="@+id/expandableLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/expandableButton5"
-        android:background="@drawable/themes_kirmizi"
-        app:ael_duration="400"
-        app:ael_expanded="false"
-        app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/kirmizi_picture"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/kirmiziprofil"
-            app:civ_border_color="#BC2D2F"
-            app:civ_border_width="2dp" />
-
-        <TextView
-            android:id="@+id/kirmizi_name"
-            android:layout_width="wrap_content"
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout4"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/kirmizi_picture"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:paddingTop="5dp"
-            android:text="Lacy LaPlant"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#000" />
+            android:layout_below="@+id/expandableButton4"
+            android:background="@drawable/themes_yesil"
+            app:ael_duration="400"
+            app:ael_expanded="true"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
 
-        <TextView
-            android:id="@+id/kirmizi_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/kirmizi_name"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
-            android:text="lacy.plant@yahoo.com"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="#000" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/yesil_picture"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/yesilprofil"
+                app:civ_border_color="#629E46"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/yesil_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/yesil_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:text="Lacy LaPlant"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/yesil_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/yesil_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="lacy.plant@yahoo.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/yesil_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/yesil_email"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#619D43"
+                android:text="0.99 $"
+                android:textColor="#fff" />
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
 
         <Button
-            android:id="@+id/kirmizi_buy"
-            android:layout_width="wrap_content"
+            android:id="@+id/expandableButton5"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/kirmizi_email"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/expandableLayout4"
             android:background="#B92D2C"
-            android:text="0.99 $"
+            android:text="Theme: RED"
             android:textColor="#fff" />
 
-    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expandableButton5"
+            android:background="@drawable/themes_kirmizi"
+            app:ael_duration="400"
+            app:ael_expanded="true"
+            app:ael_interpolator="bounce"
+            app:ael_orientation="vertical">
 
-</RelativeLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/kirmizi_picture"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/kirmiziprofil"
+                app:civ_border_color="#BC2D2F"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/kirmizi_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kirmizi_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:paddingTop="5dp"
+                android:text="Lacy LaPlant"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/kirmizi_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kirmizi_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="lacy.plant@yahoo.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/kirmizi_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/kirmizi_email"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#B92D2C"
+                android:text="0.99 $"
+                android:textColor="#fff" />
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

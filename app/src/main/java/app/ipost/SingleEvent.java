@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -38,10 +39,10 @@ import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.squareup.picasso.Picasso;
 import com.wafflecopter.multicontactpicker.ContactResult;
 import com.wafflecopter.multicontactpicker.MultiContactPicker;
 
@@ -67,8 +68,9 @@ public class SingleEvent extends AppCompatActivity {
     public static int eventID, eventColor, isMail, isSMS, isMessenger, isWhatsapp;
     public static String receiverName, receiverMail, receiverPhone, mailTitle, mailContent, mailAttachment, smsContent, messengerContent, messengerAttachment, whatsappContent, whatsappAttachment = null;
     // Some variables
-    public static boolean newEvent;
+    public static boolean isInSingleEvent;
     private static String[] PERMISSIONS_STORAGE = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
+    boolean newEvent;
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4, expandableLayout5, expandableLayout6, expandableLayout7, expandableLayout8, expandableLayout9;
     Button expandableButton1, expandableButton2, expandableButton3, expandableButton4, expandableButton5, expandableButton6, expandableButton7, expandableButton8, expandableButton9;
     // Databese connection
@@ -87,7 +89,7 @@ public class SingleEvent extends AppCompatActivity {
     // Post channels
     EditText smsContentHolder, mailTitleHolder, mailContentHolder, messengerContentHolder, whatsappContentHolder;
     Button emailFileChooser, messengerFileChooser, whatsappFileChooser;
-    TextView emailFileHolder, messengerFileHolder, whatsappFileHolder;
+    ImageView emailFileHolder, messengerFileHolder, whatsappFileHolder;
     boolean mailIsChoosing, messengerIsChoosing, whatsappIsChoosing;
     String currentTheme;
     Toolbar toolbar;
@@ -118,6 +120,8 @@ public class SingleEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_event);
+
+        isInSingleEvent = true;
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = findViewById(R.id.toolbar);
@@ -623,8 +627,9 @@ public class SingleEvent extends AppCompatActivity {
                 final Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
+
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(SingleEvent.this, android.R.style.Theme_Black, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(SingleEvent.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         retcal.set(Calendar.HOUR_OF_DAY, selectedHour);
@@ -633,6 +638,8 @@ public class SingleEvent extends AppCompatActivity {
                         startTime = retcal.getTimeInMillis();
                     }
                 }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setCancelable(true);
+                mTimePicker.setTitle(getString(R.string.pls_choose_time));
                 mTimePicker.show();
             }
         });
@@ -798,7 +805,9 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-        emailFileHolder.setText(mailAttachment);
+        Picasso.with(SingleEvent.this).load(Uri.parse(mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                .into(emailFileHolder);
+
 
         //MESSENGER
         messengerContentHolder.setText(messengerContent);
@@ -836,7 +845,8 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-        messengerFileHolder.setText(messengerAttachment);
+        Picasso.with(SingleEvent.this).load(Uri.parse(messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                .into(messengerFileHolder);
 
 
         //WHATSAPP
@@ -875,8 +885,8 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-
-        whatsappFileHolder.setText(whatsappAttachment);
+        Picasso.with(SingleEvent.this).load(Uri.parse(whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                .into(whatsappFileHolder);
     }
 
     public boolean verifyStoragePermissions() {
@@ -1068,8 +1078,16 @@ public class SingleEvent extends AppCompatActivity {
             System.out.println("alıcı numaralar SMS: " + receiverName);
             System.out.println("alıcı numaralar SMS: " + receiverPhone);
             System.out.println("alıcı numaralar SMS: " + receiverMail);
+            newEvent = false;
+            isInSingleEvent = false;
             finish();
             return true;
+        } else if (id == android.R.id.home) {
+            database_account.close();
+            database_account2.close();
+            newEvent = false;
+            isInSingleEvent = false;
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1080,9 +1098,6 @@ public class SingleEvent extends AppCompatActivity {
             case REQUEST_EXTERNAL_STORAGE: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Settings saved...", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Error 001: Permission request rejected by user...", Toast.LENGTH_LONG)
-                            .show();
                 }
                 break;
             }
@@ -1098,62 +1113,48 @@ public class SingleEvent extends AppCompatActivity {
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 eventLocation = place.getAddress().toString();
                 location.setText(eventLocation);
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(this, data);
-                Toast.makeText(SingleEvent.this, status.toString(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(SingleEvent.this, R.string.error_aborted, Toast.LENGTH_LONG).show();
             }
         }
 
         if (requestCode == FilePickerConst.REQUEST_CODE_PHOTO) {
             if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
                 if (mailIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    if (aq.size() > 1) {
-                        mailAttachment = aq.get(0);
-                    } else {
-                        mailAttachment = "";
-                    }
-                    emailFileHolder.setText(mailAttachment);
+                    mailAttachment = aq.get(0);
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(emailFileHolder);
                     mailIsChoosing = false;
                 } else if (messengerIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    if (aq.size() > 1) {
-                        messengerAttachment = aq.get(0);
-                    } else {
-                        messengerAttachment = "";
-                    }
-                    messengerFileHolder.setText(messengerAttachment);
+                    messengerAttachment = aq.get(0);
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(messengerFileHolder);
                     messengerIsChoosing = false;
                 } else if (whatsappIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    if (aq.size() > 1) {
-                        whatsappAttachment = aq.get(0);
-                    } else {
-                        whatsappAttachment = "";
-                    }
-                    whatsappFileHolder.setText(whatsappAttachment);
+                    whatsappAttachment = aq.get(0);
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(whatsappFileHolder);
                     whatsappIsChoosing = false;
                 }
             }
         }
         if (requestCode == FilePickerConst.REQUEST_CODE_DOC) {
             if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
                 if (mailIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
                     mailAttachment = aq.get(0);
-                    emailFileHolder.setText(mailAttachment);
+                    Toast.makeText(SingleEvent.this, mailAttachment, Toast.LENGTH_LONG).show();
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(emailFileHolder);
                     mailIsChoosing = false;
                 } else if (messengerIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
                     messengerAttachment = aq.get(0);
-                    messengerFileHolder.setText(messengerAttachment);
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(messengerFileHolder);
                     messengerIsChoosing = false;
                 } else if (whatsappIsChoosing) {
-                    ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
                     whatsappAttachment = aq.get(0);
-                    whatsappFileHolder.setText(whatsappAttachment);
+                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                            .into(whatsappFileHolder);
                     whatsappIsChoosing = false;
                 }
             }
@@ -1186,6 +1187,8 @@ public class SingleEvent extends AppCompatActivity {
         super.onBackPressed();
         database_account.close();
         database_account2.close();
+        newEvent = false;
+        isInSingleEvent = false;
         finish();
     }
 }

@@ -32,7 +32,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             int position = holder.getAdapterPosition();
             String contactID = feedItemList.get(position).getID();
 
-            if (!SingleEvent.newEvent) {
+            if (SingleEvent.isInSingleEvent) {
                 //Receiver name
                 SingleEvent.receiverName = feedItemList.get(position).getName();
 

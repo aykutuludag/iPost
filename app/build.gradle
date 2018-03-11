@@ -7,7 +7,7 @@ android {
         applicationId "app.ipost"
         multiDexEnabled true
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 22
         versionName "1.1"
     }
@@ -25,12 +25,12 @@ configurations {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-    compile 'com.android.support:cardview-v7:27.0.2'
-    compile 'com.android.support:design:27.0.2'
-    compile 'com.android.support:percent:27.0.2'
-    compile 'com.android.support:customtabs:27.0.2'
+    compile 'com.android.support:appcompat-v7:27.1.0'
+    compile 'com.android.support:recyclerview-v7:27.1.0'
+    compile 'com.android.support:cardview-v7:27.1.0'
+    compile 'com.android.support:design:27.1.0'
+    compile 'com.android.support:percent:27.1.0'
+    compile 'com.android.support:customtabs:27.1.0'
     compile 'com.google.android.gms:play-services-analytics:11.8.0'
     compile 'com.google.android.gms:play-services-auth:11.8.0'
     compile 'com.google.android.gms:play-services-plus:11.8.0'
@@ -47,7 +47,7 @@ dependencies {
     compile 'com.sun.mail:android-mail:1.5.5'
     compile 'com.sun.mail:android-activation:1.5.5'
     compile 'com.github.broakenmedia:MultiContactPicker:1.6'
-    compile 'com.android.support:multidex:1.0.2'
+    compile 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

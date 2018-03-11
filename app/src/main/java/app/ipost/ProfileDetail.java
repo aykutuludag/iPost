@@ -46,7 +46,7 @@ public class ProfileDetail extends Fragment {
         expButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expandableButton1(view);
+                //  expandableButton1(view);
             }
         });
 
@@ -54,7 +54,7 @@ public class ProfileDetail extends Fragment {
         expButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expandableButton2(view);
+                //     expandableButton2(view);
             }
         });
 
@@ -62,7 +62,7 @@ public class ProfileDetail extends Fragment {
         expButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                expandableButton3(view);
+                //    expandableButton3(view);
             }
         });
 
@@ -103,7 +103,6 @@ public class ProfileDetail extends Fragment {
         SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null, null);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "events");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "posts");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "contacts");
         prefs.edit().clear().apply();
         Intent i = getActivity().getPackageManager()
                 .getLaunchIntentForPackage(getActivity().getPackageName());
@@ -115,7 +114,6 @@ public class ProfileDetail extends Fragment {
         SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase("database_app", Context.MODE_PRIVATE, null, null);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "events");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "posts");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + "contacts");
         prefs.edit().clear().apply();
         Intent i = getActivity().getPackageManager()
                 .getLaunchIntentForPackage(getActivity().getPackageName());

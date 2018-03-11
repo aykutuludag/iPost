@@ -75,25 +75,25 @@ public class ThemesActivity extends AppCompatActivity implements View.OnClickLis
         if (hasRed) {
             buyRed.setText("SET");
         } else {
-            buyRed.setText("0.99 $");
+            buyRed.setText("$ 0.99");
         }
 
         if (hasGreen) {
             buyGreen.setText("SET");
         } else {
-            buyGreen.setText("0.99 $");
+            buyGreen.setText("$ 0.99");
         }
 
         if (hasPurple) {
             buyPurple.setText("SET");
         } else {
-            buyPurple.setText("0.99 $");
+            buyPurple.setText("$ 0.99");
         }
 
         if (hasOrange) {
             buyOrange.setText("SET");
         } else {
-            buyOrange.setText("0.99 $");
+            buyOrange.setText("$ 0.99");
         }
     }
 
