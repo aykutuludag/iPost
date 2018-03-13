@@ -73,7 +73,7 @@
     <string name="single_event_desc">Description</string>
     <string name="single_event_loc">Location</string>
     <string name="single_event_time"><![CDATA[Date &amp; Time]]></string>
-    <string name="single_event_section2">Recipient</string>
+    <string name="single_event_section2">Recipients</string>
     <string name="single_event_recipients">Recipients</string>
     <string name="single_event_section3">Post Information</string>
     <string name="single_event_channels">Post channels</string>

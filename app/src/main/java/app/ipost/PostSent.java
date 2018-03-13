@@ -112,6 +112,12 @@ public class PostSent extends Fragment {
                             break;
                         case 11:
                             item.setMessengerAttachment(cur.getString(i));
+                            break;
+                        case 12:
+                            item.setWhatsappContent(cur.getString(i));
+                            break;
+                        case 13:
+                            item.setWhatsappAttachment((cur.getString(i)));
                             if (item.getPostTime() != 0) {
                                 feedsList.add(item);
                             }

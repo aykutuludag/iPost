@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:background="#212121"
                 android:text="@string/single_event_section1"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/expandableLayout1"
@@ -238,7 +239,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/expandableButton9"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="30dp"
                     app:ael_duration="400"
                     app:ael_expanded="false"
                     app:ael_interpolator="bounce"
@@ -344,7 +345,8 @@
                 android:layout_below="@+id/expandableLayout1"
                 android:background="#212121"
                 android:text="@string/single_event_section2"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:textSize="18sp" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/expandableLayout2"
@@ -398,7 +400,8 @@
                     android:layout_alignLeft="@+id/search_recipient"
                     android:layout_alignStart="@+id/search_recipient"
                     android:layout_below="@+id/search_recipient"
-                    android:background="#f0f0f0" />
+                    android:background="#f0f0f0"
+                    android:minHeight="200dp" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
             <Button
@@ -552,7 +555,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/mail_addfile"
-                        android:layout_toRightOf="@+id/mail_addfile" />
+                        android:layout_toRightOf="@+id/mail_addfile"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_file" />
 
                 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -611,7 +616,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/messenger_addfile"
-                        android:layout_toRightOf="@+id/messenger_addfile" />
+                        android:layout_toRightOf="@+id/messenger_addfile"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_file" />
 
                 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -671,7 +678,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/whatsapp_addfile"
-                        android:layout_toRightOf="@+id/whatsapp_addfile" />
+                        android:layout_toRightOf="@+id/whatsapp_addfile"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_file" />
 
                 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

@@ -75,7 +75,7 @@ public class PostPlanned extends Fragment {
             cur.moveToFirst();
             do {
                 for (int i = 0; i < cur.getColumnCount(); i++) {
-                    switch (i % 12) {
+                    switch (i % 14) {
                         case 0:
                             item = new PostItem();
                             item.setID(cur.getInt(i));
@@ -112,6 +112,12 @@ public class PostPlanned extends Fragment {
                             break;
                         case 11:
                             item.setMessengerAttachment(cur.getString(i));
+                            break;
+                        case 12:
+                            item.setWhatsappContent(cur.getString(i));
+                            break;
+                        case 13:
+                            item.setWhatsappAttachment((cur.getString(i)));
                             if (item.getPostTime() != 0) {
                                 feedsList.add(item);
                             }

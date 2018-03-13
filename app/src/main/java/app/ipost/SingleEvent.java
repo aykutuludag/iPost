@@ -805,9 +805,10 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-        Picasso.with(SingleEvent.this).load(Uri.parse(mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
-                .into(emailFileHolder);
-
+        if (mailAttachment != null) {
+            Picasso.with(SingleEvent.this).load(Uri.parse(mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    .into(emailFileHolder);
+        }
 
         //MESSENGER
         messengerContentHolder.setText(messengerContent);
@@ -845,9 +846,10 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-        Picasso.with(SingleEvent.this).load(Uri.parse(messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
-                .into(messengerFileHolder);
-
+        if (messengerAttachment != null) {
+            Picasso.with(SingleEvent.this).load(Uri.parse(messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    .into(messengerFileHolder);
+        }
 
         //WHATSAPP
         whatsappContentHolder.setText(whatsappContent);
@@ -885,8 +887,10 @@ public class SingleEvent extends AppCompatActivity {
                 }
             }
         });
-        Picasso.with(SingleEvent.this).load(Uri.parse(whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
-                .into(whatsappFileHolder);
+        if (whatsappAttachment != null) {
+            Picasso.with(SingleEvent.this).load(Uri.parse(whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    .into(whatsappFileHolder);
+        }
     }
 
     public boolean verifyStoragePermissions() {
@@ -1121,17 +1125,26 @@ public class SingleEvent extends AppCompatActivity {
                 ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA);
                 if (mailIsChoosing) {
                     mailAttachment = aq.get(0);
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!mailAttachment.contains("file://")) {
+                        mailAttachment = "file://" + mailAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(emailFileHolder);
                     mailIsChoosing = false;
                 } else if (messengerIsChoosing) {
                     messengerAttachment = aq.get(0);
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!messengerAttachment.contains("file://")) {
+                        messengerAttachment = "file://" + messengerAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(messengerFileHolder);
                     messengerIsChoosing = false;
                 } else if (whatsappIsChoosing) {
                     whatsappAttachment = aq.get(0);
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!whatsappAttachment.contains("file://")) {
+                        whatsappAttachment = "file://" + whatsappAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(whatsappFileHolder);
                     whatsappIsChoosing = false;
                 }
@@ -1142,18 +1155,26 @@ public class SingleEvent extends AppCompatActivity {
                 ArrayList<String> aq = data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS);
                 if (mailIsChoosing) {
                     mailAttachment = aq.get(0);
-                    Toast.makeText(SingleEvent.this, mailAttachment, Toast.LENGTH_LONG).show();
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!mailAttachment.contains("file://")) {
+                        mailAttachment = "file://" + mailAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(mailAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(emailFileHolder);
                     mailIsChoosing = false;
                 } else if (messengerIsChoosing) {
                     messengerAttachment = aq.get(0);
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!messengerAttachment.contains("file://")) {
+                        messengerAttachment = "file://" + messengerAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(messengerAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(messengerFileHolder);
                     messengerIsChoosing = false;
                 } else if (whatsappIsChoosing) {
                     whatsappAttachment = aq.get(0);
-                    Picasso.with(SingleEvent.this).load(Uri.parse("file:///" + whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
+                    if (!whatsappAttachment.contains("file://")) {
+                        whatsappAttachment = "file://" + whatsappAttachment;
+                    }
+                    Picasso.with(SingleEvent.this).load(Uri.parse(whatsappAttachment)).error(R.drawable.ic_file).placeholder(R.drawable.ic_file)
                             .into(whatsappFileHolder);
                     whatsappIsChoosing = false;
                 }

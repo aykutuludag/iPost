@@ -2,6 +2,7 @@ package app.ipost.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public void onClick(View view) {
             ViewHolder holder = (ViewHolder) view.getTag();
             int position = holder.getAdapterPosition();
-            int eventID = feedItemList.get(position).getID();
+            final int eventID = feedItemList.get(position).getID();
 
             Intent intent = new Intent(mContext, SingleEvent.class);
             intent.putExtra("EVENT_ID", eventID);
@@ -41,13 +42,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_posts, viewGroup, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        String postText = "";
+
         PostItem feedItem = feedItemList.get(i);
 
         //Recipient name
@@ -73,30 +76,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         // setSMSOption
         if (feedItem.getSmsContent() != null && !feedItem.getSmsContent().isEmpty()) {
             viewHolder.sms.setVisibility(View.VISIBLE);
+            postText += "SMS: " + feedItem.getSmsContent() + "\n\n";
         } else {
-            viewHolder.sms.setVisibility(View.INVISIBLE);
+            viewHolder.sms.setVisibility(View.GONE);
         }
 
         // setMailOption
         if (feedItem.getMailTitle() != null && !feedItem.getMailTitle().isEmpty()) {
             viewHolder.mail.setVisibility(View.VISIBLE);
+            postText += "Mail: " + feedItem.getMailContent() + "\n\n";
         } else {
-            viewHolder.mail.setVisibility(View.INVISIBLE);
+            viewHolder.mail.setVisibility(View.GONE);
         }
 
         // setMessengerOption
         if (feedItem.getMessengerContent() != null && !feedItem.getMessengerContent().isEmpty()) {
             viewHolder.messenger.setVisibility(View.VISIBLE);
+            postText += "Messenger: " + feedItem.getMessengerContent() + "\n\n";
         } else {
-            viewHolder.messenger.setVisibility(View.INVISIBLE);
+            viewHolder.messenger.setVisibility(View.GONE);
         }
 
         // setWhatsappOption
         if (feedItem.getWhatsappContent() != null && !feedItem.getWhatsappContent().isEmpty()) {
             viewHolder.whatsapp.setVisibility(View.VISIBLE);
+            postText += "Whatsapp: " + feedItem.getWhatsappContent();
         } else {
-            viewHolder.whatsapp.setVisibility(View.INVISIBLE);
+            viewHolder.whatsapp.setVisibility(View.GONE);
         }
+
+        viewHolder.postContent.setText(postText);
 
         // Setting background_splash
         String currentTheme = MainActivity.currentTheme;
@@ -136,7 +145,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title;
         TextView recipient;
         TextView startTime;
         ImageView background;
@@ -145,10 +153,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView messenger;
         ImageView whatsapp;
         TextView postSituation;
+        TextView postContent;
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.post_name);
+
             recipient = itemView.findViewById(R.id.post_recipient);
             startTime = itemView.findViewById(R.id.post_time);
             background = itemView.findViewById(R.id.post_background);
@@ -157,6 +166,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             messenger = itemView.findViewById(R.id.options_messenger);
             whatsapp = itemView.findViewById(R.id.options_whatsapp);
             postSituation = itemView.findViewById(R.id.isSent);
+            postContent = itemView.findViewById(R.id.post_content);
         }
     }
 

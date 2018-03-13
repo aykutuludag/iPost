@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardUseCompatPadding="true">
@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/post_background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -74,10 +74,10 @@
                 android:id="@+id/Channels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="8dp">
+                android:layout_alignBottom="@+id/post_background"
+                android:layout_alignLeft="@+id/post_recipient"
+                android:layout_alignStart="@+id/post_recipient"
+                android:layout_marginBottom="8dp">
 
                 <ImageView
                     android:id="@+id/options_sms"
@@ -116,6 +116,15 @@
                     android:layout_toRightOf="@+id/options_sms"
                     card_view:srcCompat="@drawable/icon_gmail" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/post_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/Channels"
+                android:layout_alignStart="@+id/Channels"
+                android:layout_below="@+id/post_background"
+                android:text="CONTENT" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
